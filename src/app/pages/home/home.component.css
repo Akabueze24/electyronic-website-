@@ -1,0 +1,60 @@
+.bg-primary{
+    background-color: greenyellow !important;
+}
+
+.text-secondary{
+    color: green !important;
+}
+
+
+button{
+    background-color: greenyellow !important;
+    border: 1px solid greenyellow;
+}
+/* button:hover{
+    background-color: green !important;
+    border: 1px solid green !important;
+} */
+
+.owl-nav{
+    background-color: greenyellow !important;
+}
+
+.text-primary{
+    color: greenyellow !important;
+}
+
+a.btn.btn-primary{
+    border: 1px solid greenyellow;
+}
+
+a.btn.btn-primary.border-secondary:hover{
+    border: 1px solid green;
+   
+}
+
+.border-secondary{
+    border: 1px solid greenyellow !important;
+}
+
+.border-secondary:hover{
+    border: 1px solid green !important;
+}
+
+
+a.d-block.mb-2{
+    color: greenyellow !important;
+}
+
+
+.products-mini-icon:hover{
+    background-color: green !important;
+    
+}
+
+.d-block:hover{
+    color:green !important;
+}
+
+
+

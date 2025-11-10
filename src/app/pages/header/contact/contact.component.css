@@ -1,0 +1,24 @@
+.bg-secondary{
+    background-color: green !important;
+    color: greenyellow !important;
+}
+
+.text-primary{
+    color: greenyellow !important;
+}
+
+.btn-primary{
+    border: 1px solid greenyellow !important;
+}
+
+.btn-primary:hover{
+    border: 1px solid green !important;
+}
+
+a{
+    color: greenyellow !important;
+}
+
+a:hover{
+    color: green !important;
+}

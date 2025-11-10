@@ -1,0 +1,36 @@
+nav{
+    background-color: greenyellow !important;
+}
+
+
+.bg-primary{
+    background-color: greenyellow !important;
+}
+
+.display-5{
+    color: green !important;
+}
+
+.fa-shopping-bag{
+    color: green !important;
+}
+
+
+.dropdown-item:hover{
+    background-color: greenyellow !important;
+    color: green !important;
+}
+
+
+.form-select{
+
+    box-shadow: 1px  greenyellow !important;
+
+}
+
+.border:focus{
+    border: 1px solid green !important;
+}
+
+
+

@@ -1,0 +1,21 @@
+button{
+    border: 1px solid greenyellow !important;
+    color: white !important;
+}
+
+
+button:hover{
+    border: 1px solid green !important;
+}
+
+.text-primary:before{
+    color: greenyellow !important;
+}
+
+.bg-primary{
+    background-color: green !important;
+}
+
+
+
+
