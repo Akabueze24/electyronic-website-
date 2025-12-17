@@ -1,0 +1,80 @@
+.text-primary{
+    color: greenyellow !important;
+}
+
+
+
+
+
+.text-secondary{
+    color: green !important;
+}
+
+.btn-primary{
+    border: 1px solid greenyellow !important;
+    
+}
+
+/* .border-secondary.a{
+    color: green !important;
+} */
+
+.btn-primary:hover{
+    background-color: green !important;
+    border: 1px solid green !important;
+    
+}
+
+/* a{
+    color: greenyellow !important;
+} */
+
+
+.form-range{
+    color: green !important;
+}
+
+
+.d-block.mb-2{
+    color: rgb(41, 41, 41) !important;
+}
+
+.d-block:hover{
+    color: green !important;
+}
+.cart-modal {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: #28a745; /* green for success */
+  color: white;
+  padding: 12px 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  z-index: 1000;
+  animation: fadein 0.3s, fadeout 0.3s 1.7s;
+  width: 100%;
+}
+
+.color-circle {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  transition: transform 0.2s, opacity 0.2s;
+}
+
+.color-circle:hover:not(.disabled) {
+  transform: scale(1.2);
+}
+
+.color-circle.disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+
+
+
+

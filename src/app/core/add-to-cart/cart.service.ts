@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { Product } from '../header-search-bar/product.service';
+import { Product } from '../product-service/product.service';
 
-
-export interface CartItem extends Product{
+export interface CartItem extends Product {
   quantity: number;
   model?: string;
-  handle?: string 
+  handle?: string;
+  
+  
 }
 
 @Injectable({
@@ -14,19 +15,18 @@ export interface CartItem extends Product{
 })
 export class CartService {
   private items: CartItem[] = [];
-  private cart = new BehaviorSubject <CartItem[]>([]);
+  private cart = new BehaviorSubject<CartItem[]>([]);
   cart$ = this.cart.asObservable();
 
-   constructor() {
-      const savedCart = localStorage.getItem('cart');
+  constructor() {
+    const savedCart = localStorage.getItem('cart');
     if (savedCart) {
       this.items = JSON.parse(savedCart);
       this.cart.next(this.items);
     }
-   }
+  }
 
-   private saveCart() {
-   
+  private saveCart() {
     localStorage.setItem('cart', JSON.stringify(this.items));
   }
 
@@ -37,14 +37,16 @@ export class CartService {
     } else {
       this.items.push({ ...product, quantity: 1 });
     }
-    this.saveCart()
+    this.saveCart();
     this.cart.next(this.items);
+
+  
     
   }
 
   removeFromCart(id: number) {
     this.items = this.items.filter(i => i.id !== id);
-    this.saveCart()
+    this.saveCart();
     this.cart.next(this.items);
   }
 
@@ -54,10 +56,16 @@ export class CartService {
       item.quantity += change;
       if (item.quantity <= 0) {
         this.removeFromCart(id);
+      } else {
+        this.saveCart();
+        this.cart.next(this.items);
       }
-      this.saveCart()
-      this.cart.next(this.items);
     }
+  }
+
+  
+  getTotalQuantity(): number {
+    return this.items.reduce((sum, item) => sum + item.quantity, 0);
   }
 
   getTotalPrice(): number {
@@ -69,6 +77,4 @@ export class CartService {
     this.saveCart();
     this.cart.next(this.items);
   }
- }
-
- 
+}

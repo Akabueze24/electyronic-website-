@@ -33,4 +33,77 @@ nav{
 }
 
 
+/* Dropdown container */
+.searchbar {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  max-height: 350px;
+  overflow-y: auto;
+  background: #f0fff4; /* very light green background */
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 9999;
+  padding: 0.2rem 0;
+  transition: all 0.2s ease-in-out;
+}
+
+/* Each suggestion item */
+.searchbar .dropdown-item {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  font-size: 0.95rem;
+  color: #0f5132; /* dark green text */
+  transition: background 0.2s, transform 0.15s;
+}
+
+/* Optional: small icon or image */
+.searchbar .dropdown-item img {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  margin-right: 0.8rem;
+  border-radius: 4px;
+}
+
+/* Hover effect: light green highlight */
+.searchbar .dropdown-item:hover {
+  background-color: #d1e7dd; /* soft green highlight */
+  transform: scale(1.02);
+}
+
+/* Divider between items */
+.searchbar .dropdown-item:not(:last-child) {
+  border-bottom: 1px solid #bcd0c7;
+}
+
+/* No results style */
+.searchbar .no-results {
+  padding: 1rem;
+  text-align: center;
+  font-style: italic;
+  color: #6c757d;
+}
+
+/* Custom scrollbar */
+.searchbar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.searchbar::-webkit-scrollbar-track {
+  background: #e9f5ef; /* light green track */
+  border-radius: 8px;
+}
+
+.searchbar::-webkit-scrollbar-thumb {
+  background-color: #8bc34a; /* green thumb */
+  border-radius: 8px;
+}
+
+
+
+
 

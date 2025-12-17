@@ -1,22 +1,29 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './shared/header/header.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import { HomeComponent } from './pages/home/home.component';
-import { ShopComponent } from './pages/header/shop/shop.component';
-import { ContactComponent } from './pages/header/contact/contact.component';
-import { CheackoutComponent } from './pages/header/cheackout/cheackout.component';
-import { CartComponent } from './pages/header/cart/cart.component';
-import { BestsellerComponent } from './pages/header/bestseller/bestseller.component';
-import { ProductViewComponent } from './pages/header/product-view/product-view.component';
-import { AccessoriesComponent } from './pages/header/accessories/accessories.component';
-import { ElectronicAndComputerComponent } from './pages/header/electronic-and-computer/electronic-and-computer.component';
-import { LaptopAndDesktopsComponent } from './pages/header/laptop-and-desktops/laptop-and-desktops.component';
-import { MobileAndTabletComponent } from './pages/header/mobile-and-tablet/mobile-and-tablet.component';
-import { SmartphoneAndSmartTvComponent } from './pages/header/smartphone-and-smart-tv/smartphone-and-smart-tv.component';
+import { ShopComponent } from './pages/shop/shop.component';
+import { CheackoutComponent } from './pages/cheackout/cheackout.component';
+import { CartComponent } from './pages/cart/cart.component';
+import { BestsellerComponent } from './pages/bestseller/bestseller.component';
+import { ProductViewComponent } from './pages/product-view/product-view.component';
+import { AccessoriesComponent } from './pages/accessories/accessories.component';
+import { ElectronicAndComputerComponent } from './pages/electronic-and-computer/electronic-and-computer.component';
+import { LaptopAndDesktopsComponent } from './pages/laptop-and-desktops/laptop-and-desktops.component';
+import { SmartphoneAndSmartTvComponent } from './pages/smartphone-and-smart-tv/smartphone-and-smart-tv.component';
+import { ContactComponent } from './pages/contact/contact.component';
+import {  HttpClientModule } from '@angular/common/http';
+import { AdminCheckoutComponent } from './pages/admin-checkout/admin-checkout.component';
+import { MobileAndTabletComponent } from './pages/mobile-and-tablet/mobile-and-tablet.component';
+import { SmartTvComponent } from './pages/smart-tv/smart-tv.component';
+import { ComputersComponent } from './pages/computers/computers.component';
+import { MobilesComponent } from './pages/mobiles/mobiles.component';
+
+
 
 @NgModule({
   declarations: [
@@ -34,12 +41,23 @@ import { SmartphoneAndSmartTvComponent } from './pages/header/smartphone-and-sma
     ElectronicAndComputerComponent,
     LaptopAndDesktopsComponent,
     MobileAndTabletComponent,
-    SmartphoneAndSmartTvComponent
+    SmartphoneAndSmartTvComponent,
+    AdminCheckoutComponent,
+    SmartTvComponent,
+    ComputersComponent,
+    MobilesComponent,
+    
+    
+  
+    
+  
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    ReactiveFormsModule,
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

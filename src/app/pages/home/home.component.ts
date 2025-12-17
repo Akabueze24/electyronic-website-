@@ -1,4 +1,7 @@
-import { Component, AfterViewInit } from '@angular/core';
+import { Component,  OnInit } from '@angular/core';
+import { Product } from 'src/app/core/product-service/product.service';
+import { ProductService } from 'src/app/core/product-service/product.service';
+
 declare var $: any;
 
 @Component({
@@ -6,10 +9,18 @@ declare var $: any;
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements AfterViewInit {
+export class HomeComponent implements OnInit {
 
-  ngAfterViewInit(): void {
-    //  Outer slider
+  allProducts: Product[] = [];
+  newArrivals: Product[] = [];
+  featuredProducts: Product[] = [];
+  topSellingProducts: Product[] = [];
+
+  
+
+
+  ngOnInit(): void {
+    // Outer slider
     $('.productList-carousel').owlCarousel({
       loop: true,
       margin: 20,
@@ -31,7 +42,7 @@ export class HomeComponent implements AfterViewInit {
       
     });
 
-    //  Inner slider
+    // Inner slider
     $('.productImg-carousel').owlCarousel({
       loop: true,
       margin: 0,

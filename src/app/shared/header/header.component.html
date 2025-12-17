@@ -1,4 +1,5 @@
 <!-- Topbar Start -->
+
 <div class="container-fluid px-5 d-none border-bottom d-lg-block">
     <div class="row gx-0 align-items-center">
         <div class="col-lg-4 text-center text-lg-start mb-lg-0">
@@ -69,14 +70,21 @@
             <div class="position-relative ps-4" style="z-index: 1000;">
                 <div class="d-flex border rounded-pill">
                     <input class="form-control border-0 rounded-pill w-100 py-3" type="text"
-                        placeholder="Search Looking For?" [(ngModel)]="searchTerm" (input)="onSearchChange()" />
+                        placeholder="Search Looking For?"[(ngModel)]="searchTerm" (input)="onSearchChange()" />
                     <select class="form-select text-dark border-0 border-start rounded-0 p-3" style="width: 200px;"
-                        [(ngModel)]="selectedCategory">
+                        [(ngModel)]="selectedCategory" (change)="onCategoryChange()">
                         <option value="All Category">All Category</option>
-                        <option value="Pest Control-2">Category 1</option>
-                        <option value="Pest Control-3">Category 2</option>
-                        <option value="Pest Control-4">Category 3</option>
-                        <option value="Pest Control-5">Category 4</option>
+                        <option value="accessories">Accessories</option>
+                        <option value="electronics">Electronics</option>
+                        <option value="computer">Computers</option>
+                        <option value="laptops">Laptop</option>
+                        <option value="desktop">Desktops</option>
+                        <option value="mobile">Mobiles</option>
+                        <option value="tablets">Tablets</option>
+                        <option value="smart-tv">Smart Tv</option>
+                        <option value="smartphones">Smartphones</option>
+
+
                     </select>
                     <button type="button" class="btn btn-primary rounded-pill py-3 px-5" style="border: 0;"
                         (click)="onSearch()">
@@ -85,12 +93,17 @@
                 </div>
 
                 <!--  Dropdown suggestion list -->
-                <div  class="position-absolute bg-white shadow w-100 mt-2 rounded" style="z-index: 9999; max-height: 300px; overflow-y: auto; top: 100%; left: 0;" *ngIf="searchTerm.trim().length > 0">
+                <div class="position-absolute bg-white shadow w-100 mt-2 rounded searchbar "
+                    
+                    *ngIf="searchTerm.trim().length > 0">
                     <div *ngIf="filteredProducts.length > 0; else noResults">
                         <div *ngFor="let product of filteredProducts" class="p-2 border-bottom text-start"
                             style="cursor: pointer;" (click)="selectProduct(product)">
+                            <img style="width: 20%; height: 20%;" [src]="product.images[0]" alt="{{product.name}}" />
                             {{product.name}}
+                          
                         </div>
+                        
                     </div>
 
                     <ng-template #noResults>
@@ -114,11 +127,17 @@
                         <i class="fas fa-heart"></i>
                     </span>
                 </a>
-                <a routerLink="/cart" class="text-muted d-flex align-items-center justify-content-center">
-                    <span class="rounded-circle btn-md-square border">
+                <a routerLink="/cart"
+                    class="text-muted d-flex align-items-center justify-content-center position-relative">
+                    <span class="rounded-circle btn-md-square border position-relative">
                         <i class="fas fa-shopping-cart"></i>
+                        <span *ngIf="getCount > 0"
+                            class="position-absolute top-0  badge bg-danger rounded-pill text-white"
+                            style="font-size: 10px; margin-left:20px ;">
+                            {{ getCount }}
+                        </span>
                     </span>
-                    <span class="text-dark ms-2">${{cartTotal.toFixed(2)}}</span>
+                    <span class="text-dark ms-2">${{ cartTotal.toFixed(2) }}</span>
                 </a>
             </div>
         </div>
@@ -147,25 +166,31 @@
                             </li>
                             <li>
                                 <div class="categories-bars-item">
-                                    <a routerLink="/shop/electronicsAndComputer">Electronics & Computer</a>
+                                    <a routerLink="/shop/electronics">Electronics & Computer</a>
                                     <span>(5)</span>
                                 </div>
                             </li>
                             <li>
                                 <div class="categories-bars-item">
-                                    <a routerLink="/shop/laptopAndDesktop">Laptops & Desktops</a>
+                                    <a routerLink="/shop/laptops">Laptops & Desktops</a>
                                     <span>(2)</span>
                                 </div>
                             </li>
                             <li>
                                 <div class="categories-bars-item">
-                                    <a routerLink="/shop/mobileAndTablet">Mobiles & Tablets</a>
+                                    <a routerLink="/shop/tablets">Mobiles & Tablets</a>
                                     <span>(8)</span>
                                 </div>
                             </li>
                             <li>
                                 <div class="categories-bars-item">
-                                    <a routerLink="/shop/phonesAndtv">SmartPhone & Smart TV</a>
+                                    <a routerLink="/shop/smartphones">SmartPhones</a>
+                                    <span>(5)</span>
+                                </div>
+                            </li>
+                             <li>
+                                <div class="categories-bars-item">
+                                    <a routerLink="/shop/smart-tv">Smart tv</a>
                                     <span>(5)</span>
                                 </div>
                             </li>
@@ -201,7 +226,8 @@
                         </div>
                         <a routerLink="/contact" class="nav-item nav-link me-2">Contact</a>
                         <div class="nav-item dropdown d-block d-lg-none mb-3">
-                            <a routerLink="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">All Category</a>
+                            <a routerLink="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">All
+                                Category</a>
                             <div class="dropdown-menu m-0">
                                 <ul class="list-unstyled categories-bars">
                                     <li>
@@ -245,4 +271,6 @@
         </div>
     </div>
 </div>
+
+
 <!-- Navbar & Hero End -->
