@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CheckoutService } from 'src/app/core/checkout-service/checkout.service';
-import { CheckoutFormDetails } from 'src/app/core/checkoutModel/model/checkoutModel';
+import { CheckoutFormDetails } from 'src/app/core/checkout-service/checkoutModel';
 
 @Component({
   selector: 'app-admin-checkout',

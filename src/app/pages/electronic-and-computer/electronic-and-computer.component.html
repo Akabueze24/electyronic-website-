@@ -306,8 +306,8 @@
                                             <a routerLink="#" class="d-block mb-2">{{prod.category}}</a>
                                             <a [routerLink]="['/productView', prod.id]"
                                                 class="d-block h4">{{prod.name}}</a>
-                                            <del class="me-2 fs-5">${{prod.prevprice}}</del>
-                                            <span class="text-primary fs-5">${{prod.currentprice}}</span>
+                                            <del class="me-2 fs-5">{{prod.prevprice |currencyConvert}}</del>
+                                            <span class="text-primary fs-5">{{prod.currentprice | currencyConvert}}</span>
                                         </div>
                                     </div>
                                     <div

@@ -102,8 +102,30 @@ nav{
   background-color: #8bc34a; /* green thumb */
   border-radius: 8px;
 }
+.header-wrapper {
+  position: sticky;  
+  top: 0;          
+  z-index: 1050;     
+  background-color: #fff; 
+  width: 100%;
+}
 
+/* Ensure all dropdowns appear above header */
+.header-wrapper .dropdown-menu {
+  position: absolute !important;  /* Float above content */
+  top: 100%;                      /* Just below the toggle */
+  left: 0;
+  z-index: 2000;                  /* Higher than header */
+  max-height: 250px;              
+  overflow-y: auto;
+}
 
+/* Optional: nicer scrollbar */
+.header-wrapper .dropdown-menu::-webkit-scrollbar {
+  width: 6px;
+}
 
-
-
+.header-wrapper .dropdown-menu::-webkit-scrollbar-thumb {
+  background-color: rgba(0,0,0,0.3);
+  border-radius: 3px;
+}

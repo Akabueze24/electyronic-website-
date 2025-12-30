@@ -34,7 +34,7 @@
                             <p class="mb-0 py-4">{{item.model}}</p>
                         </td> -->
                         <td>
-                            <p class="mb-0 py-4">{{item.currentprice | currency}}</p>
+                            <p class="mb-0 py-4">{{item.currentprice | currencyConvert}}</p>
                         </td>
                         <td>
                             <div class="input-group quantity py-4" style="width: 100px;">
@@ -58,7 +58,7 @@
                             <p class="mb-0 py-4">{{item.selectedColor}}</p>
                         </td>
                         <td>
-                            <p class="mb-0 py-4">{{item.currentprice * item.quantity | currency}}</p>
+                            <p class="mb-0 py-4">{{item.currentprice * item.quantity | currencyConvert}}</p>
                         </td>
                         <td class="py-4">
                             <button class="btn btn-md rounded-circle bg-light border" (click)="removeItem(item)">

@@ -8,6 +8,7 @@ export interface CartItem extends Product {
   handle?: string;
   
   
+  
 }
 
 @Injectable({

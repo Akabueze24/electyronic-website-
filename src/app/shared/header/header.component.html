@@ -1,12 +1,12 @@
 <!-- Topbar Start -->
-
+<div class="header-wrapper">
 <div class="container-fluid px-5 d-none border-bottom d-lg-block">
     <div class="row gx-0 align-items-center">
         <div class="col-lg-4 text-center text-lg-start mb-lg-0">
             <div class="d-inline-flex align-items-center" style="height: 45px;">
                 <a routerLink="#" class="text-muted me-2"> Help</a><small> / </small>
                 <a routerLink="#" class="text-muted mx-2"> Support</a><small> / </small>
-                <a routerLink="#" class="text-muted ms-2"> Contact</a>
+                <a routerLink="/contact" class="text-muted ms-2"> Contact</a>
 
             </div>
         </div>
@@ -17,14 +17,18 @@
 
         <div class="col-lg-4 text-center text-lg-end">
             <div class="d-inline-flex align-items-center" style="height: 45px;">
-                <div class="dropdown">
-                    <a routerLink="#" class="dropdown-toggle text-muted me-2" data-bs-toggle="dropdown"><small>
-                            USD</small></a>
-                    <div class="dropdown-menu rounded">
-                        <a routerLink="#" class="dropdown-item"> Euro</a>
-                        <a routerLink="#" class="dropdown-item"> Dolar</a>
+                <div class="dropdown" >
+                    <a class="dropdown-toggle" data-bs-toggle="dropdown">
+                        {{ selectedCurrency }}
+                    </a>
+                    <div class="dropdown-menu">
+                        <a *ngFor="let c of currencies" class="dropdown-item" (click)="changeCurrency(c)">
+                            {{ c }}
+                        </a>
                     </div>
                 </div>
+
+
                 <div class="dropdown">
                     <a routerLink="#" class="dropdown-toggle text-muted mx-2" data-bs-toggle="dropdown"><small>
                             English</small></a>
@@ -52,6 +56,7 @@
         </div>
     </div>
 </div>
+
 <div class="container-fluid px-5 py-4 d-none d-lg-block">
     <div class="row gx-0 align-items-center text-center">
         <!-- Logo Section -->
@@ -70,7 +75,7 @@
             <div class="position-relative ps-4" style="z-index: 1000;">
                 <div class="d-flex border rounded-pill">
                     <input class="form-control border-0 rounded-pill w-100 py-3" type="text"
-                        placeholder="Search Looking For?"[(ngModel)]="searchTerm" (input)="onSearchChange()" />
+                        placeholder="Search Looking For?" [(ngModel)]="searchTerm" (input)="onSearchChange()" />
                     <select class="form-select text-dark border-0 border-start rounded-0 p-3" style="width: 200px;"
                         [(ngModel)]="selectedCategory" (change)="onCategoryChange()">
                         <option value="All Category">All Category</option>
@@ -94,16 +99,15 @@
 
                 <!--  Dropdown suggestion list -->
                 <div class="position-absolute bg-white shadow w-100 mt-2 rounded searchbar "
-                    
                     *ngIf="searchTerm.trim().length > 0">
                     <div *ngIf="filteredProducts.length > 0; else noResults">
                         <div *ngFor="let product of filteredProducts" class="p-2 border-bottom text-start"
                             style="cursor: pointer;" (click)="selectProduct(product)">
                             <img style="width: 20%; height: 20%;" [src]="product.images[0]" alt="{{product.name}}" />
                             {{product.name}}
-                          
+
                         </div>
-                        
+
                     </div>
 
                     <ng-template #noResults>
@@ -188,7 +192,7 @@
                                     <span>(5)</span>
                                 </div>
                             </li>
-                             <li>
+                            <li>
                                 <div class="categories-bars-item">
                                     <a routerLink="/shop/smart-tv">Smart tv</a>
                                     <span>(5)</span>
@@ -270,6 +274,7 @@
             </nav>
         </div>
     </div>
+</div>
 </div>
 
 

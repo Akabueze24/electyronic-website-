@@ -6,7 +6,7 @@ export interface Product {
   id: number;
   name: string;
   category: 'accessories' | 'electronics' | 'laptops' | 'tablets' | 'smartphones' | 'smart-tv' | 'computer' | 'mobile';
-  color: string [];
+  color: string[];
   currentprice: number;
   prevprice: number;
   location: string;
@@ -21,11 +21,11 @@ export interface Product {
   images: string[];
   rating: number;
   quantity?: number;
-  selectedColor?: string
+  selectedColor?: string,
 
 
 
-   isNew?: boolean;
+  isNew?: boolean;
   isFeatured?: boolean;
   isTopSelling?: boolean;
 }
@@ -43,486 +43,516 @@ export class ProductService {
 
 
   private products: Product[] = [
-      {
-    id: 1,
-    name: "Apple iPhone 14 Pro",
-    category: "smartphones",
-    color: ["Space Black", "Silver", "Gold", "Deep Purple"],
-    currentprice: 999.99,
-    prevprice: 1099.99,
-    location: "USA",
-    amount: 50,
-    description: "Latest iPhone with A16 Bionic chip and advanced camera system.",
-    detailed_description: "The iPhone 14 Pro features a 6.1-inch Super Retina XDR display, A16 Bionic chip, and a triple-camera system with 48MP main sensor. Supports 5G and iOS 16.",
-    reviews: [
-      { user: "John D.", comment: "Amazing camera quality!", rating: 5 },
-      { user: "Sarah K.", comment: "Battery life could be better.", rating: 4 }
-    ],
-    images: [
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764364496/iphone-14-pro-4_dislg9.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764364484/iphone-14-pro-1_g30h5m.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764364484/iphone-14-pro-2_vkfswt.png",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764364481/iphone-14-pro-5_hyeo4j.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764364480/iphone-14-pro-3_tormml.jpg"
-    ],
-    rating: 4.8
-  },
-  {
-    id: 2,
-    name: "Samsung Galaxy S23 Ultra",
-    category: "smartphones",
-    color: ["Phantom Black", "Cream", "Green", "Lavender"],
-    currentprice: 1199.99,
-    prevprice: 1299.99,
-    location: "South Korea",
-    amount: 30,
-    description: "Flagship smartphone with S Pen and 200MP camera.",
-    detailed_description: "The Galaxy S23 Ultra boasts a 6.8-inch Dynamic AMOLED 2X display, Snapdragon 8 Gen 2, and a 200MP main camera. Includes S Pen and 5G support.",
-    reviews: [
-      { user: "Mike L.", comment: "Love the S Pen functionality!", rating: 5 },
-      { user: "Emma T.", comment: "Bit pricey but worth it.", rating: 4 }
-    ],
-    images: [
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764366407/samsung-galaxy-s23-ultra-1_cefu20.png",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764366403/samsung-galaxy-s23-ultra-3_ohq0b9.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764366396/samsung-galaxy-s23-ultra-2_x61vse.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764366394/samsung-galaxy-s23-ultra-5_ezgcrl.webp",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764366394/samsung-galaxy-s23-ultra-4_jetrfe.jpg"
-    ],
-    rating: 4.7
-  },
-  {
-    id: 3,
-    name: "Dell XPS 13",
-    category: "laptops",
-    color: ["Silver", "Starlight", "Platinum"],
-    currentprice: 1299.99,
-    prevprice: 1399.99,
-    location: "USA",
-    amount: 20,
-    description: "Compact and powerful ultrabook for professionals.",
-    detailed_description: "The Dell XPS 13 features a 13.4-inch 4K UHD+ display, Intel Core i7-1255U, 16GB RAM, and 512GB SSD. Perfect for productivity and portability.",
-    reviews: [
-      { user: "Alice B.", comment: "Super lightweight and fast!", rating: 5 },
-      { user: "Tom R.", comment: "Screen is stunning.", rating: 4 }
-    ],
-    images: [
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764366931/dell_xps_13-1_zsn8wb.webp",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764366929/dell_xps_13-2_vwclsf.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764366928/dell_xps_13-5_lhqilv.webp",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764366927/dell_xps_13-4_usj6lz.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764366928/dell_xps_13-3_l2gb08.jpg"
-    ],
-    rating: 4.6
-  },
-  {
-    id: 4,
-    name: "Sony WH-1000XM5",
-    category: "accessories",
-    color: ["Black", "Graphite Silver"],
-    currentprice: 349.99,
-    prevprice: 399.99,
-    location: "Japan",
-    amount: 100,
-    description: "Industry-leading noise-canceling headphones.",
-    detailed_description: "Sony WH-1000XM5 offers superior noise cancellation, 30-hour battery life, and high-resolution audio. Ideal for music lovers and travelers.",
-    reviews: [
-      { user: "Chris P.", comment: "Best headphones I’ve owned!", rating: 5 },
-      { user: "Lisa M.", comment: "Comfortable for long use.", rating: 4 }
-    ],
-    images: [
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764367375/111_nnofpn.png",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764367369/333_y8phzf.avif",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764367369/222_a52j6n.avif",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764367369/444_tj3ovy.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764367368/555_wvevdw.avif"
-    ],
-    rating: 4.9
-  },
-  {
-    id: 5,
-    name: "Samsung QN90B 55-inch",
-    category: "smart-tv",
-    color: ["Titan Gray", "Graphite Black"],
-    currentprice: 1499.99,
-    prevprice: 1799.99,
-    location: "South Korea",
-    amount: 15,
-    description: "4K QLED smart-tv with vibrant colors.",
-    detailed_description: "The Samsung QN90B features a 55-inch 4K QLED display, Quantum HDR 32X, and Tizen OS for seamless streaming and gaming.",
-    reviews: [
-      { user: "David S.", comment: "Picture quality is unreal!", rating: 5 },
-      { user: "Anna G.", comment: "Sound could be better.", rating: 4 }
-    ],
-    images: [
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764619546/samsung-neo-qled-4k-smart-tv-qn90b-55-inch-right-view_nsoys3.png",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764619545/latin-en-qled-qn90b-qn55qn90bapxpa-532149644_vdvpph.png",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764619545/sHgCBNWRkieGNFCyV8xsxm_ujga7v.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764619544/83d6c704-bd07-48ff-ba9e-2035534f3bea.c0d24ca4f473ce7900e0ce10593faf20_ryecud.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764619543/SAMSUNG-55-Class-QN90B-Neo-QLED-4K-Smart-TV-QN55QN85BAFXZA-2022_864831fe-b868-4c89-b391-713e1f1b2922.21b9dfea36fdda4f39d2e827845e8197_kyxqmg.jpg"
-    ],
-    rating: 4.7
-  },
-  {
-    id: 6,
-    name: "Apple iPad Pro 12.9",
-    category: "tablets",
-    color: ["Space Gray", "Silver"],
-    currentprice: 1099.99,
-    prevprice: 1199.99,
-    location: "USA",
-    amount: 25,
-    description: "Powerful tablet with M2 chip.",
-    detailed_description: "The iPad Pro 12.9-inch features the M2 chip, Liquid Retina XDR display, and supports Apple Pencil 2. Ideal for creatives and professionals.",
-    reviews: [
-      { user: "Emily W.", comment: "Perfect for digital art!", rating: 5 },
-      { user: "Mark H.", comment: "Pricey but powerful.", rating: 4 }
-    ],
-    images: [
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764619915/spacegray-2_dwisv6.png",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764619907/refurb-ipad-pro-12-wifi-spacegray-2021_tu6xh9.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/a_90/a_hflip/c_crop,ar_1:1/v1764619911/03Y7jw1z1HYAENTC0RaJzjz-2.fit_lim.size_1050x_kgipxp.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764619907/HPLX2_rvmiva.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764619907/HPLX2_rvmiva.jpg"
-    ],
-    rating: 4.8
-  },
-  {
-    id: 7,
-    name: "Logitech MX Master 3",
-    category: "accessories",
-    color: ["Graphite", "Pale Grey"],
-    currentprice: 99.99,
-    prevprice: 129.99,
-    location: "Switzerland",
-    amount: 80,
-    description: "Advanced wireless mouse for productivity.",
-    detailed_description: "The Logitech MX Master 3 offers ergonomic design, hyper-fast scrolling, and multi-device connectivity. Perfect for professionals.",
-    reviews: [
-      { user: "James T.", comment: "Super comfortable mouse!", rating: 5 },
-      { user: "Rachel K.", comment: "Great for multitasking.", rating: 4 }
-    ],
-    images: [
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764632671/mx-master-3s-business-product-callout_b25jlp.png",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764632671/mx-master-3-rubber-wear-after-3-years-of-nearly-daily-use-v0-nrmwglucae0d1_dejdxa.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764632671/mx-master-3s-for-business-gallery-1_j8kuy6.png",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764632671/exposing-the-truth-logitech-mx-master-3-and-3s-for-mac-v0-mxe3pa0hfwyc1_tkwj6t.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764632671/design-medium_okajuw.jpg"
-    ],
-    rating: 4.7
-  },
-  {
-    id: 8,
-    name: "HP Spectre x360 14",
-    category: "laptops",
-    color: ["Nightfall Black", "Poseidon Blue", "Natural Silver"],
-    currentprice: 1399.99,
-    prevprice: 1599.99,
-    location: "USA",
-    amount: 18,
-    description: "Convertible laptop with stunning OLED display.",
-    detailed_description: "The HP Spectre x360 14 features a 13.5-inch OLED display, Intel Core i7-1255U, 16GB RAM, and 1TB SSD. Great for creators and professionals.",
-    reviews: [
-      { user: "Laura B.", comment: "Love the 2-in-1 design!", rating: 5 },
-      { user: "Sam P.", comment: "Battery life is decent.", rating: 4 }
-    ],
-    images: [
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764632988/hp-spectre-x360-14-review-high-end-convertible-now-with-a-v0-3F-NqWoS0R-vGic5Sjuj9gB150kSYIXDEkII0IzvGQ4_ryskcn.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764632985/hp-spectre-x360-14-main_zjpxg7.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764632983/c08744400_gikstr.png",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764632981/HP_20Spectre_20x360_2014__Mobile_2x_mfm8wx.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764632980/image_n64dcb.jpg"
-    ],
-    rating: 4.6
-  },
-  {
-    id: 9,
-    name: "Google Pixel 8",
-    category: "smartphones",
-    color: ["Obsidian", "Hazel", "Rose"],
-    currentprice: 699.99,
-    prevprice: 799.99,
-    location: "USA",
-    amount: 40,
-    description: "Google’s latest smartphone with AI features.",
-    detailed_description: "The Google Pixel 8 features a 6.2-inch OLED display, Tensor G3 chip, and advanced AI-powered camera system. Supports 5G and Android 14.",
-    reviews: [
-      { user: "Tom W.", comment: "Camera is phenomenal!", rating: 5 },
-      { user: "Clara S.", comment: "Smooth software experience.", rating: 4 }
-    ],
-    images: [
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764633174/google-pixel-8-pro-768x475_fkpwqu.png",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764633176/google-shiba-hazel_zfjsay.webp",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764633178/Google-Pixel-8-Pro_review_1-1_vgf6q3.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764633181/Google-Pixel-8-Pro_review_1-1_ob6whp.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764633183/hqdefault_ody1kn.jpg"
-    ],
-    rating: 4.7
-  },
-  {
-    id: 10,
-    name: "LG OLED C3 65-inch",
-    category: "smart-tv",
-    color: ["Black"],
-    currentprice: 1999.99,
-    prevprice: 2299.99,
-    location: "South Korea",
-    amount: 12,
-    description: "Premium OLED TV with stunning visuals.",
-    detailed_description: "The LG OLED C3 65-inch features a 4K OLED display, α9 Gen6 AI Processor, and Dolby Vision. Perfect for cinematic experiences.",
-    reviews: [
-      { user: "Peter M.", comment: "Best TV I’ve ever owned!", rating: 5 },
-      { user: "Sophie L.", comment: "Setup was a bit tricky.", rating: 4 }
-    ],
-    images: [
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764633363/LG-65-Class-4K-UHD-OLED-Web-OS-Smart-TV-with-Dolby-Vision-C3-Series-OLED65C3PUA_4507d0a3-83cb-4420-9c59-ef2c191d7fe7.3c9fdb1665a5e2074e0c8c38fc251fff_xuezwt.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764633360/lg-c3-65-inch-evo-oled-tv-oled65c3pua_5t5t_z9fzvn.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764633364/back-small_yyqgn1.jpg",
-      "https://res.cloudinary_com/dsao6ghfo/image/upload/v1764633367/01NBbV7RTID4k1aEpU8oxPD-5.fit_lim.size_1050x_xw3fxx.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764633370/lg-oled-evo-c3-65-inch-4k-smart-tv-or-oled65c34la__50238.1722438265_lopjsg.jpg"
-    ],
-    rating: 4.8
-  },
-  {
-    id: 11,
-    name: "Apple MacBook Pro 16 M2",
-    category: "laptops",
-    color: ["Space Gray", "Silver"],
-    currentprice: 2499.99,
-    prevprice: 2699.99,
-    location: "USA",
-    amount: 15,
-    description: "High-performance laptop for professionals and creatives.",
-    detailed_description: "The MacBook Pro 16-inch features the M2 Max chip, 32GB RAM, 1TB SSD, and a 16.2-inch Liquid Retina XDR display. Ideal for video editing and coding.",
-    reviews: [
-      { user: "Michael C.", comment: "Blazing fast performance!", rating: 5 },
-      { user: "Nina R.", comment: "A bit heavy but powerful.", rating: 4 }
-    ],
-    images: [
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764633617/MacBook-Pro-M2-Max-review_0000_20230202_014725507_iOS_pat9sd.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764633605/52635-105565-16-inch-MacBook-Pro-with-M2-Max-xl_bey9pl.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764633608/refurb-mbp16-m2-spacegray-202303_AV3_vmubeh.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764633611/Apple-MacBook-Pro-M2-Pro-and-M2-Max-hero-230117_Full-Bleed-Image.jpg.large_hkuefu.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764633614/16-inch-macbook-pro-2023-fcp1_u1qhle.jpg"
-    ],
-    rating: 4.8
-  },
-  {
-    id: 12,
-    name: "Anker PowerCore 20000",
-    category: "accessories",
-    color: ["Black", "White"],
-    currentprice: 49.99,
-    prevprice: 59.99,
-    location: "China",
-    amount: 120,
-    description: "Portable power bank with high capacity.",
-    detailed_description: "The Anker PowerCore 20000 offers 20,000mAh capacity, PowerIQ technology, and USB-C input/output. Perfect for charging smartphones and tablets on the go.",
-    reviews: [
-      { user: "Sophie B.", comment: "Charges my phone multiple times!", rating: 5 },
-      { user: "Liam T.", comment: "Compact and reliable.", rating: 4 }
-    ],
-    images: [
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764633807/A1268013_1_dery9d.png",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764633812/718wsrEuQ6L_ofgzim.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764633814/renditionDownload_jdyyjz.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764633815/Anker-PowerCore-Metro-Essential-Power-Bank-20000mAh_hxpisw.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764633818/7c08719c-b219-4251-88be-7e580fa5d751.ab037e69773f1f60a305934e401438fc_c1ni7f.png"
-    ],
-    rating: 4.7
-  },
-  {
-    id: 13,
-    name: "Samsung Galaxy Tab S9",
-    category: "tablets",
-    color: ["Graphite", "Lime", "Lavender"],
-    currentprice: 799.99,
-    prevprice: 899.99,
-    location: "South Korea",
-    amount: 30,
-    description: "Premium tablet with AMOLED display.",
-    detailed_description: "The Galaxy Tab S9 features an 11-inch Dynamic AMOLED 2X display, Snapdragon 8 Gen 2, 12GB RAM, and 256GB storage. Supports S Pen and DeX mode.",
-    reviews: [
-      { user: "Ella M.", comment: "Great for work and entertainment!", rating: 5 },
-      { user: "Jack P.", comment: "S Pen is a game-changer.", rating: 4 }
-    ],
-    images: [
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764634161/maxresdefault_gpdbq6.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764634151/galaxy-tab-s9-size-graphite-startframe-mo_axaust.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764634151/samsung-galaxy-tab-s9-ultra_63jp.1920_dl2l7o.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764634156/TabS9FE-FE_KV_MO_720x720_ldvsfc.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764634158/Screenshot-2023-08-02-134750_h20wpc.png"
-    ],
-    rating: 4.7
-  },
-  {
-    id: 14,
-    name: "ASUS ROG Strix G16",
-    category: "laptops",
-    color: ["Black", "Eclipse Gray"],
-    currentprice: 1599.99,
-    prevprice: 1799.99,
-    location: "Taiwan",
-    amount: 10,
-    description: "Powerful gaming laptop with high refresh rate.",
-    detailed_description: "The ASUS ROG Strix G16 features a 16-inch QHD 165Hz display, Intel Core i9-13980HX, NVIDIA RTX 4070, 16GB RAM, and 1TB SSD. Ideal for gamers.",
-    reviews: [
-      { user: "Ryan S.", comment: "Runs games smoothly!", rating: 5 },
-      { user: "Olivia K.", comment: "Fans are a bit loud.", rating: 4 }
-    ],
-    images: [
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764634631/81n1T4CYfmL._AC_UF894_1000_QL80__lv1ege.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764634634/71kOH3in8TL._AC_UF894_1000_QL80__are2zr.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764634637/rog-strix-g-16_i0qdjv.png",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764634645/16_91bdcc2b-d77f-48d6-8857-8aa31b83bd68_nrmavv.png",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764634641/rog-strix-g-16_yfcp7z.png"
-    ],
-    rating: 4.6
-  },
-  {
-    id: 15,
-    name: "Sony Bravia XR A80J 55-inch",
-    category: "smart-tv",
-    color: ["Black"],
-    currentprice: 1799.99,
-    prevprice: 1999.99,
-    location: "Japan",
-    amount: 8,
-    description: "OLED TV with immersive sound and visuals.",
-    detailed_description: "The Sony Bravia XR A80J 55-inch features a 4K OLED display, Cognitive Processor XR, and Dolby Atmos. Perfect for movies and gaming.",
-    reviews: [
-      { user: "Lucas W.", comment: "Incredible picture quality!", rating: 5 },
-      { user: "Mia T.", comment: "Remote could be better.", rating: 4 }
-    ],
-    images: [
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764634790/101455_original_local_1200x1050_v3_converted_dgsh9g.webp",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764634793/92073_original_local_1200x1050_v3_converted_nlicfe.webp",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764634797/92066_original_local_1200x1050_v3_converted_uhslin.webp",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764634801/XR55A80J_09_ya3ukl.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764634805/61-nsp9J-JS._AC_SL1200__uetafn.jpg"
-    ],
-    rating: 4.8
-  },
-  {
-    id: 16,
-    name: "Xiaomi 13 Pro",
-    category: "smartphones",
-    color: ["Ceramic White", "Black", "Bora Purple"],
-    currentprice: 899.99,
-    prevprice: 999.99,
-    location: "China",
-    amount: 35,
-    description: "Flagship smartphone with Leica camera.",
-    detailed_description: "The Xiaomi 13 Pro features a 6.73-inch AMOLED display, Snapdragon 8 Gen 2, and a Leica-tuned triple-camera system. Supports 120W fast charging and 5G.",
-    reviews: [
-      { user: "Henry L.", comment: "Camera is top-notch!", rating: 5 },
-      { user: "Grace F.", comment: "Battery charges super fast.", rating: 4 }
-    ],
-    images: [
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764635015/61vFWIksgcL._AC_UF894_1000_QL80__nfabrj.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764635018/25063acab659d7f38d5f2959ad808d04_jqop6k.png",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764635023/xiaomi-13-pro_u8mrdr.png",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764635027/Xiaomi_13_pro_1_ahisbe.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764635031/xiaomi-13-pro-review-finally-a-xiaomi-flagship-with-a-great_vtvw_txeyiy.jpg"
-    ],
-    rating: 4.7
-  },
-  {
-    id: 17,
-    name: "JBL Flip 6",
-    category: "accessories",
-    color: ["Blue", "Black", "Stone Blue", "Teal"],
-    currentprice: 129.99,
-    prevprice: 149.99,
-    location: "USA",
-    amount: 90,
-    description: "Portable Bluetooth speaker with powerful sound.",
-    detailed_description: "The JBL Flip 6 offers IP67 waterproofing, 12-hour battery life, and JBL PartyBoost for stereo pairing. Ideal for outdoor adventures.",
-    reviews: [
-      { user: "Noah B.", comment: "Amazing sound for its size!", rating: 5 },
-      { user: "Ava S.", comment: "Bass is impressive.", rating: 4 }
-    ],
-    images: [
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764635222/61Eaj593GtL._AC_UF1000_1000_QL80__nhgty8.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764635226/design-medium_vvcxmf.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764635230/61Eaj593GtL_n5bdaw.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764635234/71zohVROdFL._AC_UF350_350_QL80__bnpzh6.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764635238/JBL_Flip_6_hero_brick_rjrksu.jpg"
-    ],
-    rating: 4.6
-  },
-  {
-    id: 18,
-    name: "Lenovo IdeaCentre AIO 3",
-    category: "electronics",
-    color: ["Black"],
-    currentprice: 799.99,
-    prevprice: 899.99,
-    location: "China",
-    amount: 25,
-    description: "All-in-one desktop for home and office use.",
-    detailed_description: "The Lenovo IdeaCentre AIO 3 features a 23.8-inch FHD display, AMD Ryzen 5 5500U, 16GB RAM, and 512GB SSD. Great for multitasking and entertainment.",
-    reviews: [
-      { user: "Ethan M.", comment: "Sleek and efficient!", rating: 5 },
-      { user: "Lily R.", comment: "Good for home office.", rating: 4 }
-    ],
-    images: [
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764635600/lenovo-monitor-ideacentre-aio-3-24-amd-subseries-hero_jukoul.png",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764635603/w0uk0t2uc291b4f89i6cb7bi9588tn961529_x2qwqc.png",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764635608/Lenovo-IdeaCentre-AIO-3-27IMB05--F0EY--original-IPS-display-FHD--1920x1080--matt-60Hz-pId-75884887_3_qdogz4.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764635613/RRRRQBQDX_o9jnz6.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764635617/s-l400_w2atau.jpg"
-    ],
-    rating: 4.5
-  },
-  {
-    id: 19,
-    name: "OnePlus Nord 3",
-    category: "smartphones",
-    color: ["Misty Green", "Midnight Black", "Slate Gray"],
-    currentprice: 499.99,
-    prevprice: 549.99,
-    location: "China",
-    amount: 50,
-    description: "Mid-range smartphone with fast performance.",
-    detailed_description: "The OnePlus Nord 3 features a 6.74-inch AMOLED 120Hz display, MediaTek Dimensity 9000, and 80W fast charging. Great value for money.",
-    reviews: [
-      { user: "Zoe K.", comment: "Smooth and fast!", rating: 5 },
-      { user: "Mason L.", comment: "Camera is decent.", rating: 4 }
-    ],
-    images: [
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764635823/51zmjtNE6EL._AC_UF1000_1000_QL80__stzkkl.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764635828/oneplusnord3header_lbidps.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764635832/hq720_ojiu5c.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764635838/gsmarena_001_ziz17o.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764635842/OnePlus-Nord-3-will-not-be-sold-in-the-UK_vx7mfm.jpg"
-    ],
-    rating: 4.6
-  },
-  {
-    id: 20,
-    name: "WD Black SN850X 1TB",
-    category: "electronics",
-    color: ["Black"],
-    currentprice: 129.99,
-    prevprice: 149.99,
-    location: "USA",
-    amount: 60,
-    description: "High-speed NVMe SSD for gaming and storage.",
-    detailed_description: "The WD Black SN850X 1TB offers read speeds up to 7300MB/s, PCIe Gen4, and Game Mode 2.0. Perfect for PS5 and high-performance PCs.",
-    reviews: [
-      { user: "Chloe P.", comment: "Super fast load times!", rating: 5 },
-      { user: "Jacob T.", comment: "Easy to install.", rating: 4 }
-    ],
-    images: [
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764636031/XznGAj929i82MWrAHPH4Eo-1200-80_zljie0.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764636026/WD-Black-SN850X-1TB-Cover_h6zr8a.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764636016/XznGAj929i82MWrAHPH4Eo-2000-80_fwtu9f.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764636021/WD-Black-SN850X-1TB-Box_is11ui.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764636012/WD_1TB_SN850X_BOX_1000x_lyi0ah.png"
-    ],
-    rating: 4.7
-  },
+    {
+      id: 1,
+      name: "Apple iPhone 14 Pro",
+      category: "smartphones",
+      color: ["Space Black", "Silver", "Gold", "Deep Purple"],
+      currentprice: 999.99,
+      prevprice: 1099.99,
+      location: "USA",
+      amount: 50,
+      description: "Latest iPhone with A16 Bionic chip and advanced camera system.",
+      detailed_description: "The iPhone 14 Pro features a 6.1-inch Super Retina XDR display, A16 Bionic chip, and a triple-camera system with 48MP main sensor. Supports 5G and iOS 16.",
+      reviews: [
+        { user: "John D.", comment: "Amazing camera quality!", rating: 5 },
+        { user: "Sarah K.", comment: "Battery life could be better.", rating: 4 }
+      ],
+      images: [
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764364481/iphone-14-pro-5_hyeo4j.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764364484/iphone-14-pro-1_g30h5m.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764364484/iphone-14-pro-2_vkfswt.png",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764364481/iphone-14-pro-5_hyeo4j.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764364480/iphone-14-pro-3_tormml.jpg"
+      ],
+      rating: 4.8
+    },
+    {
+      id: 2,
+      name: "Samsung Galaxy S23 Ultra",
+      category: "smartphones",
+      color: ["Phantom Black", "Cream", "Green", "Lavender"],
+      currentprice: 1199.99,
+      prevprice: 1299.99,
+      location: "South Korea",
+      amount: 30,
+      description: "Flagship smartphone with S Pen and 200MP camera.",
+      detailed_description: "The Galaxy S23 Ultra boasts a 6.8-inch Dynamic AMOLED 2X display, Snapdragon 8 Gen 2, and a 200MP main camera. Includes S Pen and 5G support.",
+      reviews: [
+        { user: "Mike L.", comment: "Love the S Pen functionality!", rating: 5 },
+        { user: "Emma T.", comment: "Bit pricey but worth it.", rating: 4 }
+      ],
+      images: [
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764366394/samsung-galaxy-s23-ultra-5_ezgcrl.webp",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764366403/samsung-galaxy-s23-ultra-3_ohq0b9.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764366396/samsung-galaxy-s23-ultra-2_x61vse.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764366394/samsung-galaxy-s23-ultra-5_ezgcrl.webp",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764366394/samsung-galaxy-s23-ultra-4_jetrfe.jpg"
+      ],
+      rating: 4.7,
+
+      isNew: true,
+      isFeatured: true,
+      isTopSelling: false
+    },
+    {
+      id: 3,
+      name: "Dell XPS 13",
+      category: "laptops",
+      color: ["Silver", "Starlight", "Platinum"],
+      currentprice: 1299.99,
+      prevprice: 1399.99,
+      location: "USA",
+      amount: 20,
+      description: "Compact and powerful ultrabook for professionals.",
+      detailed_description: "The Dell XPS 13 features a 13.4-inch 4K UHD+ display, Intel Core i7-1255U, 16GB RAM, and 512GB SSD. Perfect for productivity and portability.",
+      reviews: [
+        { user: "Alice B.", comment: "Super lightweight and fast!", rating: 5 },
+        { user: "Tom R.", comment: "Screen is stunning.", rating: 4 }
+      ],
+      images: [
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764366931/dell_xps_13-1_zsn8wb.webp",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764366929/dell_xps_13-2_vwclsf.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764366928/dell_xps_13-5_lhqilv.webp",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764366927/dell_xps_13-4_usj6lz.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764366928/dell_xps_13-3_l2gb08.jpg"
+      ],
+      rating: 4.6,
+
+      isNew: false,
+      isFeatured: true,
+      isTopSelling: true
+    },
+    {
+      id: 4,
+      name: "Sony WH-1000XM5",
+      category: "accessories",
+      color: ["Black", "Graphite Silver"],
+      currentprice: 349.99,
+      prevprice: 399.99,
+      location: "Japan",
+      amount: 100,
+      description: "Industry-leading noise-canceling headphones.",
+      detailed_description: "Sony WH-1000XM5 offers superior noise cancellation, 30-hour battery life, and high-resolution audio. Ideal for music lovers and travelers.",
+      reviews: [
+        { user: "Chris P.", comment: "Best headphones I’ve owned!", rating: 5 },
+        { user: "Lisa M.", comment: "Comfortable for long use.", rating: 4 }
+      ],
+      images: [
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764367375/111_nnofpn.png",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764367369/333_y8phzf.avif",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764367369/222_a52j6n.avif",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764367369/444_tj3ovy.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764367368/555_wvevdw.avif"
+      ],
+      rating: 4.9,
+
+      isNew: true,
+      isFeatured: false,
+      isTopSelling: true
+    },
+    {
+      id: 5,
+      name: "Samsung QN90B 55-inch",
+      category: "smart-tv",
+      color: ["Titan Gray", "Graphite Black"],
+      currentprice: 1499.99,
+      prevprice: 1799.99,
+      location: "South Korea",
+      amount: 15,
+      description: "4K QLED smart-tv with vibrant colors.",
+      detailed_description: "The Samsung QN90B features a 55-inch 4K QLED display, Quantum HDR 32X, and Tizen OS for seamless streaming and gaming.",
+      reviews: [
+        { user: "David S.", comment: "Picture quality is unreal!", rating: 5 },
+        { user: "Anna G.", comment: "Sound could be better.", rating: 4 }
+      ],
+      images: [
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764619546/samsung-neo-qled-4k-smart-tv-qn90b-55-inch-right-view_nsoys3.png",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764619545/latin-en-qled-qn90b-qn55qn90bapxpa-532149644_vdvpph.png",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764619545/sHgCBNWRkieGNFCyV8xsxm_ujga7v.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764619544/83d6c704-bd07-48ff-ba9e-2035534f3bea.c0d24ca4f473ce7900e0ce10593faf20_ryecud.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764619543/SAMSUNG-55-Class-QN90B-Neo-QLED-4K-Smart-TV-QN55QN85BAFXZA-2022_864831fe-b868-4c89-b391-713e1f1b2922.21b9dfea36fdda4f39d2e827845e8197_kyxqmg.jpg"
+      ],
+      rating: 4.7,
+
+      isNew: false,
+      isFeatured: true,
+      isTopSelling: true
+    },
+    {
+      id: 6,
+      name: "Apple iPad Pro 12.9",
+      category: "tablets",
+      color: ["Space Gray", "Silver"],
+      currentprice: 1099.99,
+      prevprice: 1199.99,
+      location: "USA",
+      amount: 25,
+      description: "Powerful tablet with M2 chip.",
+      detailed_description: "The iPad Pro 12.9-inch features the M2 chip, Liquid Retina XDR display, and supports Apple Pencil 2. Ideal for creatives and professionals.",
+      reviews: [
+        { user: "Emily W.", comment: "Perfect for digital art!", rating: 5 },
+        { user: "Mark H.", comment: "Pricey but powerful.", rating: 4 }
+      ],
+      images: [
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764619915/spacegray-2_dwisv6.png",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764619907/refurb-ipad-pro-12-wifi-spacegray-2021_tu6xh9.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/a_90/a_hflip/c_crop,ar_1:1/v1764619911/03Y7jw1z1HYAENTC0RaJzjz-2.fit_lim.size_1050x_kgipxp.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764619907/HPLX2_rvmiva.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764619907/HPLX2_rvmiva.jpg"
+      ],
+      rating: 4.8,
+
+      isNew: false,
+      isFeatured: true,
+      isTopSelling: false,
+
+
+    },
+    {
+      id: 7,
+      name: "Logitech MX Master 3",
+      category: "accessories",
+      color: ["Graphite", "Pale Grey"],
+      currentprice: 99.99,
+      prevprice: 129.99,
+      location: "Switzerland",
+      amount: 80,
+      description: "Advanced wireless mouse for productivity.",
+      detailed_description: "The Logitech MX Master 3 offers ergonomic design, hyper-fast scrolling, and multi-device connectivity. Perfect for professionals.",
+      reviews: [
+        { user: "James T.", comment: "Super comfortable mouse!", rating: 5 },
+        { user: "Rachel K.", comment: "Great for multitasking.", rating: 4 }
+      ],
+      images: [
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764632671/mx-master-3s-business-product-callout_b25jlp.png",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764632671/mx-master-3-rubber-wear-after-3-years-of-nearly-daily-use-v0-nrmwglucae0d1_dejdxa.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764632671/mx-master-3s-for-business-gallery-1_j8kuy6.png",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764632671/exposing-the-truth-logitech-mx-master-3-and-3s-for-mac-v0-mxe3pa0hfwyc1_tkwj6t.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764632671/design-medium_okajuw.jpg"
+      ],
+      rating: 4.7,
+
+      isNew: true,
+      isFeatured: false,
+      isTopSelling: false
+    },
+    {
+      id: 8,
+      name: "HP Spectre x360 14",
+      category: "laptops",
+      color: ["Nightfall Black", "Poseidon Blue", "Natural Silver"],
+      currentprice: 1399.99,
+      prevprice: 1599.99,
+      location: "USA",
+      amount: 18,
+      description: "Convertible laptop with stunning OLED display.",
+      detailed_description: "The HP Spectre x360 14 features a 13.5-inch OLED display, Intel Core i7-1255U, 16GB RAM, and 1TB SSD. Great for creators and professionals.",
+      reviews: [
+        { user: "Laura B.", comment: "Love the 2-in-1 design!", rating: 5 },
+        { user: "Sam P.", comment: "Battery life is decent.", rating: 4 }
+      ],
+      images: [
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764632988/hp-spectre-x360-14-review-high-end-convertible-now-with-a-v0-3F-NqWoS0R-vGic5Sjuj9gB150kSYIXDEkII0IzvGQ4_ryskcn.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764632985/hp-spectre-x360-14-main_zjpxg7.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764632983/c08744400_gikstr.png",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764632981/HP_20Spectre_20x360_2014__Mobile_2x_mfm8wx.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764632980/image_n64dcb.jpg"
+      ],
+      rating: 4.6,
+
+      isNew: true,
+      isFeatured: true,
+      isTopSelling: false
+    },
+    {
+      id: 9,
+      name: "Google Pixel 8",
+      category: "smartphones",
+      color: ["Obsidian", "Hazel", "Rose"],
+      currentprice: 699.99,
+      prevprice: 799.99,
+      location: "USA",
+      amount: 40,
+      description: "Google’s latest smartphone with AI features.",
+      detailed_description: "The Google Pixel 8 features a 6.2-inch OLED display, Tensor G3 chip, and advanced AI-powered camera system. Supports 5G and Android 14.",
+      reviews: [
+        { user: "Tom W.", comment: "Camera is phenomenal!", rating: 5 },
+        { user: "Clara S.", comment: "Smooth software experience.", rating: 4 }
+      ],
+      images: [
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764633174/google-pixel-8-pro-768x475_fkpwqu.png",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764633176/google-shiba-hazel_zfjsay.webp",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764633178/Google-Pixel-8-Pro_review_1-1_vgf6q3.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764633181/Google-Pixel-8-Pro_review_1-1_ob6whp.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764633183/hqdefault_ody1kn.jpg"
+      ],
+      rating: 4.7
+    },
+    {
+      id: 10,
+      name: "LG OLED C3 65-inch",
+      category: "smart-tv",
+      color: ["Black"],
+      currentprice: 1999.99,
+      prevprice: 2299.99,
+      location: "South Korea",
+      amount: 12,
+      description: "Premium OLED TV with stunning visuals.",
+      detailed_description: "The LG OLED C3 65-inch features a 4K OLED display, α9 Gen6 AI Processor, and Dolby Vision. Perfect for cinematic experiences.",
+      reviews: [
+        { user: "Peter M.", comment: "Best TV I’ve ever owned!", rating: 5 },
+        { user: "Sophie L.", comment: "Setup was a bit tricky.", rating: 4 }
+      ],
+      images: [
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764633363/LG-65-Class-4K-UHD-OLED-Web-OS-Smart-TV-with-Dolby-Vision-C3-Series-OLED65C3PUA_4507d0a3-83cb-4420-9c59-ef2c191d7fe7.3c9fdb1665a5e2074e0c8c38fc251fff_xuezwt.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764633360/lg-c3-65-inch-evo-oled-tv-oled65c3pua_5t5t_z9fzvn.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764633364/back-small_yyqgn1.jpg",
+        "https://res.cloudinary_com/dsao6ghfo/image/upload/v1764633367/01NBbV7RTID4k1aEpU8oxPD-5.fit_lim.size_1050x_xw3fxx.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764633370/lg-oled-evo-c3-65-inch-4k-smart-tv-or-oled65c34la__50238.1722438265_lopjsg.jpg"
+      ],
+      rating: 4.8
+    },
+    {
+      id: 11,
+      name: "Apple MacBook Pro 16 M2",
+      category: "laptops",
+      color: ["Space Gray", "Silver"],
+      currentprice: 2499.99,
+      prevprice: 2699.99,
+      location: "USA",
+      amount: 15,
+      description: "High-performance laptop for professionals and creatives.",
+      detailed_description: "The MacBook Pro 16-inch features the M2 Max chip, 32GB RAM, 1TB SSD, and a 16.2-inch Liquid Retina XDR display. Ideal for video editing and coding.",
+      reviews: [
+        { user: "Michael C.", comment: "Blazing fast performance!", rating: 5 },
+        { user: "Nina R.", comment: "A bit heavy but powerful.", rating: 4 }
+      ],
+      images: [
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764633617/MacBook-Pro-M2-Max-review_0000_20230202_014725507_iOS_pat9sd.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764633605/52635-105565-16-inch-MacBook-Pro-with-M2-Max-xl_bey9pl.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764633608/refurb-mbp16-m2-spacegray-202303_AV3_vmubeh.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764633611/Apple-MacBook-Pro-M2-Pro-and-M2-Max-hero-230117_Full-Bleed-Image.jpg.large_hkuefu.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764633614/16-inch-macbook-pro-2023-fcp1_u1qhle.jpg"
+      ],
+      rating: 4.8
+    },
+    {
+      id: 12,
+      name: "Anker PowerCore 20000",
+      category: "accessories",
+      color: ["Black", "White"],
+      currentprice: 49.99,
+      prevprice: 59.99,
+      location: "China",
+      amount: 120,
+      description: "Portable power bank with high capacity.",
+      detailed_description: "The Anker PowerCore 20000 offers 20,000mAh capacity, PowerIQ technology, and USB-C input/output. Perfect for charging smartphones and tablets on the go.",
+      reviews: [
+        { user: "Sophie B.", comment: "Charges my phone multiple times!", rating: 5 },
+        { user: "Liam T.", comment: "Compact and reliable.", rating: 4 }
+      ],
+      images: [
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764633807/A1268013_1_dery9d.png",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764633812/718wsrEuQ6L_ofgzim.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764633814/renditionDownload_jdyyjz.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764633815/Anker-PowerCore-Metro-Essential-Power-Bank-20000mAh_hxpisw.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764633818/7c08719c-b219-4251-88be-7e580fa5d751.ab037e69773f1f60a305934e401438fc_c1ni7f.png"
+      ],
+      rating: 4.7
+    },
+    {
+      id: 13,
+      name: "Samsung Galaxy Tab S9",
+      category: "tablets",
+      color: ["Graphite", "Lime", "Lavender"],
+      currentprice: 799.99,
+      prevprice: 899.99,
+      location: "South Korea",
+      amount: 30,
+      description: "Premium tablet with AMOLED display.",
+      detailed_description: "The Galaxy Tab S9 features an 11-inch Dynamic AMOLED 2X display, Snapdragon 8 Gen 2, 12GB RAM, and 256GB storage. Supports S Pen and DeX mode.",
+      reviews: [
+        { user: "Ella M.", comment: "Great for work and entertainment!", rating: 5 },
+        { user: "Jack P.", comment: "S Pen is a game-changer.", rating: 4 }
+      ],
+      images: [
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764634161/maxresdefault_gpdbq6.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764634151/galaxy-tab-s9-size-graphite-startframe-mo_axaust.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764634151/samsung-galaxy-tab-s9-ultra_63jp.1920_dl2l7o.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764634156/TabS9FE-FE_KV_MO_720x720_ldvsfc.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764634158/Screenshot-2023-08-02-134750_h20wpc.png"
+      ],
+      rating: 4.7
+    },
+    {
+      id: 14,
+      name: "ASUS ROG Strix G16",
+      category: "laptops",
+      color: ["Black", "Eclipse Gray"],
+      currentprice: 1599.99,
+      prevprice: 1799.99,
+      location: "Taiwan",
+      amount: 10,
+      description: "Powerful gaming laptop with high refresh rate.",
+      detailed_description: "The ASUS ROG Strix G16 features a 16-inch QHD 165Hz display, Intel Core i9-13980HX, NVIDIA RTX 4070, 16GB RAM, and 1TB SSD. Ideal for gamers.",
+      reviews: [
+        { user: "Ryan S.", comment: "Runs games smoothly!", rating: 5 },
+        { user: "Olivia K.", comment: "Fans are a bit loud.", rating: 4 }
+      ],
+      images: [
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764634631/81n1T4CYfmL._AC_UF894_1000_QL80__lv1ege.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764634634/71kOH3in8TL._AC_UF894_1000_QL80__are2zr.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764634637/rog-strix-g-16_i0qdjv.png",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764634645/16_91bdcc2b-d77f-48d6-8857-8aa31b83bd68_nrmavv.png",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764634641/rog-strix-g-16_yfcp7z.png"
+      ],
+      rating: 4.6
+    },
+    {
+      id: 15,
+      name: "Sony Bravia XR A80J 55-inch",
+      category: "smart-tv",
+      color: ["Black"],
+      currentprice: 1799.99,
+      prevprice: 1999.99,
+      location: "Japan",
+      amount: 8,
+      description: "OLED TV with immersive sound and visuals.",
+      detailed_description: "The Sony Bravia XR A80J 55-inch features a 4K OLED display, Cognitive Processor XR, and Dolby Atmos. Perfect for movies and gaming.",
+      reviews: [
+        { user: "Lucas W.", comment: "Incredible picture quality!", rating: 5 },
+        { user: "Mia T.", comment: "Remote could be better.", rating: 4 }
+      ],
+      images: [
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764634790/101455_original_local_1200x1050_v3_converted_dgsh9g.webp",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764634793/92073_original_local_1200x1050_v3_converted_nlicfe.webp",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764634797/92066_original_local_1200x1050_v3_converted_uhslin.webp",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764634801/XR55A80J_09_ya3ukl.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764634805/61-nsp9J-JS._AC_SL1200__uetafn.jpg"
+      ],
+      rating: 4.8
+    },
+    {
+      id: 16,
+      name: "Xiaomi 13 Pro",
+      category: "smartphones",
+      color: ["Ceramic White", "Black", "Bora Purple"],
+      currentprice: 899.99,
+      prevprice: 999.99,
+      location: "China",
+      amount: 35,
+      description: "Flagship smartphone with Leica camera.",
+      detailed_description: "The Xiaomi 13 Pro features a 6.73-inch AMOLED display, Snapdragon 8 Gen 2, and a Leica-tuned triple-camera system. Supports 120W fast charging and 5G.",
+      reviews: [
+        { user: "Henry L.", comment: "Camera is top-notch!", rating: 5 },
+        { user: "Grace F.", comment: "Battery charges super fast.", rating: 4 }
+      ],
+      images: [
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764635015/61vFWIksgcL._AC_UF894_1000_QL80__nfabrj.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764635018/25063acab659d7f38d5f2959ad808d04_jqop6k.png",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764635023/xiaomi-13-pro_u8mrdr.png",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764635027/Xiaomi_13_pro_1_ahisbe.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764635031/xiaomi-13-pro-review-finally-a-xiaomi-flagship-with-a-great_vtvw_txeyiy.jpg"
+      ],
+      rating: 4.7
+    },
+    {
+      id: 17,
+      name: "JBL Flip 6",
+      category: "accessories",
+      color: ["Blue", "Black", "Stone Blue", "Teal"],
+      currentprice: 129.99,
+      prevprice: 149.99,
+      location: "USA",
+      amount: 90,
+      description: "Portable Bluetooth speaker with powerful sound.",
+      detailed_description: "The JBL Flip 6 offers IP67 waterproofing, 12-hour battery life, and JBL PartyBoost for stereo pairing. Ideal for outdoor adventures.",
+      reviews: [
+        { user: "Noah B.", comment: "Amazing sound for its size!", rating: 5 },
+        { user: "Ava S.", comment: "Bass is impressive.", rating: 4 }
+      ],
+      images: [
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764635222/61Eaj593GtL._AC_UF1000_1000_QL80__nhgty8.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764635226/design-medium_vvcxmf.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764635230/61Eaj593GtL_n5bdaw.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764635234/71zohVROdFL._AC_UF350_350_QL80__bnpzh6.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764635238/JBL_Flip_6_hero_brick_rjrksu.jpg"
+      ],
+      rating: 4.6
+    },
+    {
+      id: 18,
+      name: "Lenovo IdeaCentre AIO 3",
+      category: "electronics",
+      color: ["Black"],
+      currentprice: 799.99,
+      prevprice: 899.99,
+      location: "China",
+      amount: 25,
+      description: "All-in-one desktop for home and office use.",
+      detailed_description: "The Lenovo IdeaCentre AIO 3 features a 23.8-inch FHD display, AMD Ryzen 5 5500U, 16GB RAM, and 512GB SSD. Great for multitasking and entertainment.",
+      reviews: [
+        { user: "Ethan M.", comment: "Sleek and efficient!", rating: 5 },
+        { user: "Lily R.", comment: "Good for home office.", rating: 4 }
+      ],
+      images: [
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764635600/lenovo-monitor-ideacentre-aio-3-24-amd-subseries-hero_jukoul.png",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764635603/w0uk0t2uc291b4f89i6cb7bi9588tn961529_x2qwqc.png",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764635608/Lenovo-IdeaCentre-AIO-3-27IMB05--F0EY--original-IPS-display-FHD--1920x1080--matt-60Hz-pId-75884887_3_qdogz4.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764635613/RRRRQBQDX_o9jnz6.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764635617/s-l400_w2atau.jpg"
+      ],
+      rating: 4.5
+    },
+    {
+      id: 19,
+      name: "OnePlus Nord 3",
+      category: "smartphones",
+      color: ["Misty Green", "Midnight Black", "Slate Gray"],
+      currentprice: 499.99,
+      prevprice: 549.99,
+      location: "China",
+      amount: 50,
+      description: "Mid-range smartphone with fast performance.",
+      detailed_description: "The OnePlus Nord 3 features a 6.74-inch AMOLED 120Hz display, MediaTek Dimensity 9000, and 80W fast charging. Great value for money.",
+      reviews: [
+        { user: "Zoe K.", comment: "Smooth and fast!", rating: 5 },
+        { user: "Mason L.", comment: "Camera is decent.", rating: 4 }
+      ],
+      images: [
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764635823/51zmjtNE6EL._AC_UF1000_1000_QL80__stzkkl.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764635828/oneplusnord3header_lbidps.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764635832/hq720_ojiu5c.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764635838/gsmarena_001_ziz17o.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764635842/OnePlus-Nord-3-will-not-be-sold-in-the-UK_vx7mfm.jpg"
+      ],
+      rating: 4.6
+    },
+    {
+      id: 20,
+      name: "WD Black SN850X 1TB",
+      category: "electronics",
+      color: ["Black"],
+      currentprice: 129.99,
+      prevprice: 149.99,
+      location: "USA",
+      amount: 60,
+      description: "High-speed NVMe SSD for gaming and storage.",
+      detailed_description: "The WD Black SN850X 1TB offers read speeds up to 7300MB/s, PCIe Gen4, and Game Mode 2.0. Perfect for PS5 and high-performance PCs.",
+      reviews: [
+        { user: "Chloe P.", comment: "Super fast load times!", rating: 5 },
+        { user: "Jacob T.", comment: "Easy to install.", rating: 4 }
+      ],
+      images: [
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764636031/XznGAj929i82MWrAHPH4Eo-1200-80_zljie0.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764636026/WD-Black-SN850X-1TB-Cover_h6zr8a.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764636016/XznGAj929i82MWrAHPH4Eo-2000-80_fwtu9f.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764636021/WD-Black-SN850X-1TB-Box_is11ui.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764636012/WD_1TB_SN850X_BOX_1000x_lyi0ah.png"
+      ],
+      rating: 4.7
+    },
     {
       id: 21,
       name: "Bose QuietComfort Earbuds",
@@ -624,7 +654,7 @@ export class ProductService {
       id: 25,
       name: "Google Pixel Tablet",
       category: "tablets",
-      color:["Porcelain", "Hazel", "Rose"],
+      color: ["Porcelain", "Hazel", "Rose"],
       currentprice: 499.99,
       prevprice: 549.99,
       location: "USA",
@@ -960,7 +990,7 @@ export class ProductService {
       id: 39,
       name: "Hisense U8K 55-inch",
       category: "smart-tv",
-      color:["Black"],
+      color: ["Black"],
       currentprice: 1099.99,
       prevprice: 1299.99,
       location: "China",
@@ -1045,7 +1075,7 @@ export class ProductService {
       ],
       images: [
         "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764647158/838fbdac-6d10-4190-8e52-d4b9463f5d23_uk4r7o.png",
-        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764647164/asus-zenbook-14-oled-ux3405_1dtx_cqh8pj.jpg",     
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764647164/asus-zenbook-14-oled-ux3405_1dtx_cqh8pj.jpg",
         "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764647169/51TgIfem9vL._AC_UF894_1000_QL80__jek4al.jpg",
         "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764647180/4f4e3cbc-adac-4b50-85f9-647020c096b8_txj6yy.png",
         "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764647204/related_products_06_au2yqn.jpg"
@@ -1394,7 +1424,7 @@ export class ProductService {
       id: 57,
       name: "JBL Charge 5",
       category: "accessories",
-      color: ["Black", "Blue", "Red", "Grey", "Teal", "White", "Pink", "Squad"], 
+      color: ["Black", "Blue", "Red", "Grey", "Teal", "White", "Pink", "Squad"],
       currentprice: 179.99,
       prevprice: 199.99,
       location: "USA",
@@ -2034,7 +2064,7 @@ export class ProductService {
         "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764681535/Gear-Samsung-Galaxy-S24-Ultra-SOURCE-Julian-Chokkattu_idrmfg.jpg",
         "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764681530/41emO6FOHvL._AC_UF894_1000_QL80__ekmeue.jpg",
         "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764681525/Gear-Samsung-Galaxy-S24-Series-SOURCE-Julian-Chokkattu_crmojb.jpg",
-        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764681522/galaxy-s24-highlights-kv_dj0maj.jpg"  
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1764681522/galaxy-s24-highlights-kv_dj0maj.jpg"
       ],
       rating: 4.7
     },
@@ -2928,729 +2958,739 @@ export class ProductService {
       ],
       rating: 4.6
     },
-     {
-    id: 121,
-    name: "Dell OptiPlex 7090",
-    category: "computer",
-    color: ["Black"],
-    currentprice: 799.99,
-    prevprice: 899.99,
-    location: "USA",
-    amount: 25,
-    description: "Reliable desktop for office and productivity.",
-    detailed_description: "The Dell OptiPlex 7090 features Intel i5, 16GB RAM, 512GB SSD. Ideal for professional work.",
-    reviews: [
-      { user: "Alice H.", comment: "Fast and stable!", rating: 5 },
-      { user: "John K.", comment: "Great for daily use.", rating: 4 }
-    ],
-    images: [
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765365331/meet-the-new-optiplex-family-thumb_sszlnr.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765365332/op7090mt-op7090sff-op7090mff-fsy-shot03-bk_vkta0k.png",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765365331/desktop_optiplex_7090_mff_pdp_mod_qrtcq9.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765365331/3-15_kfdzmb.png",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765365331/2-16_grjgzm.png"
-    ],
-    rating: 4.6
-  },
-  {
-    id: 122,
-    name: "HP EliteDesk 800 G6",
-    category: "computer",
-    color: ["Silver", "Black"],
-    currentprice: 849.99,
-    prevprice: 949.99,
-    location: "USA",
-    amount: 20,
-    description: "Compact desktop with high performance.",
-    detailed_description: "The HP EliteDesk 800 G6 has Intel i7, 16GB RAM, 1TB SSD. Perfect for multitasking and office work.",
-    reviews: [
-      { user: "Emma R.", comment: "Compact but powerful.", rating: 5 },
-      { user: "Michael T.", comment: "Quiet and efficient.", rating: 4 }
-    ],
-    images: [
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765365703/71P5xUCsfoL_qxn8b7.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765365703/s-l1200_gssytq.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765365702/HP-EliteDesk-800-G6-Mini-65W-Rear_i9vkgg.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765365701/s-l400_ta4aas.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765365702/HP-EliteDesk-800-G6-Mini-35W-Cover_goomw9.jpg"
-    ],
-    rating: 4.7
-  },
-  {
-    id: 123,
-    name: "Lenovo ThinkCentre M90q",
-    category: "computer",
-    color: ["Black"],
-    currentprice: 699.99,
-    prevprice: 799.99,
-    location: "China",
-    amount: 30,
-    description: "Small form factor desktop for office tasks.",
-    detailed_description: "The Lenovo ThinkCentre M90q has Intel i5, 16GB RAM, 512GB SSD. Compact, reliable, and efficient.",
-    reviews: [
-      { user: "Sophia P.", comment: "Small but fast!", rating: 5 },
-      { user: "Daniel C.", comment: "Perfect for my home office.", rating: 4 }
-    ],
-    images: [
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765365870/Lenovo-M90Q-Cover-Web_k3qkbx.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765365870/Lenovo-ThinkCentre-m90q-Tiny-Gen2-Cover-Web_ktwd3n.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765365871/Lenovo-ThinkCentre-M90q-Tiny-Internal-Overview_imoljf.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765365873/Img_32565926_e2mtfv.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765365869/fgzrxpog7727q3fd2qcei6s4gktbf3646539_zmteha.jpg"
-    ],
-    rating: 4.6
-  },
-  {
-    id: 124,
-    name: "Acer Veriton X4660G",
-    category: "computer",
-    color: ["Black"],
-    currentprice: 649.99,
-    prevprice: 749.99,
-    location: "Taiwan",
-    amount: 22,
-    description: "Desktop for everyday office computing.",
-    detailed_description: "The Acer Veriton X4660G features Intel i5, 8GB RAM, 256GB SSD. Reliable for productivity tasks.",
-    reviews: [
-      { user: "Liam J.", comment: "Good performance for the price.", rating: 5 },
-      { user: "Olivia S.", comment: "Works well for office use.", rating: 4 }
-    ],
-    images: [
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765366011/s-l400_lkxpr1.png",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765366011/Listing_Template_image_1__54956.1703839673_mslsqd.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765366010/s-l1200_ordg88.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765366012/s-l400_zqbmhx.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765366012/1051343230_ewbty9.jpg"
-    ],
-    rating: 4.5
-  },
-  {
-    id: 125,
-    name: "Apple Mac Mini M2",
-    category: "computer",
-    color: ["Silver"],
-    currentprice: 699.99,
-    prevprice: 799.99,
-    location: "USA",
-    amount: 18,
-    description: "Compact desktop with Apple M2 chip.",
-    detailed_description: "The Mac Mini M2 has 8GB RAM, 256GB SSD. Perfect for creative work and macOS applications.",
-    reviews: [
-      { user: "Mia W.", comment: "Super fast and quiet.", rating: 5 },
-      { user: "Noah B.", comment: "Loving macOS on a small desktop.", rating: 4 }
-    ],
-    images: [
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765366226/refurb-mac-mini-202303_aiwjtx.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765366225/apple-mac-mini-2023-3277_v7tgtg.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765366227/4695_sy3ufa.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765366229/111837_mac-mini-2023-m2-pro_d6wpzp.png",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765366229/IMG_9844_plakzq.jpg"
-    ],
-    rating: 4.8
-  },
-  {
-    id: 126,
-    name: "ASUS ExpertCenter D700",
-    category: "computer",
-    color: ["Black"],
-    currentprice: 899.99,
-    prevprice: 999.99,
-    location: "Taiwan",
-    amount: 15,
-    description: "High-performance business desktop.",
-    detailed_description: "The ASUS ExpertCenter D700 features Intel i7, 32GB RAM, 1TB SSD. Ideal for intensive office workloads.",
-    reviews: [
-      { user: "Sophia L.", comment: "Handles everything smoothly.", rating: 5 },
-      { user: "Ethan M.", comment: "Excellent build quality.", rating: 4 }
-    ],
-    images: [
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765366358/57d3e1c0-1623-4831-80f7-5dd28ca32ac4_r0wchr.png",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765366360/6112fc64-40f2-4f4e-b90c-4ef2ac0e0d1b_g7vvz0.png",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765366361/LD0005934265_1_aejboz.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765366361/maxresdefault_lrsamb.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765366363/cffbc5ca-89e2-43b3-a78a-97bc75d6b575_eljnhs.png"
-    ],
-    rating: 4.7
-  },
-  {
-    id: 127,
-    name: "MSI Pro DP21",
-    category: "computer",
-    color: ["Black"],
-    currentprice: 599.99,
-    prevprice: 699.99,
-    location: "Taiwan",
-    amount: 20,
-    description: "Compact desktop for office and home use.",
-    detailed_description: "The MSI Pro DP21 features Intel i5, 8GB RAM, 512GB SSD. Smooth performance for everyday tasks.",
-    reviews: [
-      { user: "Lucas T.", comment: "Compact and quiet.", rating: 5 },
-      { user: "Ava S.", comment: "Good value for work.", rating: 4 }
-    ],
-    images: [
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765366587/6186e0zlXwL_rjitos.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765366588/e8569931-dcd8-4871-8034-d490e860abcb_xtdyfk.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765366588/20241114_172252-jpg.371706_ymqgos.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765366590/6186e0zlXwL._AC_UF894_1000_QL80__aqlks4.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765366591/maxresdefault_oezjos.jpg"
-    ],
-    rating: 4.6
-  },
-  {
-    id: 128,
-    name: "Intel NUC 12 Extreme",
-    category: "computer",
-    color: ["Black"],
-    currentprice: 1099.99,
-    prevprice: 1199.99,
-    location: "USA",
-    amount: 10,
-    description: "Mini PC with high performance.",
-    detailed_description: "Intel NUC 12 Extreme with Intel i7, 16GB RAM, 1TB SSD. Great for gaming and work in a small form factor.",
-    reviews: [
-      { user: "Ethan P.", comment: "Powerful for its size.", rating: 5 },
-      { user: "Sophia R.", comment: "Perfect mini PC.", rating: 4 }
-    ],
-    images: [
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765366745/IMG_0133-3_nn5q8k.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765366746/sddefault_bme7ly.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765366748/Intel-NUC-12-Extreme-2-1_qtgh40.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765366746/sddefault_bme7ly.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765366750/Intel_NUC_12_Extreme_Dragon_Canyon_Mini_PC__563_sykeu7.jpg"
-    ],
-    rating: 4.7
-  },
-  {
-    id: 129,
-    name: "Acer Aspire XC-1660",
-    category: "computer",
-    color: ["Black"],
-    currentprice: 549.99,
-    prevprice: 649.99,
-    location: "Taiwan",
-    amount: 18,
-    description: "Compact desktop for home use.",
-    detailed_description: "The Acer Aspire XC-1660 features Intel i3, 8GB RAM, 256GB SSD. Reliable performance for basic computing.",
-    reviews: [
-      { user: "Liam P.", comment: "Simple and efficient.", rating: 5 },
-      { user: "Emma H.", comment: "Good for home office.", rating: 4 }
-    ],
-    images: [
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765366913/uNdEqXMjMxFEdUunMnTEgC_ylm0vw.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765366913/acer-aspire-xc-1660-g-almost-max-potential-v0-r17q53he68ub1_slwq1x.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765366914/1_mxcqlv.png",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765366915/acer-aspire-xc-1660-g-almost-max-potential-v0-r17q53he68ub1_cyassh.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765366913/acer-aspire-xc-1660-g-almost-max-potential-v0-r17q53he68ub1_slwq1x.jpg"
-    ],
-    rating: 4.5
-  },
-  {
-    id: 130,
-    name: "Lenovo ThinkStation P340",
-    category: "computer",
-    color: ["Black"],
-    currentprice: 1199.99,
-    prevprice: 1299.99,
-    location: "China",
-    amount: 12,
-    description: "Workstation desktop for designers and engineers.",
-    detailed_description: "The Lenovo ThinkStation P340 with Intel i7, 32GB RAM, 1TB SSD. Ideal for CAD and professional software.",
-    reviews: [
-      { user: "Noah K.", comment: "Handles CAD smoothly.", rating: 5 },
-      { user: "Ava M.", comment: "Professional grade desktop.", rating: 4 }
-    ],
-    images: [
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765367076/lenovo-desktop-thinkstation-p340-tower-hero_zrlzba.png ",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765367077/lenovo-desktop-thinkstation-p340-tiny-hero_eumdtn.png",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765367079/Lenovo-ThinkStation-P340-Tiny-Internal-Bottom-Dual-M.2-Slots-and-SSD_rp75bf.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765367081/IMG_1060_1800x_anvear.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765367083/lenovo-desktop-6_bu9duq.png"
-    ],
-    rating: 4.8
-  },
-  {
-    id: 131,
-    name: "HP ProDesk 400 G7",
-    category: "computer",
-    color: ["Silver"],
-    currentprice: 649.99,
-    prevprice: 749.99,
-    location: "USA",
-    amount: 20,
-    description: "Reliable desktop for office environments.",
-    detailed_description: "HP ProDesk 400 G7 features Intel i5, 16GB RAM, 512GB SSD. Compact and efficient for professional use.",
-    reviews: [
-      { user: "Sophia T.", comment: "Smooth and quiet.", rating: 5 },
-      { user: "Jacob L.", comment: "Good office desktop.", rating: 4 }
-    ],
-    images: [
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765367221/2aaa61cd-b5f2-410f-ab0c-912c3868ec17_ehgmcx.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765367223/c06699391_doxcoo.png",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765367225/Hp-Prodesk-400-G7-6_pbdezz.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765367226/hp-prodesk-400-g7-sff-intel-core-ram-hdd-ports_hprlse.png",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765367227/ProductViewThumb_leg3d4.jpg"
-    ],
-    rating: 4.6
-  },
-  {
-    id: 132,
-    name: "ASUS ROG Strix GA15",
-    category: "computer",
-    color: ["Black", "Red"],
-    currentprice: 1299.99,
-    prevprice: 1399.99,
-    location: "Taiwan",
-    amount: 15,
-    description: "Gaming desktop with powerful specs.",
-    detailed_description: "The ASUS ROG Strix GA15 features Ryzen 7, 16GB RAM, 1TB SSD, RTX 3060. Ideal for gaming and streaming.",
-    reviews: [
-      { user: "Mia T.", comment: "Runs all games smoothly.", rating: 5 },
-      { user: "Liam R.", comment: "Excellent gaming PC.", rating: 4 }
-    ],
-    images: [
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765367353/9C346B9E-F408-4512-B81D-9F4903A0C63D_jiqjea.png",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765367354/h732_zubzxp.png",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765367354/h732_zubzxp.png",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765367358/k3vm6ns4suk71_khtgae.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765367359/upgraded-my-asus-rog-strix-ga15-dh-with-a-6600xt-v0-o1261puhkeh81_c5zgyz.jpg"
-    ],
-    rating: 4.8
-  },
-  {
-    id: 133,
-    name: "MSI Creator P100X",
-    category: "computer",
-    color: ["Black"],
-    currentprice: 1499.99,
-    prevprice: 1599.99,
-    location: "Taiwan",
-    amount: 10,
-    description: "Desktop for creative professionals.",
-    detailed_description: "MSI Creator P100X features Intel i9, 32GB RAM, 1TB SSD, RTX 3070. Perfect for video editing and design work.",
-    reviews: [
-      { user: "Emma S.", comment: "Amazing for editing.", rating: 5 },
-      { user: "Noah P.", comment: "Handles Adobe suite perfectly.", rating: 4 }
-    ],
-    images: [
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765367552/61BmF_98j0L_wfxmxk.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765367554/Upgradable_img01_xaqx7q.png",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765367555/617WBOTUlHL._AC_UF894_1000_QL80__jwlo0z.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765367557/Webp.net-compress-image_ttyqhh.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765367559/a53bb4ac-cf78-4070-be98-258e490fd6e7_beacrl.jpg"
-    ],
-    rating: 4.9
-  },
-  {
-    id: 134,
-    name: "Apple iMac 24-inch M1",
-    category: "computer",
-    color: ["Silver", "Blue", "Green", "Pink"],
-    currentprice: 1299.99,
-    prevprice: 1399.99,
-    location: "USA",
-    amount: 12,
-    description: "All-in-one desktop with M1 chip.",
-    detailed_description: "iMac 24-inch M1 features 8GB RAM, 256GB SSD. Beautiful Retina display and macOS ecosystem.",
-    reviews: [
-      { user: "Sophia W.", comment: "Stunning display!", rating: 5 },
-      { user: "Liam M.", comment: "Fast and quiet.", rating: 4 }
-    ],
-    images: [
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765367708/refurb-imac-24-blue-2021_ylzu60.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765367707/111895_imac-24-inch--m1_ov34jq.png",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765367711/7hq8LosjChoWg3pzCuqezb_fzl701.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765367713/403541-all-in-one-desktops-apple-24-inch-imac-m1-chip-10020645_q2v4f6.png",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765367715/apple-imac-24-2021-main_bnhkhq.jpg"
-    ],
-    rating: 4.8
-  },
-  {
-    id: 135,
-    name: "Dell XPS Desktop 8940",
-    category: "computer",
-    color: ["Silver", "Black"],
-    currentprice: 1099.99,
-    prevprice: 1199.99,
-    location: "USA",
-    amount: 15,
-    description: "High-performance desktop for home and office.",
-    detailed_description: "Dell XPS Desktop 8940 features Intel i7, 16GB RAM, 512GB SSD, GTX 1660. Great for multitasking and light gaming.",
-    reviews: [
-      { user: "Mia L.", comment: "Powerful and sleek.", rating: 5 },
-      { user: "Ethan R.", comment: "Perfect for my setup.", rating: 4 }
-    ],
-    images: [
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765367941/61ZFI69jGCL_hsu7n8.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765367943/dell-xps-desktop-8950-1050167_noovjw.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765367945/xs8940-csy-00058ff-bk-rkl_sqnhm4.png",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765367947/403954-full-size-desktops-dell-xps-8940-7887blk-10021340_yg8utl.png",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765367949/Dell-XPS-8940-product-image_jfhnml.jpg"
-    ],
-    rating: 4.7
-  },
-  {
-    id: 136,
-    name: "iPhone 15 Pro",
-    category: "mobile",
-    color: ["Silver", "Graphite"],
-    currentprice: 1099.99,
-    prevprice: 1199.99,
-    location: "USA",
-    amount: 40,
-    description: "Latest Apple smartphone with A17 chip.",
-    detailed_description: "iPhone 15 Pro features 6.1-inch display, 128GB storage, iOS 17. Perfect for photography and productivity.",
-    reviews: [
-      { user: "Ava R.", comment: "Fast and sleek!", rating: 5 },
-      { user: "Noah T.", comment: "Excellent camera.", rating: 4 }
-    ],
-    images: [
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765368156/iPhone_15_Pro_-_Black_titanium-_Overlap_Trans-cropped_a3nvyp.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765368151/refurb-iphone-15-pro-bluetitanium-202412_xtor6b.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765368150/Apple-iPhone-15-Pro-lineup-hero-230912.jpg.news_app_ed_gfqfhs.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765368148/iphone_15_pro_lbp22r.png",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765368154/41NGdWgVgdL_gkak0r.jpg"
-    ],
-    rating: 4.8
-  },
-  {
-    id: 137,
-    name: "Samsung Galaxy S24",
-    category: "mobile",
-    color: ["Phantom Black", "Green"],
-    currentprice: 999.99,
-    prevprice: 1099.99,
-    location: "South Korea",
-    amount: 35,
-    description: "Flagship Samsung smartphone with Snapdragon 8 Gen 3.",
-    detailed_description: "Samsung Galaxy S24 features 6.2-inch AMOLED display, 128GB storage, Android 14. Great for photography and gaming.",
-    reviews: [
-      { user: "Liam H.", comment: "Beautiful display!", rating: 5 },
-      { user: "Emma C.", comment: "Fast and smooth.", rating: 4 }
-    ],
-    images: [
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765368416/Gear-Samsung-Galaxy-S24-Ultra-SOURCE-Julian-Chokkattu_dquhrl.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765368411/51A-Q4eMBxL._AC_UF894_1000_QL80__yogp56.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765368402/onyx-black-9_lihvzt.png",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765368402/galaxy-s24-highlights-kv_p9jyxl.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765368414/Gear-Samsung-Galaxy-S24-Series-SOURCE-Julian-Chokkattu_vsilcz.jpg"
-    ],
-    rating: 4.7
-  },
+    {
+      id: 121,
+      name: "Dell OptiPlex 7090",
+      category: "computer",
+      color: ["Black"],
+      currentprice: 799.99,
+      prevprice: 899.99,
+      location: "USA",
+      amount: 25,
+      description: "Reliable desktop for office and productivity.",
+      detailed_description: "The Dell OptiPlex 7090 features Intel i5, 16GB RAM, 512GB SSD. Ideal for professional work.",
+      reviews: [
+        { user: "Alice H.", comment: "Fast and stable!", rating: 5 },
+        { user: "John K.", comment: "Great for daily use.", rating: 4 }
+      ],
+      images: [
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765365331/meet-the-new-optiplex-family-thumb_sszlnr.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765365332/op7090mt-op7090sff-op7090mff-fsy-shot03-bk_vkta0k.png",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765365331/desktop_optiplex_7090_mff_pdp_mod_qrtcq9.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765365331/3-15_kfdzmb.png",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765365331/2-16_grjgzm.png"
+      ],
+      rating: 4.6
+    },
+    {
+      id: 122,
+      name: "HP EliteDesk 800 G6",
+      category: "computer",
+      color: ["Silver", "Black"],
+      currentprice: 849.99,
+      prevprice: 949.99,
+      location: "USA",
+      amount: 20,
+      description: "Compact desktop with high performance.",
+      detailed_description: "The HP EliteDesk 800 G6 has Intel i7, 16GB RAM, 1TB SSD. Perfect for multitasking and office work.",
+      reviews: [
+        { user: "Emma R.", comment: "Compact but powerful.", rating: 5 },
+        { user: "Michael T.", comment: "Quiet and efficient.", rating: 4 }
+      ],
+      images: [
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765365703/71P5xUCsfoL_qxn8b7.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765365703/s-l1200_gssytq.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765365702/HP-EliteDesk-800-G6-Mini-65W-Rear_i9vkgg.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765365701/s-l400_ta4aas.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765365702/HP-EliteDesk-800-G6-Mini-35W-Cover_goomw9.jpg"
+      ],
+      rating: 4.7
+    },
+    {
+      id: 123,
+      name: "Lenovo ThinkCentre M90q",
+      category: "computer",
+      color: ["Black"],
+      currentprice: 699.99,
+      prevprice: 799.99,
+      location: "China",
+      amount: 30,
+      description: "Small form factor desktop for office tasks.",
+      detailed_description: "The Lenovo ThinkCentre M90q has Intel i5, 16GB RAM, 512GB SSD. Compact, reliable, and efficient.",
+      reviews: [
+        { user: "Sophia P.", comment: "Small but fast!", rating: 5 },
+        { user: "Daniel C.", comment: "Perfect for my home office.", rating: 4 }
+      ],
+      images: [
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765365870/Lenovo-M90Q-Cover-Web_k3qkbx.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765365870/Lenovo-ThinkCentre-m90q-Tiny-Gen2-Cover-Web_ktwd3n.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765365871/Lenovo-ThinkCentre-M90q-Tiny-Internal-Overview_imoljf.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765365873/Img_32565926_e2mtfv.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765365869/fgzrxpog7727q3fd2qcei6s4gktbf3646539_zmteha.jpg"
+      ],
+      rating: 4.6
+    },
+    {
+      id: 124,
+      name: "Acer Veriton X4660G",
+      category: "computer",
+      color: ["Black"],
+      currentprice: 649.99,
+      prevprice: 749.99,
+      location: "Taiwan",
+      amount: 22,
+      description: "Desktop for everyday office computing.",
+      detailed_description: "The Acer Veriton X4660G features Intel i5, 8GB RAM, 256GB SSD. Reliable for productivity tasks.",
+      reviews: [
+        { user: "Liam J.", comment: "Good performance for the price.", rating: 5 },
+        { user: "Olivia S.", comment: "Works well for office use.", rating: 4 }
+      ],
+      images: [
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765366011/s-l400_lkxpr1.png",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765366011/Listing_Template_image_1__54956.1703839673_mslsqd.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765366010/s-l1200_ordg88.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765366012/s-l400_zqbmhx.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765366012/1051343230_ewbty9.jpg"
+      ],
+      rating: 4.5
+    },
+    {
+      id: 125,
+      name: "Apple Mac Mini M2",
+      category: "computer",
+      color: ["Silver"],
+      currentprice: 699.99,
+      prevprice: 799.99,
+      location: "USA",
+      amount: 18,
+      description: "Compact desktop with Apple M2 chip.",
+      detailed_description: "The Mac Mini M2 has 8GB RAM, 256GB SSD. Perfect for creative work and macOS applications.",
+      reviews: [
+        { user: "Mia W.", comment: "Super fast and quiet.", rating: 5 },
+        { user: "Noah B.", comment: "Loving macOS on a small desktop.", rating: 4 }
+      ],
+      images: [
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765366226/refurb-mac-mini-202303_aiwjtx.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765366225/apple-mac-mini-2023-3277_v7tgtg.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765366227/4695_sy3ufa.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765366229/111837_mac-mini-2023-m2-pro_d6wpzp.png",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765366229/IMG_9844_plakzq.jpg"
+      ],
+      rating: 4.8
+    },
+    {
+      id: 126,
+      name: "ASUS ExpertCenter D700",
+      category: "computer",
+      color: ["Black"],
+      currentprice: 899.99,
+      prevprice: 999.99,
+      location: "Taiwan",
+      amount: 15,
+      description: "High-performance business desktop.",
+      detailed_description: "The ASUS ExpertCenter D700 features Intel i7, 32GB RAM, 1TB SSD. Ideal for intensive office workloads.",
+      reviews: [
+        { user: "Sophia L.", comment: "Handles everything smoothly.", rating: 5 },
+        { user: "Ethan M.", comment: "Excellent build quality.", rating: 4 }
+      ],
+      images: [
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765366358/57d3e1c0-1623-4831-80f7-5dd28ca32ac4_r0wchr.png",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765366360/6112fc64-40f2-4f4e-b90c-4ef2ac0e0d1b_g7vvz0.png",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765366361/LD0005934265_1_aejboz.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765366361/maxresdefault_lrsamb.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765366363/cffbc5ca-89e2-43b3-a78a-97bc75d6b575_eljnhs.png"
+      ],
+      rating: 4.7
+    },
+    {
+      id: 127,
+      name: "MSI Pro DP21",
+      category: "computer",
+      color: ["Black"],
+      currentprice: 599.99,
+      prevprice: 699.99,
+      location: "Taiwan",
+      amount: 20,
+      description: "Compact desktop for office and home use.",
+      detailed_description: "The MSI Pro DP21 features Intel i5, 8GB RAM, 512GB SSD. Smooth performance for everyday tasks.",
+      reviews: [
+        { user: "Lucas T.", comment: "Compact and quiet.", rating: 5 },
+        { user: "Ava S.", comment: "Good value for work.", rating: 4 }
+      ],
+      images: [
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765366587/6186e0zlXwL_rjitos.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765366588/e8569931-dcd8-4871-8034-d490e860abcb_xtdyfk.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765366588/20241114_172252-jpg.371706_ymqgos.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765366590/6186e0zlXwL._AC_UF894_1000_QL80__aqlks4.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765366591/maxresdefault_oezjos.jpg"
+      ],
+      rating: 4.6
+    },
+    {
+      id: 128,
+      name: "Intel NUC 12 Extreme",
+      category: "computer",
+      color: ["Black"],
+      currentprice: 1099.99,
+      prevprice: 1199.99,
+      location: "USA",
+      amount: 10,
+      description: "Mini PC with high performance.",
+      detailed_description: "Intel NUC 12 Extreme with Intel i7, 16GB RAM, 1TB SSD. Great for gaming and work in a small form factor.",
+      reviews: [
+        { user: "Ethan P.", comment: "Powerful for its size.", rating: 5 },
+        { user: "Sophia R.", comment: "Perfect mini PC.", rating: 4 }
+      ],
+      images: [
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765366745/IMG_0133-3_nn5q8k.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765366746/sddefault_bme7ly.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765366748/Intel-NUC-12-Extreme-2-1_qtgh40.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765366746/sddefault_bme7ly.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765366750/Intel_NUC_12_Extreme_Dragon_Canyon_Mini_PC__563_sykeu7.jpg"
+      ],
+      rating: 4.7
+    },
+    {
+      id: 129,
+      name: "Acer Aspire XC-1660",
+      category: "computer",
+      color: ["Black"],
+      currentprice: 549.99,
+      prevprice: 649.99,
+      location: "Taiwan",
+      amount: 18,
+      description: "Compact desktop for home use.",
+      detailed_description: "The Acer Aspire XC-1660 features Intel i3, 8GB RAM, 256GB SSD. Reliable performance for basic computing.",
+      reviews: [
+        { user: "Liam P.", comment: "Simple and efficient.", rating: 5 },
+        { user: "Emma H.", comment: "Good for home office.", rating: 4 }
+      ],
+      images: [
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765366913/uNdEqXMjMxFEdUunMnTEgC_ylm0vw.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765366913/acer-aspire-xc-1660-g-almost-max-potential-v0-r17q53he68ub1_slwq1x.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765366914/1_mxcqlv.png",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765366915/acer-aspire-xc-1660-g-almost-max-potential-v0-r17q53he68ub1_cyassh.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765366913/acer-aspire-xc-1660-g-almost-max-potential-v0-r17q53he68ub1_slwq1x.jpg"
+      ],
+      rating: 4.5
+    },
+    {
+      id: 130,
+      name: "Lenovo ThinkStation P340",
+      category: "computer",
+      color: ["Black"],
+      currentprice: 1199.99,
+      prevprice: 1299.99,
+      location: "China",
+      amount: 12,
+      description: "Workstation desktop for designers and engineers.",
+      detailed_description: "The Lenovo ThinkStation P340 with Intel i7, 32GB RAM, 1TB SSD. Ideal for CAD and professional software.",
+      reviews: [
+        { user: "Noah K.", comment: "Handles CAD smoothly.", rating: 5 },
+        { user: "Ava M.", comment: "Professional grade desktop.", rating: 4 }
+      ],
+      images: [
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765367076/lenovo-desktop-thinkstation-p340-tower-hero_zrlzba.png ",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765367077/lenovo-desktop-thinkstation-p340-tiny-hero_eumdtn.png",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765367079/Lenovo-ThinkStation-P340-Tiny-Internal-Bottom-Dual-M.2-Slots-and-SSD_rp75bf.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765367081/IMG_1060_1800x_anvear.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765367083/lenovo-desktop-6_bu9duq.png"
+      ],
+      rating: 4.8
+    },
+    {
+      id: 131,
+      name: "HP ProDesk 400 G7",
+      category: "computer",
+      color: ["Silver"],
+      currentprice: 649.99,
+      prevprice: 749.99,
+      location: "USA",
+      amount: 20,
+      description: "Reliable desktop for office environments.",
+      detailed_description: "HP ProDesk 400 G7 features Intel i5, 16GB RAM, 512GB SSD. Compact and efficient for professional use.",
+      reviews: [
+        { user: "Sophia T.", comment: "Smooth and quiet.", rating: 5 },
+        { user: "Jacob L.", comment: "Good office desktop.", rating: 4 }
+      ],
+      images: [
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765367221/2aaa61cd-b5f2-410f-ab0c-912c3868ec17_ehgmcx.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765367223/c06699391_doxcoo.png",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765367225/Hp-Prodesk-400-G7-6_pbdezz.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765367226/hp-prodesk-400-g7-sff-intel-core-ram-hdd-ports_hprlse.png",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765367227/ProductViewThumb_leg3d4.jpg"
+      ],
+      rating: 4.6
+    },
+    {
+      id: 132,
+      name: "ASUS ROG Strix GA15",
+      category: "computer",
+      color: ["Black", "Red"],
+      currentprice: 1299.99,
+      prevprice: 1399.99,
+      location: "Taiwan",
+      amount: 15,
+      description: "Gaming desktop with powerful specs.",
+      detailed_description: "The ASUS ROG Strix GA15 features Ryzen 7, 16GB RAM, 1TB SSD, RTX 3060. Ideal for gaming and streaming.",
+      reviews: [
+        { user: "Mia T.", comment: "Runs all games smoothly.", rating: 5 },
+        { user: "Liam R.", comment: "Excellent gaming PC.", rating: 4 }
+      ],
+      images: [
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765367353/9C346B9E-F408-4512-B81D-9F4903A0C63D_jiqjea.png",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765367354/h732_zubzxp.png",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765367354/h732_zubzxp.png",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765367358/k3vm6ns4suk71_khtgae.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765367359/upgraded-my-asus-rog-strix-ga15-dh-with-a-6600xt-v0-o1261puhkeh81_c5zgyz.jpg"
+      ],
+      rating: 4.8,
 
-  {
-    id: 138,
-    name: "Google Pixel 8",
-    category: "mobile",
-    color: ["White", "Black"],
-    currentprice: 799.99,
-    prevprice: 899.99,
-    location: "USA",
-    amount: 28,
-    description: "Google smartphone with pure Android experience.",
-    detailed_description: "Pixel 8 features 6.2-inch OLED display, 128GB storage, Google Tensor G3 chip. Ideal for photography and AI features.",
-    reviews: [
-      { user: "Sophia W.", comment: "Camera is amazing!", rating: 5 },
-      { user: "Ethan P.", comment: "Love the clean Android interface.", rating: 4 }
-    ],
-    images: [
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765368669/Pixel_8_Pro_in_Porcelain.max-936x936.format-webp_nnqr7u.webp",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765368667/61O4yGzkkTL._AC_UF894_1000_QL80__ogkwpk.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765368665/2f5c16c6-ca0b-40e5-a77c-4a0e5c26c3ed_f0dewv.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765368664/Google-Pixel-8-Pro-and-Pixel-8-Review-Gear_axhkpf.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765368661/65cfbf246fcb546d2d50f812_tbodyn.jpg"
-    ],
-    rating: 4.7
-  },
-  {
-    id: 139,
-    name: "OnePlus 12",
-    category: "mobile",
-    color: ["Black", "Red"],
-    currentprice: 899.99,
-    prevprice: 999.99,
-    location: "China",
-    amount: 30,
-    description: "High-speed OnePlus smartphone.",
-    detailed_description: "OnePlus 12 features 6.7-inch AMOLED display, 256GB storage, Snapdragon 8 Gen 3. Fast and smooth performance.",
-    reviews: [
-      { user: "Liam R.", comment: "Extremely fast.", rating: 5 },
-      { user: "Olivia C.", comment: "Excellent display.", rating: 4 }
-    ],
-    images: [
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765368840/12-green_orfdvn.png",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765368842/5310_jiybjv.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765368844/oneplus-12-12r-cnet-lanxon-review-29_mjfudw.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765368846/e2566b9853071dbb7fe9306713bbe51f.png_guhhay.webp",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765368849/71YzJwmRFCL._AC_UF1000_1000_QL80__nf4m18.jpg"
-    ],
-    rating: 4.6
-  },
-  {
-    id: 140,
-    name: "Samsung Galaxy Note 24",
-    category: "mobile",
-    color: ["Mystic Bronze"],
-    currentprice: 1099.99,
-    prevprice: 1199.99,
-    location: "South Korea",
-    amount: 25,
-    description: "Samsung stylus-enabled smartphone.",
-    detailed_description: "Galaxy Note 24 features 6.7-inch AMOLED display, 256GB storage, S-Pen support. Perfect for productivity and note-taking.",
-    reviews: [
-      { user: "Emma P.", comment: "Love the S-Pen!", rating: 5 },
-      { user: "Noah J.", comment: "Great for work and play.", rating: 4 }
-    ],
-    images: [
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765369019/S24Ultra-Color-Titanium_Grey_PC_0527_final_rqdytz.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765369015/samsung-galaxy-s24-ultra-1900_p8is25.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765369012/galaxy-s24-ultra-highlights-kv_ej2edb.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765369026/us-galaxy-s24-s928-562376-sm5s928uzkexaa-548727674_bwhnmk.png",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765369020/gsmarena_002_mykj6w.jpg"
-    ],
-    rating: 4.7
-  },
-  {
-    id: 141,
-    name: "iPhone 15",
-    category: "mobile",
-    color: ["Red", "Blue"],
-    currentprice: 899.99,
-    prevprice: 999.99,
-    location: "USA",
-    amount: 50,
-    description: "Standard iPhone 15 with A17 chip.",
-    detailed_description: "iPhone 15 features 6.1-inch display, 128GB storage, iOS 17. Excellent for daily use and photography.",
-    reviews: [
-      { user: "Mia K.", comment: "Very smooth performance.", rating: 5 },
-      { user: "Ethan H.", comment: "Camera quality is superb.", rating: 4 }
-    ],
-    images: [
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765369199/51-dI0OmzyL_z8djbc.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765369197/yDn3ZSXu9eSBxmXQDZ4PCF_i8675y.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765369189/iphone_15_hero_aqiqcs.png",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765369191/black-1_p4zmqq.png",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765369194/black-6_hdjmq8.png"
-    ],
-    rating: 4.7
-  },
-  {
-    id: 142,
-    name: "Google Pixel 8 Pro",
-    category: "mobile",
-    color: ["Black", "Silver"],
-    currentprice: 999.99,
-    prevprice: 1099.99,
-    location: "USA",
-    amount: 20,
-    description: "Google flagship with advanced camera.",
-    detailed_description: "Pixel 8 Pro features 6.7-inch OLED display, 256GB storage, Tensor G3. Ideal for photography and AI-based apps.",
-    reviews: [
-      { user: "Sophia R.", comment: "Best camera phone!", rating: 5 },
-      { user: "Liam S.", comment: "Love the AI features.", rating: 4 }
-    ],
-    images: [
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765369323/65cfbf246fcb546d2d50f812_i6rbw3.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765369325/Google-8-Pro-Porcelain_aitekw.png",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765369327/71h9zq4viSL._AC_UF894_1000_QL80__uz4dwy.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765369330/71h9zq4viSL_teqtpr.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765369333/Google-Pixel-8-Event-Gear_pikuac.jpg"
-    ],
-    rating: 4.8
-  },
-  {
-    id: 143,
-    name: "OnePlus 12 Pro",
-    category: "mobile",
-    color: ["Blue", "Silver"],
-    currentprice: 999.99,
-    prevprice: 1099.99,
-    location: "China",
-    amount: 18,
-    description: "High-end OnePlus smartphone with excellent display.",
-    detailed_description: "OnePlus 12 Pro features 6.7-inch AMOLED, 256GB storage, Snapdragon 8 Gen 3. Ideal for gaming and multimedia.",
-    reviews: [
-      { user: "Olivia R.", comment: "Amazing display and speed.", rating: 5 },
-      { user: "Noah F.", comment: "Love the smooth interface.", rating: 4 }
-    ],
-    images: [
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765373401/e2566b9853071dbb7fe9306713bbe51f.png_ac7q2o.webp",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765373405/12-green_y6thgw.png",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765373410/b96848b7acd10dafde32203d12f6fea7_o0ht5e.png",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765373414/oneplus-12-12r-cnet-lanxon-review-29_bdxmwm.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765373419/71tRpVJeMcL._AC_UF894_1000_QL80__gyubhk.jpg"
-    ],
-    rating: 4.8
-  },
-  {
-    id: 144,
-    name: "Samsung Galaxy Z Fold 6",
-    category: "mobile",
-    color: ["Silver", "Black"],
-    currentprice: 1799.99,
-    prevprice: 1899.99,
-    location: "South Korea",
-    amount: 10,
-    description: "Foldable smartphone for multitasking.",
-    detailed_description: "Galaxy Z Fold 6 features 7.6-inch foldable AMOLED, 512GB storage. Perfect for productivity and media consumption.",
-    reviews: [
-      { user: "Mia S.", comment: "Love the foldable screen!", rating: 5 },
-      { user: "Ethan K.", comment: "Innovative and powerful.", rating: 4 }
-    ],
-    images: [
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765373802/61896OtgvGL_robppf.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765373812/668eb0073598be27b3456082_ds9qqe.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765373817/LD0006202415_cuadif.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765373814/maxresdefault_off3eq.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765373834/filters_3Aupscale_28_29_edlj2n.png"
-    ],
-    rating: 4.9
-  },
-  {
-    id: 145,
-    name: "Samsung Galaxy Z Flip 6",
-    category: "mobile",
-    color: ["Pink", "Black"],
-    currentprice: 1099.99,
-    prevprice: 1199.99,
-    location: "South Korea",
-    amount: 12,
-    description: "Compact foldable smartphone.",
-    detailed_description: "Galaxy Z Flip 6 features 6.7-inch foldable AMOLED, 256GB storage. Stylish and powerful.",
-    reviews: [
-      { user: "Sophia J.", comment: "Perfect compact phone.", rating: 5 },
-      { user: "Liam Q.", comment: "Foldable design is great.", rating: 4 }
-    ],
-    images: [
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765374013/Wi33c9Z23kKPT8d3MHf4CS_wlltb2.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765374017/61mSUSY4xWL_r3ipwd.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765374017/61mSUSY4xWL_r3ipwd.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765374029/galaxy-z-flip6-share-image_hijwu2.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765374033/filters_3Aformat_28png_29_3Aupscale_28_29_jvij5f.png"
-    ],
-    rating: 4.8
-  },
-  {
-    id: 146,
-    name: "iPhone 15 Plus",
-    category: "mobile",
-    color: ["Blue", "Black", "Red"],
-    currentprice: 999.99,
-    prevprice: 1099.99,
-    location: "USA",
-    amount: 30,
-    description: "Larger iPhone 15 with longer battery life.",
-    detailed_description: "iPhone 15 Plus features 6.7-inch display, 128GB storage, iOS 17. Great for media consumption and daily use.",
-    reviews: [
-      { user: "Mia L.", comment: "Battery lasts long!", rating: 5 },
-      { user: "Ethan M.", comment: "Smooth performance.", rating: 4 }
-    ],
-    images: [
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765374282/51PtFHUPjBL._AC_UL495_SR435_495__zkzxge.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765374288/iphone_15_plus_hero_xvem18.png",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765374293/refurb-iphone-15-plus-black-202412_wpmi5k.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765374298/Apple-iPhone-15-Plus-Pink-frontimage_mcmlqy.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765374304/AT-T-Apple-iPhone-15-Plus-128GB-Yellow_02ef5841-1945-43eb-aea4-f61bb247deb3.0a9e3b08d4d70f55caf1b19dbab14b06_kf2i4h.jpg"
-    ],
-    rating: 4.7
-  },
-  {
-    id: 147,
-    name: "Google Pixel 8a",
-    category: "mobile",
-    color: ["Black", "Purple"],
-    currentprice: 499.99,
-    prevprice: 599.99,
-    location: "USA",
-    amount: 25,
-    description: "Affordable Pixel with good performance.",
-    detailed_description: "Pixel 8a features 6.1-inch OLED, 128GB storage, Tensor G3 chip. Ideal for photography and smooth daily use.",
-    reviews: [
-      { user: "Olivia N.", comment: "Great value for money.", rating: 5 },
-      { user: "Liam D.", comment: "Camera quality is good.", rating: 4 }
-    ],
-    images: [
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765374498/google-pixel-8-pro-review-cnet-8_qnssel.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765374492/pixel-8a-ga04432-in-google-original-imahyn3mqzdbzywg_vvxyil.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765374487/Yrib6arPO4qH5AasptV5UHT5kay4cbaqpoxpa7C1BSribhYwbqEbqVvcZ7dp2RSybWJkLyxjivsBUSpQxr6lricWMDvCWCBP5M6V_epymoq.png",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765374482/google-pixel-8a-mobile-phone-9730_iq5qrz.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765374476/71XOyJfGIzL_prbmcq.jpg"
-    ],
-    rating: 4.6
-  },
-  {
-    id: 148,
-    name: "OnePlus Nord 3",
-    category: "mobile",
-    color: ["Gray", "Blue"],
-    currentprice: 399.99,
-    prevprice: 499.99,
-    location: "China",
-    amount: 20,
-    description: "Mid-range OnePlus smartphone.",
-    detailed_description: "OnePlus Nord 3 features 6.5-inch AMOLED, 128GB storage, MediaTek Dimensity 9200. Smooth performance for daily use.",
-    reviews: [
-      { user: "Sophia K.", comment: "Very responsive phone.", rating: 5 },
-      { user: "Ethan L.", comment: "Great display and battery.", rating: 4 }
-    ],
-    images: [
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765374999/OnePlus-Nord-3-f_hkfwpx.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765374996/oneplus-nord-3-review-7_k3rywd.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765374990/images-kv-bg-asia-1.jpg_wt2nna.webp",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765374982/vitamin-spec-black_w2oonj.png",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765374996/oneplus-nord-3-review-7_k3rywd.jpg"
-    ],
-    rating: 4.5
-  },
-  {
-    id: 149,
-    name: "Samsung Galaxy A74",
-    category: "mobile",
-    color: ["Silver", "Black"],
-    currentprice: 449.99,
-    prevprice: 549.99,
-    location: "South Korea",
-    amount: 22,
-    description: "Affordable Samsung smartphone with big display.",
-    detailed_description: "Galaxy A74 features 6.7-inch AMOLED, 128GB storage, Snapdragon 778G. Ideal for media and casual use.",
-    reviews: [
-      { user: "Mia D.", comment: "Big screen and smooth.", rating: 5 },
-      { user: "Noah L.", comment: "Good value.", rating: 4 }
-    ],
-    images: [
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765375206/Samsung-Galaxy-A73-b_rogtzj.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765375191/gsmarena_001_seealz.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765375212/pGM7LdBOMcKNt_3toD0mt2zWE5brbQnfEyMcoSVWTbJZVO_kMTCMyaj_BcyuSxcKJg_vmlfmp.png",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765375195/hq720_edv32r.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765375206/Samsung-Galaxy-A73-b_rogtzj.jpg"
-    ],
-    rating: 4.6
-  },
-  {
-    id: 150,
-    name: "iPhone SE 4th Gen",
-    category: "mobile",
-    color: ["Black", "White", "Red"],
-    currentprice: 399.99,
-    prevprice: 499.99,
-    location: "USA",
-    amount: 35,
-    description: "Compact iPhone with A17 chip.",
-    detailed_description: "iPhone SE 4th Gen features 4.7-inch display, 64GB storage, iOS 17. Great for users who prefer small phones.",
-    reviews: [
-      { user: "Emma G.", comment: "Perfect size for one-hand use.", rating: 5 },
-      { user: "Liam J.", comment: "Fast and reliable.", rating: 4 }
-    ],
-    images: [
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765375613/hq720_bm4ytt.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765375590/iphone-se-4th-gen-2024-v0-x939lzbxtfic1_fngjn0.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765375607/iphone-se-4-modified_n1x5hg.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765375601/iPhone-SE-4-rumored-to-arrive-in-2025-with-a-design-based-on-the-upcoming-iPhone-16_rznpit.jpg",
-      "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765375597/iphone-se-4-render-034720509-3x4_e4cjnc.jpg"
-    ],
-    rating: 4.7
-  }
- 
-   
+      isNew: true,
+      isFeatured: false,
+      isTopSelling: true
+
+    },
+    {
+      id: 133,
+      name: "MSI Creator P100X",
+      category: "computer",
+      color: ["Black"],
+      currentprice: 1499.99,
+      prevprice: 1599.99,
+      location: "Taiwan",
+      amount: 10,
+      description: "Desktop for creative professionals.",
+      detailed_description: "MSI Creator P100X features Intel i9, 32GB RAM, 1TB SSD, RTX 3070. Perfect for video editing and design work.",
+      reviews: [
+        { user: "Emma S.", comment: "Amazing for editing.", rating: 5 },
+        { user: "Noah P.", comment: "Handles Adobe suite perfectly.", rating: 4 }
+      ],
+      images: [
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765367552/61BmF_98j0L_wfxmxk.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765367554/Upgradable_img01_xaqx7q.png",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765367555/617WBOTUlHL._AC_UF894_1000_QL80__jwlo0z.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765367557/Webp.net-compress-image_ttyqhh.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765367559/a53bb4ac-cf78-4070-be98-258e490fd6e7_beacrl.jpg"
+      ],
+      rating: 4.9
+    },
+    {
+      id: 134,
+      name: "Apple iMac 24-inch M1",
+      category: "computer",
+      color: ["Silver", "Blue", "Green", "Pink"],
+      currentprice: 1299.99,
+      prevprice: 1399.99,
+      location: "USA",
+      amount: 12,
+      description: "All-in-one desktop with M1 chip.",
+      detailed_description: "iMac 24-inch M1 features 8GB RAM, 256GB SSD. Beautiful Retina display and macOS ecosystem.",
+      reviews: [
+        { user: "Sophia W.", comment: "Stunning display!", rating: 5 },
+        { user: "Liam M.", comment: "Fast and quiet.", rating: 4 }
+      ],
+      images: [
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765367708/refurb-imac-24-blue-2021_ylzu60.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765367707/111895_imac-24-inch--m1_ov34jq.png",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765367711/7hq8LosjChoWg3pzCuqezb_fzl701.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765367713/403541-all-in-one-desktops-apple-24-inch-imac-m1-chip-10020645_q2v4f6.png",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765367715/apple-imac-24-2021-main_bnhkhq.jpg"
+      ],
+      rating: 4.8
+    },
+    {
+      id: 135,
+      name: "Dell XPS Desktop 8940",
+      category: "computer",
+      color: ["Silver", "Black"],
+      currentprice: 1099.99,
+      prevprice: 1199.99,
+      location: "USA",
+      amount: 15,
+      description: "High-performance desktop for home and office.",
+      detailed_description: "Dell XPS Desktop 8940 features Intel i7, 16GB RAM, 512GB SSD, GTX 1660. Great for multitasking and light gaming.",
+      reviews: [
+        { user: "Mia L.", comment: "Powerful and sleek.", rating: 5 },
+        { user: "Ethan R.", comment: "Perfect for my setup.", rating: 4 }
+      ],
+      images: [
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765367941/61ZFI69jGCL_hsu7n8.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765367943/dell-xps-desktop-8950-1050167_noovjw.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765367945/xs8940-csy-00058ff-bk-rkl_sqnhm4.png",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765367947/403954-full-size-desktops-dell-xps-8940-7887blk-10021340_yg8utl.png",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765367949/Dell-XPS-8940-product-image_jfhnml.jpg"
+      ],
+      rating: 4.7
+    },
+    {
+      id: 136,
+      name: "iPhone 15 Pro",
+      category: "mobile",
+      color: ["Silver", "Graphite"],
+      currentprice: 1099.99,
+      prevprice: 1199.99,
+      location: "USA",
+      amount: 40,
+      description: "Latest Apple smartphone with A17 chip.",
+      detailed_description: "iPhone 15 Pro features 6.1-inch display, 128GB storage, iOS 17. Perfect for photography and productivity.",
+      reviews: [
+        { user: "Ava R.", comment: "Fast and sleek!", rating: 5 },
+        { user: "Noah T.", comment: "Excellent camera.", rating: 4 }
+      ],
+      images: [
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765368156/iPhone_15_Pro_-_Black_titanium-_Overlap_Trans-cropped_a3nvyp.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765368151/refurb-iphone-15-pro-bluetitanium-202412_xtor6b.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765368150/Apple-iPhone-15-Pro-lineup-hero-230912.jpg.news_app_ed_gfqfhs.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765368148/iphone_15_pro_lbp22r.png",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765368154/41NGdWgVgdL_gkak0r.jpg"
+      ],
+      rating: 4.8
+    },
+    {
+      id: 137,
+      name: "Samsung Galaxy S24",
+      category: "mobile",
+      color: ["Phantom Black", "Green"],
+      currentprice: 999.99,
+      prevprice: 1099.99,
+      location: "South Korea",
+      amount: 35,
+      description: "Flagship Samsung smartphone with Snapdragon 8 Gen 3.",
+      detailed_description: "Samsung Galaxy S24 features 6.2-inch AMOLED display, 128GB storage, Android 14. Great for photography and gaming.",
+      reviews: [
+        { user: "Liam H.", comment: "Beautiful display!", rating: 5 },
+        { user: "Emma C.", comment: "Fast and smooth.", rating: 4 }
+      ],
+      images: [
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765368416/Gear-Samsung-Galaxy-S24-Ultra-SOURCE-Julian-Chokkattu_dquhrl.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765368411/51A-Q4eMBxL._AC_UF894_1000_QL80__yogp56.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765368402/onyx-black-9_lihvzt.png",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765368402/galaxy-s24-highlights-kv_p9jyxl.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765368414/Gear-Samsung-Galaxy-S24-Series-SOURCE-Julian-Chokkattu_vsilcz.jpg"
+      ],
+      rating: 4.7
+    },
+
+    {
+      id: 138,
+      name: "Google Pixel 8",
+      category: "mobile",
+      color: ["White", "Black"],
+      currentprice: 799.99,
+      prevprice: 899.99,
+      location: "USA",
+      amount: 28,
+      description: "Google smartphone with pure Android experience.",
+      detailed_description: "Pixel 8 features 6.2-inch OLED display, 128GB storage, Google Tensor G3 chip. Ideal for photography and AI features.",
+      reviews: [
+        { user: "Sophia W.", comment: "Camera is amazing!", rating: 5 },
+        { user: "Ethan P.", comment: "Love the clean Android interface.", rating: 4 }
+      ],
+      images: [
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765368669/Pixel_8_Pro_in_Porcelain.max-936x936.format-webp_nnqr7u.webp",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765368667/61O4yGzkkTL._AC_UF894_1000_QL80__ogkwpk.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765368665/2f5c16c6-ca0b-40e5-a77c-4a0e5c26c3ed_f0dewv.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765368664/Google-Pixel-8-Pro-and-Pixel-8-Review-Gear_axhkpf.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765368661/65cfbf246fcb546d2d50f812_tbodyn.jpg"
+      ],
+      rating: 4.7
+    },
+    {
+      id: 139,
+      name: "OnePlus 12",
+      category: "mobile",
+      color: ["Black", "Red"],
+      currentprice: 899.99,
+      prevprice: 999.99,
+      location: "China",
+      amount: 30,
+      description: "High-speed OnePlus smartphone.",
+      detailed_description: "OnePlus 12 features 6.7-inch AMOLED display, 256GB storage, Snapdragon 8 Gen 3. Fast and smooth performance.",
+      reviews: [
+        { user: "Liam R.", comment: "Extremely fast.", rating: 5 },
+        { user: "Olivia C.", comment: "Excellent display.", rating: 4 }
+      ],
+      images: [
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765368840/12-green_orfdvn.png",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765368842/5310_jiybjv.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765368844/oneplus-12-12r-cnet-lanxon-review-29_mjfudw.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765368846/e2566b9853071dbb7fe9306713bbe51f.png_guhhay.webp",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765368849/71YzJwmRFCL._AC_UF1000_1000_QL80__nf4m18.jpg"
+      ],
+      rating: 4.6
+    },
+    {
+      id: 140,
+      name: "Samsung Galaxy Note 24",
+      category: "mobile",
+      color: ["Mystic Bronze"],
+      currentprice: 1099.99,
+      prevprice: 1199.99,
+      location: "South Korea",
+      amount: 25,
+      description: "Samsung stylus-enabled smartphone.",
+      detailed_description: "Galaxy Note 24 features 6.7-inch AMOLED display, 256GB storage, S-Pen support. Perfect for productivity and note-taking.",
+      reviews: [
+        { user: "Emma P.", comment: "Love the S-Pen!", rating: 5 },
+        { user: "Noah J.", comment: "Great for work and play.", rating: 4 }
+      ],
+      images: [
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765369019/S24Ultra-Color-Titanium_Grey_PC_0527_final_rqdytz.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765369015/samsung-galaxy-s24-ultra-1900_p8is25.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765369012/galaxy-s24-ultra-highlights-kv_ej2edb.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765369026/us-galaxy-s24-s928-562376-sm5s928uzkexaa-548727674_bwhnmk.png",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765369020/gsmarena_002_mykj6w.jpg"
+      ],
+      rating: 4.7
+    },
+    {
+      id: 141,
+      name: "iPhone 15",
+      category: "mobile",
+      color: ["Red", "Blue"],
+      currentprice: 899.99,
+      prevprice: 999.99,
+      location: "USA",
+      amount: 50,
+      description: "Standard iPhone 15 with A17 chip.",
+      detailed_description: "iPhone 15 features 6.1-inch display, 128GB storage, iOS 17. Excellent for daily use and photography.",
+      reviews: [
+        { user: "Mia K.", comment: "Very smooth performance.", rating: 5 },
+        { user: "Ethan H.", comment: "Camera quality is superb.", rating: 4 }
+      ],
+      images: [
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765369199/51-dI0OmzyL_z8djbc.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765369197/yDn3ZSXu9eSBxmXQDZ4PCF_i8675y.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765369189/iphone_15_hero_aqiqcs.png",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765369191/black-1_p4zmqq.png",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765369194/black-6_hdjmq8.png"
+      ],
+      rating: 4.7
+    },
+    {
+      id: 142,
+      name: "Google Pixel 8 Pro",
+      category: "mobile",
+      color: ["Black", "Silver"],
+      currentprice: 999.99,
+      prevprice: 1099.99,
+      location: "USA",
+      amount: 20,
+      description: "Google flagship with advanced camera.",
+      detailed_description: "Pixel 8 Pro features 6.7-inch OLED display, 256GB storage, Tensor G3. Ideal for photography and AI-based apps.",
+      reviews: [
+        { user: "Sophia R.", comment: "Best camera phone!", rating: 5 },
+        { user: "Liam S.", comment: "Love the AI features.", rating: 4 }
+      ],
+      images: [
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765369323/65cfbf246fcb546d2d50f812_i6rbw3.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765369325/Google-8-Pro-Porcelain_aitekw.png",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765369327/71h9zq4viSL._AC_UF894_1000_QL80__uz4dwy.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765369330/71h9zq4viSL_teqtpr.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765369333/Google-Pixel-8-Event-Gear_pikuac.jpg"
+      ],
+      rating: 4.8
+    },
+    {
+      id: 143,
+      name: "OnePlus 12 Pro",
+      category: "mobile",
+      color: ["Blue", "Silver"],
+      currentprice: 999.99,
+      prevprice: 1099.99,
+      location: "China",
+      amount: 18,
+      description: "High-end OnePlus smartphone with excellent display.",
+      detailed_description: "OnePlus 12 Pro features 6.7-inch AMOLED, 256GB storage, Snapdragon 8 Gen 3. Ideal for gaming and multimedia.",
+      reviews: [
+        { user: "Olivia R.", comment: "Amazing display and speed.", rating: 5 },
+        { user: "Noah F.", comment: "Love the smooth interface.", rating: 4 }
+      ],
+      images: [
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765373401/e2566b9853071dbb7fe9306713bbe51f.png_ac7q2o.webp",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765373405/12-green_y6thgw.png",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765373410/b96848b7acd10dafde32203d12f6fea7_o0ht5e.png",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765373414/oneplus-12-12r-cnet-lanxon-review-29_bdxmwm.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765373419/71tRpVJeMcL._AC_UF894_1000_QL80__gyubhk.jpg"
+      ],
+      rating: 4.8
+    },
+    {
+      id: 144,
+      name: "Samsung Galaxy Z Fold 6",
+      category: "mobile",
+      color: ["Silver", "Black"],
+      currentprice: 1799.99,
+      prevprice: 1899.99,
+      location: "South Korea",
+      amount: 10,
+      description: "Foldable smartphone for multitasking.",
+      detailed_description: "Galaxy Z Fold 6 features 7.6-inch foldable AMOLED, 512GB storage. Perfect for productivity and media consumption.",
+      reviews: [
+        { user: "Mia S.", comment: "Love the foldable screen!", rating: 5 },
+        { user: "Ethan K.", comment: "Innovative and powerful.", rating: 4 }
+      ],
+      images: [
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765373802/61896OtgvGL_robppf.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765373812/668eb0073598be27b3456082_ds9qqe.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765373817/LD0006202415_cuadif.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765373814/maxresdefault_off3eq.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765373834/filters_3Aupscale_28_29_edlj2n.png"
+      ],
+      rating: 4.9
+    },
+    {
+      id: 145,
+      name: "Samsung Galaxy Z Flip 6",
+      category: "mobile",
+      color: ["Pink", "Black"],
+      currentprice: 1099.99,
+      prevprice: 1199.99,
+      location: "South Korea",
+      amount: 12,
+      description: "Compact foldable smartphone.",
+      detailed_description: "Galaxy Z Flip 6 features 6.7-inch foldable AMOLED, 256GB storage. Stylish and powerful.",
+      reviews: [
+        { user: "Sophia J.", comment: "Perfect compact phone.", rating: 5 },
+        { user: "Liam Q.", comment: "Foldable design is great.", rating: 4 }
+      ],
+      images: [
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765374013/Wi33c9Z23kKPT8d3MHf4CS_wlltb2.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765374017/61mSUSY4xWL_r3ipwd.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765374017/61mSUSY4xWL_r3ipwd.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765374029/galaxy-z-flip6-share-image_hijwu2.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765374033/filters_3Aformat_28png_29_3Aupscale_28_29_jvij5f.png"
+      ],
+      rating: 4.8
+    },
+    {
+      id: 146,
+      name: "iPhone 15 Plus",
+      category: "mobile",
+      color: ["Blue", "Black", "Red"],
+      currentprice: 999.99,
+      prevprice: 1099.99,
+      location: "USA",
+      amount: 30,
+      description: "Larger iPhone 15 with longer battery life.",
+      detailed_description: "iPhone 15 Plus features 6.7-inch display, 128GB storage, iOS 17. Great for media consumption and daily use.",
+      reviews: [
+        { user: "Mia L.", comment: "Battery lasts long!", rating: 5 },
+        { user: "Ethan M.", comment: "Smooth performance.", rating: 4 }
+      ],
+      images: [
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765374282/51PtFHUPjBL._AC_UL495_SR435_495__zkzxge.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765374288/iphone_15_plus_hero_xvem18.png",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765374293/refurb-iphone-15-plus-black-202412_wpmi5k.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765374298/Apple-iPhone-15-Plus-Pink-frontimage_mcmlqy.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765374304/AT-T-Apple-iPhone-15-Plus-128GB-Yellow_02ef5841-1945-43eb-aea4-f61bb247deb3.0a9e3b08d4d70f55caf1b19dbab14b06_kf2i4h.jpg"
+      ],
+      rating: 4.7
+    },
+    {
+      id: 147,
+      name: "Google Pixel 8a",
+      category: "mobile",
+      color: ["Black", "Purple"],
+      currentprice: 499.99,
+      prevprice: 599.99,
+      location: "USA",
+      amount: 25,
+      description: "Affordable Pixel with good performance.",
+      detailed_description: "Pixel 8a features 6.1-inch OLED, 128GB storage, Tensor G3 chip. Ideal for photography and smooth daily use.",
+      reviews: [
+        { user: "Olivia N.", comment: "Great value for money.", rating: 5 },
+        { user: "Liam D.", comment: "Camera quality is good.", rating: 4 }
+      ],
+      images: [
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765374498/google-pixel-8-pro-review-cnet-8_qnssel.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765374492/pixel-8a-ga04432-in-google-original-imahyn3mqzdbzywg_vvxyil.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765374487/Yrib6arPO4qH5AasptV5UHT5kay4cbaqpoxpa7C1BSribhYwbqEbqVvcZ7dp2RSybWJkLyxjivsBUSpQxr6lricWMDvCWCBP5M6V_epymoq.png",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765374482/google-pixel-8a-mobile-phone-9730_iq5qrz.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765374476/71XOyJfGIzL_prbmcq.jpg"
+      ],
+      rating: 4.6
+    },
+    {
+      id: 148,
+      name: "OnePlus Nord 3",
+      category: "mobile",
+      color: ["Gray", "Blue"],
+      currentprice: 399.99,
+      prevprice: 499.99,
+      location: "China",
+      amount: 20,
+      description: "Mid-range OnePlus smartphone.",
+      detailed_description: "OnePlus Nord 3 features 6.5-inch AMOLED, 128GB storage, MediaTek Dimensity 9200. Smooth performance for daily use.",
+      reviews: [
+        { user: "Sophia K.", comment: "Very responsive phone.", rating: 5 },
+        { user: "Ethan L.", comment: "Great display and battery.", rating: 4 }
+      ],
+      images: [
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765374999/OnePlus-Nord-3-f_hkfwpx.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765374996/oneplus-nord-3-review-7_k3rywd.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765374990/images-kv-bg-asia-1.jpg_wt2nna.webp",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765374982/vitamin-spec-black_w2oonj.png",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765374996/oneplus-nord-3-review-7_k3rywd.jpg"
+      ],
+      rating: 4.5
+    },
+    {
+      id: 149,
+      name: "Samsung Galaxy A74",
+      category: "mobile",
+      color: ["Silver", "Black"],
+      currentprice: 449.99,
+      prevprice: 549.99,
+      location: "South Korea",
+      amount: 22,
+      description: "Affordable Samsung smartphone with big display.",
+      detailed_description: "Galaxy A74 features 6.7-inch AMOLED, 128GB storage, Snapdragon 778G. Ideal for media and casual use.",
+      reviews: [
+        { user: "Mia D.", comment: "Big screen and smooth.", rating: 5 },
+        { user: "Noah L.", comment: "Good value.", rating: 4 }
+      ],
+      images: [
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765375206/Samsung-Galaxy-A73-b_rogtzj.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765375191/gsmarena_001_seealz.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765375212/pGM7LdBOMcKNt_3toD0mt2zWE5brbQnfEyMcoSVWTbJZVO_kMTCMyaj_BcyuSxcKJg_vmlfmp.png",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765375195/hq720_edv32r.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765375206/Samsung-Galaxy-A73-b_rogtzj.jpg"
+      ],
+      rating: 4.6,
+
+      isNew: true,
+      isFeatured: false,
+      isTopSelling: true
+
+    },
+    {
+      id: 150,
+      name: "iPhone SE 4th Gen",
+      category: "mobile",
+      color: ["Black", "White", "Red"],
+      currentprice: 399.99,
+      prevprice: 499.99,
+      location: "USA",
+      amount: 35,
+      description: "Compact iPhone with A17 chip.",
+      detailed_description: "iPhone SE 4th Gen features 4.7-inch display, 64GB storage, iOS 17. Great for users who prefer small phones.",
+      reviews: [
+        { user: "Emma G.", comment: "Perfect size for one-hand use.", rating: 5 },
+        { user: "Liam J.", comment: "Fast and reliable.", rating: 4 }
+      ],
+      images: [
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765375613/hq720_bm4ytt.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765375590/iphone-se-4th-gen-2024-v0-x939lzbxtfic1_fngjn0.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765375607/iphone-se-4-modified_n1x5hg.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765375601/iPhone-SE-4-rumored-to-arrive-in-2025-with-a-design-based-on-the-upcoming-iPhone-16_rznpit.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765375597/iphone-se-4-render-034720509-3x4_e4cjnc.jpg"
+      ],
+      rating: 4.7
+    }
+
+
   ]
   private filteredProduct = new BehaviorSubject<Product[]>(this.products);
   products$ = this.filteredProduct.asObservable();
@@ -3787,11 +3827,11 @@ export class ProductService {
     let filtered = this.products.filter(p => {
       const lowerTerm = term.toLowerCase().trim();
       const matchName = p.name.toLowerCase().includes(lowerTerm);
-      
 
-       // Handle multiple categories if category string is empty
-    const matchCategory =
-  category === 'All Category' || p.category.toLowerCase() === category.toLowerCase();
+
+      // Handle multiple categories if category string is empty
+      const matchCategory =
+        category === 'All Category' || p.category.toLowerCase() === category.toLowerCase();
 
       return matchName && matchCategory;
     });
@@ -3835,41 +3875,96 @@ export class ProductService {
     console.log('--- Filter & Sort Completed ---');
   }
 
- addReview(productId: number, review: any) {
-  const product = this.products.find(p => p.id === productId);
+  // addReview(productId: number, review: any) {
+  //   const product = this.products.find(p => p.id === productId);
 
-  if (product) {
-    if (!product.reviews) {
-      product.reviews = [];
-    }
-    product.reviews.push(review);
+  //   if (product) {
+  //     if (!product.reviews) {
+  //       product.reviews = [];
+  //     }
+  //     product.reviews.push(review);
 
-    this.filteredProduct.next([...this.products]);
+  //     this.filteredProduct.next([...this.products]);
+  //   }
+  // }
+
+
+
+  /**
+   * Get products flagged as "New Arrivals"
+   */
+  getNewArrivals(): Product[] {
+    const newProducts = this.products.filter(p => p.isNew);
+    console.log('New Arrivals fetched:', newProducts.map(p => p.name));
+    return newProducts;
   }
-}
 
-getRandomProductsByCategory(limitPerCategory: number = 2): Product[] {
-  const categoryMap: { [key: string]: Product[] } = {};
+  /**
+   * Get products flagged as "Featured"
+   */
+  getFeaturedProducts(): Product[] {
+    const featured = this.products.filter(p => p.isFeatured);
+    console.log('Featured Products fetched:', featured.map(p => p.name));
+    return featured;
+  }
 
-  // Group products by category
-  this.products.forEach(product => {
-    if (!categoryMap[product.category]) {
-      categoryMap[product.category] = [];
-    }
-    categoryMap[product.category].push(product);
-  });
+  /**
+   * Get products flagged as "Top Selling"
+   */
+  getTopSellingProducts(): Product[] {
+    const topSelling = this.products.filter(p => p.isTopSelling);
+    console.log('Top Selling Products fetched:', topSelling.map(p => p.name));
+    return topSelling;
+  }
 
-  // Pick random products from each category
-  let randomProducts: Product[] = [];
 
-  Object.values(categoryMap).forEach(products => {
-    const shuffled = [...products].sort(() => 0.5 - Math.random());
-    randomProducts.push(...shuffled.slice(0, limitPerCategory));
-  });
+  getRandomProductsForHome(limitPerCategory: number = 2): Product[] {
+    const categoryMap: { [key: string]: Product[] } = {};
 
-  // Final shuffle (so categories are mixed)
-  return randomProducts.sort(() => 0.5 - Math.random());
-}
+    // Group products by category
+    this.products.forEach(p => {
+      if (!categoryMap[p.category]) categoryMap[p.category] = [];
+      categoryMap[p.category].push(p);
+    });
+
+    // Pick limited random products per category
+    let selected: Product[] = [];
+    Object.values(categoryMap).forEach(products => {
+      const shuffled = [...products].sort(() => 0.5 - Math.random());
+      selected.push(...shuffled.slice(0, limitPerCategory));
+    });
+
+    // Final shuffle across all categories
+    const final = selected.sort(() => 0.5 - Math.random());
+
+    console.log('All Products (limited per category, randomized):', final.map(p => p.name));
+    return final;
+  }
+
+
+
+  getHomePageProducts(limitPerCategory: number = 2, maxPerTab: number = 8) {
+    // All Products — random per category
+    const all = this.getRandomProductsForHome(limitPerCategory);
+
+    // New Arrivals
+    const newArrivals = this.getNewArrivals().slice(0, maxPerTab);
+
+    // Featured
+    const featured = this.getFeaturedProducts().slice(0, maxPerTab);
+
+    // Top Selling
+    const topSelling = this.getTopSellingProducts().slice(0, maxPerTab);
+
+    console.log('Home Page Products prepared:');
+    console.log('All:', all.map(p => p.name));
+    console.log('New Arrivals:', newArrivals.map(p => p.name));
+    console.log('Featured:', featured.map(p => p.name));
+    console.log('Top Selling:', topSelling.map(p => p.name));
+
+    return { all, newArrivals, featured, topSelling };
+  }
+
 
 
 

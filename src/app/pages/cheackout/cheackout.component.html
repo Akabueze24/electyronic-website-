@@ -199,14 +199,14 @@
 
                         <h3 class="mt-4">Shipping to a Different Address</h3>
 
-                       
+
 
                         <div class="form-item">
                             <label class="form-label my-3">Address <sup>*</sup></label>
                             <input type="text" class="form-control" formControlName="address">
                         </div>
 
-                       
+
                     </div>
 
 
@@ -233,17 +233,16 @@
                                 <!-- Cart items -->
                                 <tr class="text-center" *ngFor="let item of cartItems">
                                     <td class="text-start">{{ item.name }}</td>
-                                    <td>{{ item.currentprice }}</td>
+                                    <td>{{ item.currentprice | currencyConvert }}</td>
                                     <td>{{ item.quantity }}</td>
-                                   
-                                    <td>{{ item.currentprice * item.quantity }}</td>
-                                    <td>{{item.selectedColor}}</td>
+                                    <td>{{ item.currentprice * item.quantity | currencyConvert }}</td>
+                                    <td>{{ item.selectedColor }}</td>
                                 </tr>
 
                                 <!-- Subtotal -->
                                 <tr>
                                     <td colspan="3" class="text-end py-4"><strong>Subtotal:</strong></td>
-                                    <td class="py-4">{{ subtotal }}</td>
+                                    <td class="py-4">{{ subtotal | currencyConvert }}</td>
                                 </tr>
 
                                 <!-- Shipping options -->
@@ -261,29 +260,32 @@
                                             <input type="radio" class="form-check-input bg-primary border-0"
                                                 id="Shipping-2" name="shipping" [checked]="shippingCost === 9.99"
                                                 (change)="selectShipping(9.99)">
-                                            <label class="form-check-label" for="Shipping-2">Standard Shipping - $9.99
+                                            <label class="form-check-label" for="Shipping-2">Standard Shipping - {{ 9.99
+                                                | currencyConvert }}
                                                 (3-7 days)</label>
                                         </div>
                                         <div class="form-check text-start">
                                             <input type="radio" class="form-check-input bg-primary border-0"
                                                 id="Shipping-3" name="shipping" [checked]="shippingCost === 19.99"
                                                 (change)="selectShipping(19.99)">
-                                            <label class="form-check-label" for="Shipping-3">Express Shipping - $19.99
+                                            <label class="form-check-label" for="Shipping-3">Express Shipping - {{ 19.99
+                                                | currencyConvert }}
                                                 (1-2 days)</label>
                                         </div>
                                         <div class="form-check text-start">
                                             <input type="radio" class="form-check-input bg-primary border-0"
                                                 id="Shipping-4" name="shipping" [checked]="shippingCost === 29.99"
                                                 (change)="selectShipping(29.99)">
-                                            <label class="form-check-label" for="Shipping-4">Overnight Shipping - $29.99
+                                            <label class="form-check-label" for="Shipping-4">Overnight Shipping - {{
+                                                29.99 | currencyConvert }}
                                                 (Next Day)</label>
                                         </div>
                                         <div class="form-check text-start">
                                             <input type="radio" class="form-check-input bg-primary border-0"
                                                 id="Shipping-5" name="shipping" [checked]="shippingCost === 5"
                                                 (change)="selectShipping(5)">
-                                            <label class="form-check-label" for="Shipping-5">Local Pickup -
-                                                $5.00</label>
+                                            <label class="form-check-label" for="Shipping-5">Local Pickup - {{ 5 |
+                                                currencyConvert }}</label>
                                         </div>
                                     </td>
                                 </tr>
@@ -291,8 +293,9 @@
                                 <!-- Total -->
                                 <tr>
                                     <td colspan="3" class="text-end py-4"><strong>Total:</strong></td>
-                                    <td class="py-4"><strong>{{ total.toFixed(2) }}</strong></td>
+                                    <td class="py-4"><strong>{{ total | currencyConvert }}</strong></td>
                                 </tr>
+
                             </tbody>
                         </table>
                     </div>

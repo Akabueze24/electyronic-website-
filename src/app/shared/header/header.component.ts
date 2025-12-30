@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
 import { CartService } from 'src/app/core/add-to-cart/cart.service';
+import { CurrencyService } from 'src/app/core/currency/currency.service';
 import { Product, ProductService } from 'src/app/core/product-service/product.service';
 
 
@@ -19,10 +20,14 @@ export class HeaderComponent implements OnInit {
   cartTotal: number = 0;               // total cart price
   getCount: number = 0;                // total unique items
 
+   currencies: string[] = [];
+  selectedCurrency: string = 'USD';
+
   constructor(
     private productService: ProductService,
     private router: Router,
-    private cartservice: CartService
+    private cartservice: CartService,
+    private currencyService: CurrencyService
   ) {}
 
   ngOnInit() {
@@ -43,6 +48,24 @@ export class HeaderComponent implements OnInit {
       this.getCount = this.cartservice.getTotalQuantity();
       console.log('Cart updated:', this.cartTotal, 'Items:', this.getCount);
     });
+
+    // suscribing to currency change
+
+  // Subscribe to currency list
+  this.currencyService.currencies$.subscribe((list: string[]) => {
+    this.currencies = list;
+  });
+
+  // Subscribe to currencies
+    this.currencyService.currencies$.subscribe((list: string[]) => {
+      this.currencies = list;
+    });
+
+    // Subscribe to selected currency
+    this.currencyService.selectedCurrency$.subscribe((currency: string) => {
+      this.selectedCurrency = currency;
+    });
+
   }
 
   /**
@@ -113,6 +136,11 @@ export class HeaderComponent implements OnInit {
     this.cartservice.addToCart(product);
     console.log('Added to cart:', product.name);
   }
+// currency change
+  changeCurrency(currency: string) {
+    this.currencyService.setCurrency(currency);
+  }
+}
 
  
-}
+

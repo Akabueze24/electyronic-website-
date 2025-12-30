@@ -210,7 +210,7 @@
                     <div class="col-xl-6">
                         <h4 class="fw-bold mb-3">{{product.name}}</h4>
                         <p class="mb-3">{{product.category}}</p>
-                        <h5 class="fw-bold mb-3">{{product.currentprice | currency}}</h5>
+                        <h5 class="fw-bold mb-3">{{product.currentprice | currencyConvert}}</h5>
                         <div class="d-flex mb-4">
                             <ng-container *ngFor="let star of [1, 2, 3, 4, 5]">
                                 <i class="fa" [class.fa-star]="star <= product.rating"
@@ -277,11 +277,11 @@
                             </div>
                             <div *ngIf="showMesage" class="cart-modal">{{modalMessage}}</div>
                             <div class="tab-pane" id="nav-mission" role="tabpanel" aria-labelledby="nav-mission-tab">
-                                <div class="d-flex" *ngFor="let review of product.reviews">
+                                <div class="d-flex" *ngFor="let review of productReviews">
                                     <img src="../../../assets/img/avatar.jpg" class="img-fluid rounded-circle p-3"
                                         style="width: 100px; height: 100px;" alt="">
                                     <div class="">
-                                        <p class="mb-2" style="font-size: 14px;">April 12, 2025</p>
+                                        <p class="mb-2" style="font-size: 14px;">{{review.date | date: 'mediumDate'}}</p>
                                         <div class="d-flex justify-content-between">
                                             <h5>{{review.user}}</h5>
                                             <div class="d-flex mb-3">

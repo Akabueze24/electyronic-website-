@@ -1,7 +1,7 @@
 import {inject, Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { CheckoutFormDetails } from '../checkoutModel/model/checkoutModel';
+import { CheckoutFormDetails } from './checkoutModel';
 
 @Injectable({
   providedIn: 'root'

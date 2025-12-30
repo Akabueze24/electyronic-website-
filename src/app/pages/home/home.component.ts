@@ -1,4 +1,5 @@
 import { Component,  OnInit } from '@angular/core';
+import { CartService } from 'src/app/core/add-to-cart/cart.service';
 import { Product } from 'src/app/core/product-service/product.service';
 import { ProductService } from 'src/app/core/product-service/product.service';
 
@@ -11,15 +12,62 @@ declare var $: any;
 })
 export class HomeComponent implements OnInit {
 
+productChunks: Product[][] = []
+
+  cartTotal: number = 0;                      // Cart total
+  modalMessage: string = '';                  // Modal message
+  showMessage: boolean = false;               // Show modal
+
+
   allProducts: Product[] = [];
   newArrivals: Product[] = [];
   featuredProducts: Product[] = [];
   topSellingProducts: Product[] = [];
 
-  
+  constructor( private productService: ProductService, private cartservice: CartService){}
 
 
   ngOnInit(): void {
+
+
+   const homeProducts = this.productService.getHomePageProducts();
+
+  // Individual arrays
+  this.newArrivals = homeProducts.newArrivals;
+  this.featuredProducts = homeProducts.featured;
+  this.topSellingProducts = homeProducts.topSelling;
+
+  // Merge into one main array (no duplicates by ID)
+  const combined = [
+    ...homeProducts.all,
+    ...homeProducts.newArrivals,
+    ...homeProducts.featured,
+    ...homeProducts.topSelling
+  ];
+
+  // Remove duplicates by product ID
+  const map = new Map<number, Product>();
+  combined.forEach(p => map.set(p.id, p));
+  this.allProducts = Array.from(map.values());
+
+  console.log('All Products merged:', this.allProducts.map(p => p.name));
+
+  // ✅ Chunk featuredProducts for nested carousel
+  this.chunkProducts(this.featuredProducts, 4); // 4 products per inner carousel
+
+  
+}
+
+chunkProducts(products: Product[], chunkSize: number) {
+  this.productChunks = [];
+  for (let i = 0; i < products.length; i += chunkSize) {
+    this.productChunks.push(products.slice(i, i + chunkSize));
+  }
+  
+
+
+
+
     // Outer slider
     $('.productList-carousel').owlCarousel({
       loop: true,
@@ -55,6 +103,17 @@ export class HomeComponent implements OnInit {
       items: 1,
       
     });
+  }
+
+
+  /** Add product to cart */
+  addToCart(product: Product): void {
+    this.cartservice.addToCart(product);
+    this.modalMessage = `${product.name} added to cart successfully`;
+    this.showMessage = true;
+    console.log(this.modalMessage);
+
+    setTimeout(() => this.showMessage = false, 2000);
   }
 
 }

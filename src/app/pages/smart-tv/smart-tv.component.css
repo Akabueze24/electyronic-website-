@@ -44,7 +44,7 @@
 }
 .cart-modal {
   position: fixed;
-  top: 20px;
+  top: 23%;
   right: 20px;
   background: #28a745; /* green for success */
   color: white;
@@ -55,7 +55,6 @@
   animation: fadein 0.3s, fadeout 0.3s 1.7s;
   width: 100%;
 }
-
 .color-circle {
   width: 30px;
   height: 30px;

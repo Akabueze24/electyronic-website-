@@ -22,6 +22,7 @@ import { MobileAndTabletComponent } from './pages/mobile-and-tablet/mobile-and-t
 import { SmartTvComponent } from './pages/smart-tv/smart-tv.component';
 import { ComputersComponent } from './pages/computers/computers.component';
 import { MobilesComponent } from './pages/mobiles/mobiles.component';
+import { CurrencyConvertPipe } from './core/currency/currency-convert.pipe';
 
 
 
@@ -46,6 +47,7 @@ import { MobilesComponent } from './pages/mobiles/mobiles.component';
     SmartTvComponent,
     ComputersComponent,
     MobilesComponent,
+    CurrencyConvertPipe,
     
     
   
