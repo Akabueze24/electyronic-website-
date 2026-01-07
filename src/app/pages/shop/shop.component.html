@@ -141,32 +141,18 @@
                         for="rangeInput">{{priceRange.max}}</output>
                     <div class=""></div>
                 </div>
-                <div class="product-color mb-3">
+                <!-- <div class="product-color mb-3">
                     <h4>Select By Color</h4>
-                    <ul class="list-unstyled">
-                        <li>
-                            <div class="product-color-item">
-                                <a routerLink="#" class="text-dark"><i class="fas fa-apple-alt text-secondary me-2"></i>
-                                    Gold</a>
-                                <span>(1)</span>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="product-color-item">
-                                <a routerLink="#" class="text-dark"><i class="fas fa-apple-alt text-secondary me-2"></i>
-                                    Green</a>
-                                <span>(1)</span>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="product-color-item">
-                                <a routerLink="#" class="text-dark"><i class="fas fa-apple-alt text-secondary me-2"></i>
-                                    White</a>
-                                <span>(1)</span>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
+                    <div class="d-flex gap-2 flex-wrap align-items-center">
+                        <div *ngFor="let color of availableColors" class="d-flex flex-column align-items-center">
+                            <button (click)="color.available && applyColorFilter(color.name)"
+                                [style.backgroundColor]="color.name" [class.disabled]="!color.available"
+                                class="color-circle" [title]="color.name">
+                            </button>
+                            
+                        </div>
+                    </div>
+                </div> -->
                 <div class="additional-product mb-4">
                     <h4>Additional Products</h4>
                     <div class="additional-product-item">
@@ -332,7 +318,7 @@
                                 <div class="product-item rounded wow fadeInUp" data-wow-delay="0.1s">
                                     <div class="product-item-inner border rounded">
                                         <div class="product-item-inner-item">
-                                            <img [src]="prod.images[0]"
+                                            <img [src]="prod.images[1]"
                                                 class="img-fluid w-100 rounded-top" alt="">
                                             <div class="product-new">New</div>
                                             <div class="product-details">
@@ -341,7 +327,7 @@
                                             </div>
                                         </div>
                                         <div class="text-center rounded-bottom p-4">
-                                            <a routerLink="#" class="d-block mb-2">{{prod.category}}</a>
+                                            <a [routerLink]="['/shop', prod.category]" class="d-block mb-2">{{prod.category}}</a>
                                             <a [routerLink]="['/productView', prod.id]"
                                                 class="d-block h4">{{prod.name}}</a>
                                             <del class="me-2 fs-5">{{prod.prevprice | currencyConvert}}</del>
@@ -350,10 +336,10 @@
                                     </div>
                                     <div
                                         class="product-item-add border border-top-0 rounded-bottom  text-center p-4 pt-0">
-                                        <a routerLink="#"
+                                        <button
                                             class="btn btn-primary border-secondary rounded-pill py-2 px-4 mb-4"
                                             (click)="addToCart(prod)"><i class="fas fa-shopping-cart me-2"></i> Add To
-                                            Cart</a>
+                                            Cart</button>
                                         <div class="d-flex justify-content-between align-items-center">
                                             <div class="d-flex">
                                                 <ng-container *ngFor="let star of [1, 2, 3, 4, 5]">
@@ -366,10 +352,15 @@
                                                     class="text-primary d-flex align-items-center justify-content-center me-3"><span
                                                         class="rounded-circle btn-sm-square border"><i
                                                             class="fas fa-random"></i></span></a>
-                                                <a routerLink="#"
-                                                    class="text-primary d-flex align-items-center justify-content-center me-0"><span
-                                                        class="rounded-circle btn-sm-square border"><i
-                                                            class="fas fa-heart"></i></span></a>
+                                                 <button
+                                                class="wishlist-btn d-flex align-items-center justify-content-center"
+                                                (click)="toggleWishlist(prod)"
+                                                [class.active]="isInWishlist(prod.id)">
+
+                                                <span class="rounded-circle btn-sm-square border">
+                                                    <i class="fas fa-heart"></i>
+                                                </span>
+                                            </button>
                                             </div>
                                         </div>
                                     </div>

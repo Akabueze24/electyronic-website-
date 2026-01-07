@@ -44,7 +44,7 @@
 }
 .cart-modal {
   position: fixed;
-  top: 23%;
+  top: 30%;
   right: 20px;
   background: #28a745; /* green for success */
   color: white;
@@ -73,6 +73,15 @@
   cursor: not-allowed;
 }
 
+
+.wishlist-btn i {
+    color: yellowgreen;  /* default heart color */
+    transition: color 0.3s;
+}
+
+.wishlist-btn.active i {
+    color: green;        /* heart when liked */
+}
 
 
 

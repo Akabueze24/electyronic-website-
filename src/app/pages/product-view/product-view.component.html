@@ -22,10 +22,10 @@
                 </div> -->
                 <div class="product-categories mb-4">
                     <h4>Products Categories</h4>
-                    <ul class="list-unstyled" *ngFor="let cate of categoriesWithCount">
-                        <li>
+                    <ul class="list-unstyled" >
+                        <li *ngFor="let cate of categoriesWithCount">
                             <div class="categories-item">
-                                <a (click)="navigateToCatogory(cate.category)" class="text-dark"><i
+                                <a (click)="navigateToCategory(cate.category)" class="text-dark"><i
                                         class="fas fa-apple-alt text-secondary me-2"></i> {{cate.category}}</a>
                                 <span>({{cate.count}})</span>
                             </div>
@@ -41,128 +41,34 @@
                         <label [for]="c.color">{{ c.color }}</label>
                     </div>
 
-                         <p *ngIf="selectedColor">Selected Color: {{ selectedColor }}</p>
+                    <p *ngIf="selectedColor">Selected Color: {{ selectedColor }}</p>
                 </div>
-                <!-- <div class="featured-product mb-4">
+                 <div class="featured-product mb-4">
                     <h4 class="mb-3">Featured products</h4>
-                    <div class="featured-product-item">
+                    <div class="featured-product-item" *ngFor="let prod of featuredProducts">
                         <div class="rounded me-4" style="width: 100px; height: 100px;">
-                            <img src="../../../assets/img/product-3.png" class="img-fluid rounded" alt="Image">
+                            <img [src]="prod.images[1]" class="img-fluid rounded" alt="Image">
                         </div>
                         <div>
-                            <h6 class="mb-2">SmartPhone</h6>
+                            <h6 class="mb-2">{{prod.name}}</h6>
                             <div class="d-flex mb-2">
-                                <i class="fa fa-star text-secondary"></i>
-                                <i class="fa fa-star text-secondary"></i>
-                                <i class="fa fa-star text-secondary"></i>
-                                <i class="fa fa-star text-secondary"></i>
-                                <i class="fa fa-star"></i>
+                                <ng-container *ngFor="let star of [1, 2, 3, 4, 5]">
+                                    <i class="fa" [class.fa-star]="star <= prod.rating"
+                                        [class.fa-star-o]="star > prod.rating" style="color: gold;"></i>
+                                </ng-container>
                             </div>
                             <div class="d-flex mb-2">
-                                <h5 class="fw-bold me-2">2.99 $</h5>
-                                <h5 class="text-danger text-decoration-line-through">4.11 $</h5>
+                                <h5 class="fw-bold me-2">{{prod.currentprice | currencyConvert}}</h5>
+                                <h5 class="text-danger text-decoration-line-through">{{prod.prevprice |
+                                    currencyConvert}}</h5>
                             </div>
                         </div>
                     </div>
-                    <div class="featured-product-item">
-                        <div class="rounded me-4" style="width: 100px; height: 100px;">
-                            <img src="../../../assets/img/product-4.png" class="img-fluid rounded" alt="Image">
-                        </div>
-                        <div>
-                            <h6 class="mb-2">Smart Camera</h6>
-                            <div class="d-flex mb-2">
-                                <i class="fa fa-star text-secondary"></i>
-                                <i class="fa fa-star text-secondary"></i>
-                                <i class="fa fa-star text-secondary"></i>
-                                <i class="fa fa-star text-secondary"></i>
-                                <i class="fa fa-star"></i>
-                            </div>
-                            <div class="d-flex mb-2">
-                                <h5 class="fw-bold me-2">2.99 $</h5>
-                                <h5 class="text-danger text-decoration-line-through">4.11 $</h5>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="featured-product-item">
-                        <div class="rounded me-4" style="width: 100px; height: 100px;">
-                            <img src="../../../assets/img/product-5.png" class="img-fluid rounded" alt="Image">
-                        </div>
-                        <div>
-                            <h6 class="mb-2">Smart Camera</h6>
-                            <div class="d-flex mb-2">
-                                <i class="fa fa-star text-secondary"></i>
-                                <i class="fa fa-star text-secondary"></i>
-                                <i class="fa fa-star text-secondary"></i>
-                                <i class="fa fa-star text-secondary"></i>
-                                <i class="fa fa-star"></i>
-                            </div>
-                            <div class="d-flex mb-2">
-                                <h5 class="fw-bold me-2">2.99 $</h5>
-                                <h5 class="text-danger text-decoration-line-through">4.11 $</h5>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="featured-product-item">
-                        <div class="rounded me-4" style="width: 100px; height: 100px;">
-                            <img src="../../../assets/img/product-6.png" class="img-fluid rounded" alt="Image">
-                        </div>
-                        <div>
-                            <h6 class="mb-2">Smart Camera</h6>
-                            <div class="d-flex mb-2">
-                                <i class="fa fa-star text-secondary"></i>
-                                <i class="fa fa-star text-secondary"></i>
-                                <i class="fa fa-star text-secondary"></i>
-                                <i class="fa fa-star text-secondary"></i>
-                                <i class="fa fa-star"></i>
-                            </div>
-                            <div class="d-flex mb-2">
-                                <h5 class="fw-bold me-2">2.99 $</h5>
-                                <h5 class="text-danger text-decoration-line-through">4.11 $</h5>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="featured-product-item">
-                        <div class="rounded me-4" style="width: 100px; height: 100px;">
-                            <img src="../../../assets/img/product-7.png" class="img-fluid rounded" alt="Image">
-                        </div>
-                        <div>
-                            <h6 class="mb-2">Camera Leance</h6>
-                            <div class="d-flex mb-2">
-                                <i class="fa fa-star text-secondary"></i>
-                                <i class="fa fa-star text-secondary"></i>
-                                <i class="fa fa-star text-secondary"></i>
-                                <i class="fa fa-star text-secondary"></i>
-                                <i class="fa fa-star"></i>
-                            </div>
-                            <div class="d-flex mb-2">
-                                <h5 class="fw-bold me-2">2.99 $</h5>
-                                <h5 class="text-danger text-decoration-line-through">4.11 $</h5>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="featured-product-item">
-                        <div class="rounded me-4" style="width: 100px; height: 100px;">
-                            <img src="../../../assets/img/product-8.png" class="img-fluid rounded" alt="Image">
-                        </div>
-                        <div>
-                            <h6 class="mb-2">Smart Camera</h6>
-                            <div class="d-flex mb-2">
-                                <i class="fa fa-star text-secondary"></i>
-                                <i class="fa fa-star text-secondary"></i>
-                                <i class="fa fa-star text-secondary"></i>
-                                <i class="fa fa-star text-secondary"></i>
-                                <i class="fa fa-star"></i>
-                            </div>
-                            <div class="d-flex mb-2">
-                                <h5 class="fw-bold me-2">2.99 $</h5>
-                                <h5 class="text-danger text-decoration-line-through">4.11 $</h5>
-                            </div>
-                        </div>
-                    </div>
+
                     <div class="d-flex justify-content-center my-4">
-                        <a routerLink="#" class="btn btn-primary px-4 py-3 rounded-pill w-100">Vew More</a>
+                        <a routerLink="/shop" class="btn btn-primary px-4 py-3 rounded-pill w-100">Vew More</a>
                     </div>
-                </div> -->
+                </div> 
                 <!-- <a routerLink="#">
                     <div class="position-relative">
                         <img src="../../../assets/img/product-banner-2.jpg" class="img-fluid w-100 rounded" alt="Image">
@@ -281,7 +187,8 @@
                                     <img src="../../../assets/img/avatar.jpg" class="img-fluid rounded-circle p-3"
                                         style="width: 100px; height: 100px;" alt="">
                                     <div class="">
-                                        <p class="mb-2" style="font-size: 14px;">{{review.date | date: 'mediumDate'}}</p>
+                                        <p class="mb-2" style="font-size: 14px;">{{review.date | date: 'mediumDate'}}
+                                        </p>
                                         <div class="d-flex justify-content-between">
                                             <h5>{{review.user}}</h5>
                                             <div class="d-flex mb-3">
@@ -405,14 +312,17 @@
         <div class="mx-auto text-center pb-5" style="max-width: 700px;">
             <h4 class="text-primary mb-4 border-bottom border-primary border-2 d-inline-block p-2 title-border-radius wow fadeInUp"
                 data-wow-delay="0.1s">Related Products</h4>
-            <p class="wow fadeInUp" data-wow-delay="0.2s">Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi,
-                asperiores ducimus sint quos tempore officia similique quia? Libero, pariatur consectetur?</p>
+            <p class="wow fadeInUp" data-wow-delay="0.2s">
+                Discover related products with similar features, performance, and value.
+                A smarter way to find what works best for you.
+            </p>
+
         </div>
         <div class="related-carousel owl-carousel pt-4">
-            <div class="related-item rounded">
+            <div class="related-item rounded" *ngFor="let prod of allProducts">
                 <div class="related-item-inner border rounded">
                     <div class="related-item-inner-item">
-                        <img src="../../../assets/img/product-3.png" class="img-fluid w-100 rounded-top" alt="">
+                        <img [src]="prod.images[1]" class="img-fluid w-100 rounded-top" alt="">
                         <div class="related-new">New</div>
                         <div class="related-details">
                             <a routerLink="#"><i class="fa fa-eye fa-1x"></i></a>
@@ -447,158 +357,7 @@
                     </div>
                 </div>
             </div>
-            <div class="related-item rounded">
-                <div class="related-item-inner border rounded">
-                    <div class="related-item-inner-item">
-                        <img src="../../../assets/img/product-3.png" class="img-fluid w-100 rounded-top" alt="">
-                        <div class="related-new">New</div>
-                        <div class="related-details">
-                            <a routerLink="#"><i class="fa fa-eye fa-1x"></i></a>
-                        </div>
-                    </div>
-                    <div class="text-center rounded-bottom p-4">
-                        <a routerLink="#" class="d-block mb-2">SmartPhone</a>
-                        <a routerLink="#" class="d-block h4">Apple iPad Mini <br> G2356</a>
-                        <del class="me-2 fs-5">$1,250.00</del>
-                        <span class="text-primary fs-5">$1,050.00</span>
-                    </div>
-                </div>
-                <div class="related-item-add border border-top-0 rounded-bottom  text-center p-4 pt-0">
-                    <a routerLink="#" class="btn btn-primary border-secondary rounded-pill py-2 px-4 mb-4"><i
-                            class="fas fa-shopping-cart me-2"></i> Add To Cart</a>
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div class="d-flex">
-                            <i class="fas fa-star text-primary"></i>
-                            <i class="fas fa-star text-primary"></i>
-                            <i class="fas fa-star text-primary"></i>
-                            <i class="fas fa-star text-primary"></i>
-                            <i class="fas fa-star"></i>
-                        </div>
-                        <div class="d-flex">
-                            <a routerLink="#"
-                                class="text-primary d-flex align-items-center justify-content-center me-3"><span
-                                    class="rounded-circle btn-sm-square border"><i class="fas fa-random"></i></span></a>
-                            <a routerLink="#"
-                                class="text-primary d-flex align-items-center justify-content-center me-0"><span
-                                    class="rounded-circle btn-sm-square border"><i class="fas fa-heart"></i></span></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="related-item rounded">
-                <div class="related-item-inner border rounded">
-                    <div class="related-item-inner-item">
-                        <img src="../../../assets/img/product-3.png" class="img-fluid w-100 rounded-top" alt="">
-                        <div class="related-new">New</div>
-                        <div class="related-details">
-                            <a routerLink="#"><i class="fa fa-eye fa-1x"></i></a>
-                        </div>
-                    </div>
-                    <div class="text-center rounded-bottom p-4">
-                        <a routerLink="#" class="d-block mb-2">SmartPhone</a>
-                        <a routerLink="#" class="d-block h4">Apple iPad Mini <br> G2356</a>
-                        <del class="me-2 fs-5">$1,250.00</del>
-                        <span class="text-primary fs-5">$1,050.00</span>
-                    </div>
-                </div>
-                <div class="related-item-add border border-top-0 rounded-bottom  text-center p-4 pt-0">
-                    <a routerLink="#" class="btn btn-primary border-secondary rounded-pill py-2 px-4 mb-4"><i
-                            class="fas fa-shopping-cart me-2"></i> Add To Cart</a>
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div class="d-flex">
-                            <i class="fas fa-star text-primary"></i>
-                            <i class="fas fa-star text-primary"></i>
-                            <i class="fas fa-star text-primary"></i>
-                            <i class="fas fa-star text-primary"></i>
-                            <i class="fas fa-star"></i>
-                        </div>
-                        <div class="d-flex">
-                            <a routerLink="#"
-                                class="text-primary d-flex align-items-center justify-content-center me-3"><span
-                                    class="rounded-circle btn-sm-square border"><i class="fas fa-random"></i></span></a>
-                            <a routerLink="#"
-                                class="text-primary d-flex align-items-center justify-content-center me-0"><span
-                                    class="rounded-circle btn-sm-square border"><i class="fas fa-heart"></i></span></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="related-item rounded">
-                <div class="related-item-inner border rounded">
-                    <div class="related-item-inner-item">
-                        <img src="../../../assets/img/product-3.png" class="img-fluid w-100 rounded-top" alt="">
-                        <div class="related-new">New</div>
-                        <div class="related-details">
-                            <a routerLink="#"><i class="fa fa-eye fa-1x"></i></a>
-                        </div>
-                    </div>
-                    <div class="text-center rounded-bottom p-4">
-                        <a routerLink="#" class="d-block mb-2">SmartPhone</a>
-                        <a routerLink="#" class="d-block h4">Apple iPad Mini <br> G2356</a>
-                        <del class="me-2 fs-5">$1,250.00</del>
-                        <span class="text-primary fs-5">$1,050.00</span>
-                    </div>
-                </div>
-                <div class="related-item-add border border-top-0 rounded-bottom  text-center p-4 pt-0">
-                    <a routerLink="#" class="btn btn-primary border-secondary rounded-pill py-2 px-4 mb-4"><i
-                            class="fas fa-shopping-cart me-2"></i> Add To Cart</a>
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div class="d-flex">
-                            <i class="fas fa-star text-primary"></i>
-                            <i class="fas fa-star text-primary"></i>
-                            <i class="fas fa-star text-primary"></i>
-                            <i class="fas fa-star text-primary"></i>
-                            <i class="fas fa-star"></i>
-                        </div>
-                        <div class="d-flex">
-                            <a routerLink="#"
-                                class="text-primary d-flex align-items-center justify-content-center me-3"><span
-                                    class="rounded-circle btn-sm-square border"><i class="fas fa-random"></i></span></a>
-                            <a routerLink="#"
-                                class="text-primary d-flex align-items-center justify-content-center me-0"><span
-                                    class="rounded-circle btn-sm-square border"><i class="fas fa-heart"></i></span></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="related-item rounded">
-                <div class="related-item-inner border rounded">
-                    <div class="related-item-inner-item">
-                        <img src="../../../assets/img/product-3.png" class="img-fluid w-100 rounded-top" alt="">
-                        <div class="related-new">New</div>
-                        <div class="related-details">
-                            <a routerLink="#"><i class="fa fa-eye fa-1x"></i></a>
-                        </div>
-                    </div>
-                    <div class="text-center rounded-bottom p-4">
-                        <a routerLink="#" class="d-block mb-2">SmartPhone</a>
-                        <a routerLink="#" class="d-block h4">Apple iPad Mini <br> G2356</a>
-                        <del class="me-2 fs-5">$1,250.00</del>
-                        <span class="text-primary fs-5">$1,050.00</span>
-                    </div>
-                </div>
-                <div class="related-item-add border border-top-0 rounded-bottom  text-center p-4 pt-0">
-                    <a routerLink="#" class="btn btn-primary border-secondary rounded-pill py-2 px-4 mb-4"><i
-                            class="fas fa-shopping-cart me-2"></i> Add To Cart</a>
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div class="d-flex">
-                            <i class="fas fa-star text-primary"></i>
-                            <i class="fas fa-star text-primary"></i>
-                            <i class="fas fa-star text-primary"></i>
-                            <i class="fas fa-star text-primary"></i>
-                            <i class="fas fa-star"></i>
-                        </div>
-                        <div class="d-flex">
-                            <a routerLink="#"
-                                class="text-primary d-flex align-items-center justify-content-center me-3"><span
-                                    class="rounded-circle btn-sm-square border"><i class="fas fa-random"></i></span></a>
-                            <a routerLink="#"
-                                class="text-primary d-flex align-items-center justify-content-center me-0"><span
-                                    class="rounded-circle btn-sm-square border"><i class="fas fa-heart"></i></span></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
         </div>
     </div>
 </div>

@@ -15,72 +15,85 @@
 <!-- Searvices Start -->
 <div class="container-fluid px-0">
     <div class="row g-0">
+
+        <!-- Hassle-Free Returns -->
         <div class="col-6 col-md-4 col-lg-2 border-start border-end wow fadeInUp" data-wow-delay="0.1s">
             <div class="p-4">
                 <div class="d-inline-flex align-items-center">
                     <i class="fa fa-sync-alt fa-2x text-primary"></i>
                     <div class="ms-4">
-                        <h6 class="text-uppercase mb-2">Free Return</h6>
-                        <p class="mb-0">30 days money back guarantee!</p>
+                        <h6 class="text-uppercase mb-2">Hassle-Free Returns</h6>
+                        <p class="mb-0">Change your mind? Return any product within 30 days, no questions asked.</p>
                     </div>
                 </div>
             </div>
         </div>
+
+        <!-- Complimentary Shipping -->
         <div class="col-6 col-md-4 col-lg-2 border-end wow fadeInUp" data-wow-delay="0.2s">
             <div class="p-4">
                 <div class="d-flex align-items-center">
                     <i class="fab fa-telegram-plane fa-2x text-primary"></i>
                     <div class="ms-4">
-                        <h6 class="text-uppercase mb-2">Free Shipping</h6>
-                        <p class="mb-0">Free shipping on all order</p>
+                        <h6 class="text-uppercase mb-2">Complimentary Shipping</h6>
+                        <p class="mb-0">Enjoy fast, free shipping on all orders — get your tech delivered hassle-free.</p>
                     </div>
                 </div>
             </div>
         </div>
+
+        <!-- 24/7 Expert Support -->
         <div class="col-6 col-md-4 col-lg-2 border-end wow fadeInUp" data-wow-delay="0.3s">
             <div class="p-4">
                 <div class="d-flex align-items-center">
                     <i class="fas fa-life-ring fa-2x text-primary"></i>
                     <div class="ms-4">
-                        <h6 class="text-uppercase mb-2">Support 24/7</h6>
-                        <p class="mb-0">We support online 24 hrs a day</p>
+                        <h6 class="text-uppercase mb-2">24/7 Expert Support</h6>
+                        <p class="mb-0">Our dedicated support team is online around the clock to help you with any query.</p>
                     </div>
                 </div>
             </div>
         </div>
+
+        <!-- Gift Cards & Rewards -->
         <div class="col-6 col-md-4 col-lg-2 border-end wow fadeInUp" data-wow-delay="0.4s">
             <div class="p-4">
                 <div class="d-flex align-items-center">
                     <i class="fas fa-credit-card fa-2x text-primary"></i>
                     <div class="ms-4">
-                        <h6 class="text-uppercase mb-2">Receive Gift Card</h6>
-                        <p class="mb-0">Recieve gift all over oder $50</p>
+                        <h6 class="text-uppercase mb-2">Gift Cards & Rewards</h6>
+                        <p class="mb-0">Share the joy of technology — redeemable on purchases over $50.</p>
                     </div>
                 </div>
             </div>
         </div>
+
+        <!-- Secure Checkout -->
         <div class="col-6 col-md-4 col-lg-2 border-end wow fadeInUp" data-wow-delay="0.5s">
             <div class="p-4">
                 <div class="d-flex align-items-center">
                     <i class="fas fa-lock fa-2x text-primary"></i>
                     <div class="ms-4">
-                        <h6 class="text-uppercase mb-2">Secure Payment</h6>
-                        <p class="mb-0">We Value Your Security</p>
+                        <h6 class="text-uppercase mb-2">Secure Checkout</h6>
+                        <p class="mb-0">Shop with confidence — your payment and data are fully protected.</p>
                     </div>
                 </div>
             </div>
         </div>
+
+        <!-- Effortless Online Experience -->
         <div class="col-6 col-md-4 col-lg-2 border-end wow fadeInUp" data-wow-delay="0.6s">
             <div class="p-4">
                 <div class="d-flex align-items-center">
                     <i class="fas fa-blog fa-2x text-primary"></i>
                     <div class="ms-4">
-                        <h6 class="text-uppercase mb-2">Online Service</h6>
-                        <p class="mb-0">Free return products in 30 days</p>
+                        <h6 class="text-uppercase mb-2">Effortless Online Experience</h6>
+                        <p class="mb-0">Intuitive browsing, quick navigation, and easy access to all your favorite products.</p>
                     </div>
                 </div>
             </div>
         </div>
+
     </div>
 </div>
 <!-- Searvices End -->
@@ -100,8 +113,12 @@
                                 <input id="firstName" type="text" class="form-control" formControlName="firstName">
                             </div>
                             <small style="color: red;"
-                                *ngIf="checkoutForm.get('firstName')?.touched && checkoutForm.get('firstName')?.invalid">first
+                                *ngIf="checkoutForm.get('firstName')?.touched && checkoutForm.get('firstName')?.errors?.['required']">first
                                 name field required</small>
+
+                                <small style="color: red;"
+                                *ngIf="checkoutForm.get('firstName')?.touched && checkoutForm.get('firstName')?.errors?.['minlength']">first
+                                name must contain 3 characters and above</small>
 
                         </div>
                         <div class="col-md-12 col-lg-6">
@@ -110,8 +127,12 @@
                                 <input id="lastName" type="text" class="form-control" formControlName="lastName">
                             </div>
                             <small style="color: red;"
-                                *ngIf="checkoutForm.get('lastName')?.touched && checkoutForm.get('lastName')?.invalid">last
+                                *ngIf="checkoutForm.get('lastName')?.touched && checkoutForm.get('lastName')?.errors?.['required']">last
                                 name field required</small>
+
+                                <small style="color: red;"
+                                *ngIf="checkoutForm.get('lastName')?.touched && checkoutForm.get('lastName')?.errors?.['minlength']">last
+                                name must contain 3 characters and above</small>
 
                         </div>
 
@@ -121,8 +142,12 @@
                         <label for="companyName" class="form-label my-3">Company Name<sup>*</sup></label>
                         <input id="companyName" type="text" class="form-control" formControlName="companyName">
                         <small style="color: red;"
-                            *ngIf="checkoutForm.get('companyName')?.touched && checkoutForm.get('companyName')?.invalid">
+                            *ngIf="checkoutForm.get('companyName')?.touched && checkoutForm.get('companyName')?.errors?.['required']">
                             input your company name</small>
+
+                             <small style="color: red;"
+                            *ngIf="checkoutForm.get('companyName')?.touched && checkoutForm.get('companyName')?.errors?.['minlength']">
+                            company name must contain 3 characters and above</small>
                     </div>
 
                     <div class="form-item">
@@ -130,7 +155,7 @@
                         <input id="address" type="text" class="form-control" placeholder="House Number Street Name"
                             formControlName="address">
                         <small style="color: red;"
-                            *ngIf="checkoutForm.get('address')?.touched && checkoutForm.get('address')?.invalid">kindly
+                            *ngIf="checkoutForm.get('address')?.touched && checkoutForm.get('address')?.errors?.['required']">kindly
                             input your address</small>
                     </div>
 
@@ -139,7 +164,7 @@
                         <input id="city" type="text" class="form-control" formControlName="town">
 
                         <small style="color: red;"
-                            *ngIf="checkoutForm.get('town')?.touched && checkoutForm.get('town')?.invalid">city field
+                            *ngIf="checkoutForm.get('town')?.touched && checkoutForm.get('town')?.errors?.['required']">city field
                             required</small>
                     </div>
 
@@ -148,7 +173,7 @@
                         <input id="country" type="text" class="form-control" formControlName="country">
 
                         <small style="color: red;"
-                            *ngIf="checkoutForm.get('country')?.touched && checkoutForm.get('country')?.invalid">country
+                            *ngIf="checkoutForm.get('country')?.touched && checkoutForm.get('country')?.errors?.['required']">country
                             field required</small>
                     </div>
 
@@ -156,23 +181,31 @@
                         <label for="postcode" class="form-label my-3">Postcode/Zip<sup>*</sup></label>
                         <input id="postcode" type="text" class="form-control" formControlName="postalCode">
                         <small style="color: red;"
-                            *ngIf="checkoutForm.get('postalCode')?.touched && checkoutForm.get('postalCode')?.invalid">post
+                            *ngIf="checkoutForm.get('postalCode')?.touched && checkoutForm.get('postalCode')?.errors?.['required']">post
                             code field required</small>
+
+                            <small style="color: red;"
+                            *ngIf="checkoutForm.get('postalCode')?.touched && checkoutForm.get('postalCode')?.errors?.['pattern']">postal
+                            code must should be digits</small>
                     </div>
 
                     <div class="form-item">
                         <label for="mobile" class="form-label my-3">Mobile<sup>*</sup></label>
                         <input id="mobile" type="tel" class="form-control" formControlName="mobile">
                         <small style="color: red;"
-                            *ngIf="checkoutForm.get('mobile')?.touched && checkoutForm.get('mobile')?.invalid">phonenumber
+                            *ngIf="checkoutForm.get('mobile')?.touched && checkoutForm.get('mobile')?.errors?.['required']">phonenumber
                             field required</small>
+
+                            <small style="color: red;"
+                            *ngIf="checkoutForm.get('mobile')?.touched && checkoutForm.get('mobile')?.errors?.['pattern']">phonenumber
+                            must contain digit (1234)</small>
                     </div>
 
                     <div class="form-item">
                         <label for="email" class="form-label my-3">Email Address<sup>*</sup></label>
                         <input id="email" type="email" class="form-control" formControlName="email">
                         <small style="color: red;"
-                            *ngIf="checkoutForm.get('email')?.touched && checkoutForm.get('email')?.errors">email field
+                            *ngIf="checkoutForm.get('email')?.touched && checkoutForm.get('email')?.errors?.['required']">email field
                             required</small>
 
                         <small style="color: red;"

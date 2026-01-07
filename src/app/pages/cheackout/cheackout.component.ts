@@ -10,77 +10,129 @@ import { CheckoutFormDetails } from 'src/app/core/checkout-service/checkoutModel
   styleUrls: ['./cheackout.component.css']
 })
 export class CheackoutComponent implements OnInit {
-  cartItems: any[] = []; // Items from cart
-  subtotal = 0;          // Total price of cart items
-  shippingCost = 0;      // Current shipping cost
-  total = 0;             // subtotal + shippingCost
-  id!: string;
 
+  /* ============================
+     CART SNAPSHOT (FROZEN)
+  ============================ */
+
+  cartItems: any[] = [];   // Frozen cart items
+  subtotal = 0;            // Cart subtotal
+  shippingCost = 0;        // Selected shipping cost
+  total = 0;               // subtotal + shipping
+  id!: string;             // Order ID returned from backend
+
+  /* ============================
+     CHECKOUT FORM
+  ============================ */
 
   checkoutForm!: FormGroup;
 
-  constructor(private checkoutService: CheckoutService, private fb: FormBuilder, private cartService: CartService) { }
+  constructor(
+    private checkoutService: CheckoutService,
+    private fb: FormBuilder,
+    private cartService: CartService
+  ) {}
 
- ngOnInit(): void {
-  // --- Freeze cart items ---
-  const currentCart = this.checkoutService.getCart();
-  this.cartItems = currentCart.map(item => ({ ...item })); // deep copy
-  this.subtotal = this.checkoutService.getSubtotal();
-  this.shippingCost = this.checkoutService.getShipingCost();
-  this.total = this.subtotal + this.shippingCost;
+  /* ============================
+     LIFECYCLE
+  ============================ */
 
-  console.log("Frozen cart snapshot:", this.cartItems);
+  ngOnInit(): void {
 
-  // --- Initialize checkout form ---
-  this.checkoutForm = this.fb.group({
-    firstName: ['', Validators.required],
-    lastName: ['', Validators.required],
-    companyName: ['', Validators.required],
-    address: ['', Validators.required],
-    town: ['', Validators.required],
-    country: ['', Validators.required],
-    postalCode: ['', Validators.required],
-    mobile: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
-    email: ['', [Validators.required, Validators.email]],
-    notes: [''],
-    shipToDifferentAddress: [false],
-    differentAddress: this.fb.group({
+    console.log('CheckoutComponent initialized');
+
+    /* --------------------------------
+       FREEZE CART SNAPSHOT
+    --------------------------------- */
+    const currentCart = this.checkoutService.getCart();
+
+    this.cartItems = currentCart.map(item => ({ ...item })); // deep copy
+    this.subtotal = this.checkoutService.getSubtotal();
+    this.shippingCost = this.checkoutService.getShipingCost();
+    this.total = this.subtotal + this.shippingCost;
+
+    console.log('Frozen cart snapshot:', this.cartItems);
+    console.log('Subtotal:', this.subtotal);
+    console.log('Initial shipping:', this.shippingCost);
+    console.log('Initial total:', this.total);
+
+    /* --------------------------------
+       INITIALIZE CHECKOUT FORM
+    --------------------------------- */
+    this.checkoutForm = this.fb.group({
+      firstName: ['', [Validators.required, Validators.minLength(3)]],
+      lastName: ['', [Validators.required, Validators.minLength(3)]],
+      companyName: ['', [Validators.required, Validators.minLength(3)]],
       address: ['', Validators.required],
-    })
-  });
-
-  const diffAddress = this.checkoutForm.get('differentAddress');
-  diffAddress?.disable();
-
-  this.checkoutForm.get('shipToDifferentAddress')?.valueChanges.subscribe(checked => {
-    if (checked) diffAddress?.enable();
-    else diffAddress?.disable();
-  });
-
-  // Prefill if saved
-  const savedAddress = this.checkoutService.getAddress();
-  if (savedAddress && savedAddress.type === 'different') {
-    this.checkoutForm.patchValue({
-      shipToDifferentAddress: true,
-      differentAddress: { address: savedAddress.address }
+      town: ['', Validators.required],
+      country: ['', Validators.required],
+      postalCode: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
+      mobile: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
+      email: ['', [Validators.required, Validators.email]],
+      notes: [''],
+      shipToDifferentAddress: [false],
+      differentAddress: this.fb.group({
+        address: ['', Validators.required],
+      })
     });
+
+    /* --------------------------------
+       TOGGLE DIFFERENT ADDRESS
+    --------------------------------- */
+    const diffAddress = this.checkoutForm.get('differentAddress');
+    diffAddress?.disable();
+
+    this.checkoutForm.get('shipToDifferentAddress')?.valueChanges.subscribe(checked => {
+      console.log('Ship to different address:', checked);
+      if (checked) diffAddress?.enable();
+      else diffAddress?.disable();
+    });
+
+    /* --------------------------------
+       PREFILL SAVED ADDRESS (IF ANY)
+    --------------------------------- */
+    const savedAddress = this.checkoutService.getAddress();
+    if (savedAddress && savedAddress.type === 'different') {
+      console.log('Prefilling saved different address:', savedAddress);
+      this.checkoutForm.patchValue({
+        shipToDifferentAddress: true,
+        differentAddress: { address: savedAddress.address }
+      });
+    }
   }
-}
 
+  /* ============================
+     SHIPPING SELECTION
+  ============================ */
 
-  // --- Update shipping cost when user selects an option ---
   selectShipping(cost: number): void {
-    console.log("Selected shipping cost:", cost);
-    this.checkoutService.setShippingCost(cost); // save to service
+
+    console.log('Selected shipping cost:', cost);
+
+    this.checkoutService.setShippingCost(cost);
     this.shippingCost = cost;
-    this.total = this.checkoutService.getTotal(); // subtotal + shipping
-    console.log("Updated total:", this.total);
+    this.total = this.checkoutService.getTotal();
+
+    console.log('Updated total:', this.total);
   }
 
-  // --- Submit checkout form ---
- onSubmit() {
-  if (this.checkoutForm.valid) {
-    // Build form object
+  /* ============================
+     SUBMIT ORDER
+  ============================ */
+
+  onSubmit(): void {
+
+    if (!this.checkoutForm.valid) {
+      console.warn('Checkout form invalid');
+      this.checkoutForm.markAllAsTouched();
+      return;
+    }
+
+    console.log('Submitting checkout form');
+
+    /* --------------------------------
+       BUILD CUSTOMER DETAILS
+    --------------------------------- */
     const checkoutForm: CheckoutFormDetails = {
       firstName: this.checkoutForm.value.firstName,
       lastName: this.checkoutForm.value.lastName,
@@ -95,17 +147,22 @@ export class CheackoutComponent implements OnInit {
       date: new Date().toISOString()
     };
 
-    // Choose shipping address
-    const shippingAddress = this.checkoutForm.get('shipToDifferentAddress')?.value
-      ? this.checkoutForm.get('differentAddress')?.value
-      : { address: this.checkoutForm.value.address };
+    /* --------------------------------
+       SHIPPING ADDRESS SELECTION
+    --------------------------------- */
+    const shippingAddress =
+      this.checkoutForm.get('shipToDifferentAddress')?.value
+        ? this.checkoutForm.get('differentAddress')?.value
+        : { address: this.checkoutForm.value.address };
 
     this.checkoutService.setAddress(shippingAddress);
 
-    // Combine everything into one order
+    /* --------------------------------
+       FULL ORDER PAYLOAD
+    --------------------------------- */
     const fullOrder = {
       customerDetails: checkoutForm,
-      cartItems: this.cartItems,  // frozen cart snapshot
+      cartItems: this.cartItems,
       subtotal: this.subtotal,
       shippingCost: this.shippingCost,
       total: this.total,
@@ -114,30 +171,29 @@ export class CheackoutComponent implements OnInit {
       orderDate: new Date().toISOString()
     };
 
-    // Send order to Firebase
+    console.log('Final order payload:', fullOrder);
+
+    /* --------------------------------
+       SEND TO BACKEND
+    --------------------------------- */
     this.checkoutService.sendDetails(fullOrder).subscribe({
       next: (response) => {
-        console.log("Order saved with ID:", response.name);
+        console.log('Order saved with ID:', response.name);
         this.id = response.name.toString();
 
-        // --- Clear cart and checkout ---
+        // Clear checkout + cart
         this.checkoutService.clearCheckout();
         this.cartService.clearCart();
-
-        // Optionally navigate to a success page here
       },
       error: (err) => {
-        console.error("Error saving order:", err);
+        console.error('Error saving order:', err);
       }
     });
 
-    // Reset form
+    /* --------------------------------
+       RESET FORM
+    --------------------------------- */
     this.checkoutForm.reset();
-
-  } else {
-    this.checkoutForm.markAllAsTouched();
+    this.cartService.clearCart();
   }
-}
-
-
 }

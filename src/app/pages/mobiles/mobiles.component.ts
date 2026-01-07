@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { CartService } from 'src/app/core/add-to-cart/cart.service';
 import { Product, ProductService } from 'src/app/core/product-service/product.service';
+import { WishlistService } from 'src/app/core/wishlist/wishlist.service';
 
 @Component({
   selector: 'app-mobiles',
@@ -9,59 +10,122 @@ import { Product, ProductService } from 'src/app/core/product-service/product.se
   styleUrls: ['./mobiles.component.css']
 })
 export class MobilesComponent {
-  filteredProducts: Product[] = [];
-  products: Product[] = [];
-  searchTerm: string = '';
-  selectedCategory: string = 'mobile';
-  priceRange = { min: 0, max: 2000 };
-  sortType: string = 'default';
-  cartTotal: number = 0;
-  modalMessage: string = '';
-  showMessage: boolean = false;
+  /* ==================== PRODUCTS ==================== */
+  filteredProducts: Product[] = []; // Products after applying filters
+  products: Product[] = [];         // Full product list
 
-  // Color array with availability and count
+  /* ==================== FILTER UI ==================== */
+  searchTerm: string = '';          // Search input
+  selectedCategory: string = 'mobile'; // Fixed category
+  priceRange = { min: 0, max: 2000 };   // Price range slider
+  sortType: string = 'default';     // Sort dropdown
+  noResults: boolean = false;       // Show "no results" message
+
+  /* ==================== CART UI ==================== */
+  cartTotal: number = 0;            // Cart total
+  modalMessage: string = '';        // Add-to-cart message
+  showMessage: boolean = false;     // Show modal notification
+
+  /* ==================== FEATURED ==================== */
+  featuredProducts: Product[] = [];
+
+  /* ==================== COLORS ==================== */
   availableColors: { name: string; available: boolean; count: number }[] = [];
 
-  // New: category counts for dynamic display
+  /* ==================== CATEGORIES ==================== */
   categoriesWithCount: { category: string; count: number; available: boolean }[] = [];
 
+  /* ==================== SIDE BANNERS ==================== */
+  sideBannerProduct!: Product;
+  $sideBnnerProduct!: Product;
+
+
+  /* ==================== WISHLIST ==================== */
+  wishlistProductsIds: number[] = []; // Track product IDs in wishlist
 
   constructor(
     private productService: ProductService,
-    private cartservice: CartService, 
-    private router: Router
-  ) {}
+    private cartservice: CartService,
+    private router: Router,
+    private wishlistService: WishlistService
+  ) { }
 
+  /* ==================== LIFECYCLE ==================== */
   ngOnInit(): void {
-    // Subscribe to filtered products from service
-    this.productService.products$.subscribe(products => {
-      this.filteredProducts = products;
-      this.products = this.productService.getAllProducts(); 
-      console.log('Filtered Products:', products.map(p => p.name));
-      this.updateAvailableColors();
-      this.updateCategoryCounts();      // update categories initially
+    console.log('[Mobiles] Component initialized');
 
+    // --- Subscribe to filtered products ---
+    this.productService.products$.subscribe(products => {
+      this.products = this.productService.getAllProducts();
+      this.filteredProducts = products;
+
+      console.log('[Mobiles] Filtered products:', products.map(p => p.name));
+
+      this.updateAvailableColors();
+      this.updateCategoryCounts();
     });
 
-    // Subscribe to cart changes
+    // --- UI updates after filtering ---
+    this.productService.products$.subscribe(filtered => {
+      console.log('[Mobiles] Filtered products count:', filtered.length);
+
+      this.filteredProducts = filtered;
+      this.noResults = filtered.length === 0;
+
+      this.updateAvailableColors();
+      this.updateCategoryCounts();
+    });
+
+    // --- Load featured products ---
+    const homeProducts = this.productService.getHomePageProducts();
+    this.featuredProducts = homeProducts.featured;
+    this.sideBannerProduct = this.featuredProducts[4];
+    this.$sideBnnerProduct = this.featuredProducts[3];
+
+    // --- Subscribe to cart changes ---
     this.cartservice.cart$.subscribe(() => {
       this.cartTotal = this.cartservice.getTotalPrice();
-      console.log('Cart total updated:', this.cartTotal);
+      console.log('[Mobiles] Cart total updated:', this.cartTotal);
     });
 
-    // Initial filter
+    // --- Initial filter application ---
     this.applyFilters();
+
+    // --- Subscribe to wishlist updates ---
+    this.wishlistService.wishlistCount$.subscribe(() => {
+      this.updateWishlistIds();
+    });
+
+    this.updateWishlistIds();
   }
 
-  /** Apply all filters using service */
+  /* ==================== WISHLIST ==================== */
+  updateWishlistIds(): void {
+    this.wishlistProductsIds = this.wishlistService.getWishlist().map(p => p.id);
+    console.log('[Mobiles] Wishlist synced:', this.wishlistProductsIds);
+  }
+
+  toggleWishlist(product: Product): void {
+    this.wishlistService.toggleWishlist(product);
+    this.updateWishlistIds(); // Sync heart icons
+  }
+
+  isInWishlist(productId: number): boolean {
+    return this.wishlistProductsIds.includes(productId);
+  }
+
+  /* ==================== FILTERING ==================== */
   applyFilters(color?: string): void {
-    console.log('Applying Filters:', {
+    console.log('[Mobiles] Applying filters:', {
       searchTerm: this.searchTerm,
       category: this.selectedCategory,
       priceRange: this.priceRange,
       sortType: this.sortType,
-      color: color
+      color
     });
+
+    const term = this.searchTerm.trim().toLowerCase();
+    if (term === '') this.noResults = false;
 
     this.productService.applyAllFilters(
       this.searchTerm,
@@ -72,57 +136,50 @@ export class MobilesComponent {
     );
   }
 
-  /** Update available colors with counts after filtering */
-  updateAvailableColors(): void {
-    const allColors = Array.from( new Set(this.products.flatMap(p => p.color)));
-
-    this.availableColors = allColors.map(color => {
-    // Count filtered products that include this color
-    const count = this.filteredProducts.filter(p => p.color.includes(color)).length;
-    return { name: color, available: count > 0, count };
-  });
-
-    console.log('Available Colors with counts:', this.availableColors);
-  }
-
-  /** Called when a color circle is clicked */
-  applyColorFilter(color: string) {
-    console.log('Filtering by color:', color);
+  applyColorFilter(color: string): void {
+    console.log('[Mobiles] Color filter applied:', color);
     this.applyFilters(color);
   }
 
-  /** Add product to cart */
-  addToCart(product: Product): void {
-    this.cartservice.addToCart(product);
-    this.modalMessage = `${product.name} added to cart successfully`;
-    this.showMessage = true;
-    console.log(this.modalMessage);
+  /* ==================== COLORS ==================== */
+  updateAvailableColors(): void {
+    const allColors = Array.from(new Set(this.products.flatMap(p => p.color)));
 
-    setTimeout(() => this.showMessage = false, 2000);
+    this.availableColors = allColors.map(color => {
+      const count = this.filteredProducts.filter(p => p.color.includes(color)).length;
+      return { name: color, available: count > 0, count };
+    });
+
+    console.log('[Mobiles] Available colors:', this.availableColors);
   }
 
-   /**
-   * Update category counts dynamically based on filtered products
-   */
-updateCategoryCounts(): void {
-  const allProducts = this.productService.getAllProducts(); // full list, not filtered
+  /* ==================== CART ==================== */
+  addToCart(product: Product): void {
+    this.cartservice.addToCart(product);
 
-  const allCategories = [...new Set(allProducts.map(p => p.category))];
+    this.modalMessage = `${product.name} added to cart successfully`;
+    this.showMessage = true;
 
-  this.categoriesWithCount = allCategories.map(cat => {
-    const count = allProducts.filter(p => p.category === cat).length;
-    return {
-      category: cat,
-      count: count,
-      available: count > 0
-    };
-  });
+    console.log('[Mobiles] Cart add:', this.modalMessage);
 
-  console.log('Category counts:', this.categoriesWithCount);
-}
+    setTimeout(() => (this.showMessage = false), 2000);
+  }
 
+  /* ==================== CATEGORIES ==================== */
+  updateCategoryCounts(): void {
+    const allProducts = this.productService.getAllProducts();
+    const allCategories = [...new Set(allProducts.map(p => p.category))];
 
-navigateToCategory(category: any){
-  this.router.navigate([`/shop/${category}`]);
-}
+    this.categoriesWithCount = allCategories.map(cat => {
+      const count = allProducts.filter(p => p.category === cat).length;
+      return { category: cat, count, available: count > 0 };
+    });
+
+    console.log('[Mobiles] Category counts:', this.categoriesWithCount);
+  }
+
+  navigateToCategory(category: any): void {
+    console.log('[Mobiles] Navigate to category:', category);
+    this.router.navigate([`/shop/${category}`]);
+  }
 }

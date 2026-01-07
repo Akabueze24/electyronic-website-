@@ -9,10 +9,15 @@ import { CheckoutService } from 'src/app/core/checkout-service/checkout.service'
   styleUrls: ['./cart.component.css']
 })
 export class CartComponent implements OnInit {
-  cartItems: CartItem[] = [];  // Items in cart
-  total = 0;                   // Total price of items
-  shippingCost = 0;            // Shipping cost
-  address: any;                // Shipping address (if already entered)
+
+  /* ============================
+     CART STATE
+  ============================ */
+
+  cartItems: CartItem[] = [];     // Items currently in cart
+  total = 0;                      // Subtotal (products only)
+  shippingCost = 0;               // Shipping cost
+  address: any;                   // Saved shipping address (if any)
 
   constructor(
     private cartService: CartService,
@@ -20,51 +25,75 @@ export class CartComponent implements OnInit {
     private router: Router
   ) {}
 
+  /* ============================
+     LIFECYCLE
+  ============================ */
+
   ngOnInit(): void {
-    // Subscribe to cart updates
+
+    console.log('CartComponent initialized');
+
+    /* --------------------------------
+       SUBSCRIBE TO CART CHANGES
+    --------------------------------- */
     this.cartService.cart$.subscribe(items => {
-      this.cartItems = items;                         // Update cart items
-      this.total = this.cartService.getTotalPrice();  // Update subtotal
-      this.shippingCost = this.checkoutService.getShipingCost(); // Get shipping cost from service
 
-      this.address = this.checkoutService.getAddress(); // Load saved address if exists
+      // Update local cart state
+      this.cartItems = items;
+      this.total = this.cartService.getTotalPrice();
+      this.shippingCost = this.checkoutService.getShipingCost();
+      this.address = this.checkoutService.getAddress();
 
-      // Logs for debugging
-      console.log("Cart items updated:", this.cartItems);
-      console.log("Subtotal:", this.total);
-      console.log("Shipping Cost:", this.shippingCost);
-      console.log("Saved Address:", this.address);
+      // Debug logs
+      console.log('Cart items updated:', this.cartItems);
+      console.log('Subtotal:', this.total);
+      console.log('Shipping cost:', this.shippingCost);
+      console.log('Saved address:', this.address);
     });
   }
 
-  // Increase quantity of an item
-  increaseQuantity(item: CartItem) {
+  /* ============================
+     CART QUANTITY CONTROLS
+  ============================ */
+
+  increaseQuantity(item: CartItem): void {
     this.cartService.updateQuantity(item.id, 1);
-    console.log(`Increased quantity for item ${item.id}`);
+    console.log('Increased quantity for item:', item.id);
   }
 
-  // Decrease quantity of an item
-  decreaseQuantity(item: CartItem) {
+  decreaseQuantity(item: CartItem): void {
     this.cartService.updateQuantity(item.id, -1);
-    console.log(`Decreased quantity for item ${item.id}`);
+    console.log('Decreased quantity for item:', item.id);
   }
 
-  // Remove an item from cart
-  removeItem(item: CartItem) {
+  /* ============================
+     CART MANAGEMENT
+  ============================ */
+
+  removeItem(item: CartItem): void {
     this.cartService.removeFromCart(item.id);
-    console.log(`Removed item ${item.id} from cart`);
+    console.log('Removed item from cart:', item.id);
   }
 
-  // Clear entire cart
-  clearCart() {
+  clearCart(): void {
     this.cartService.clearCart();
-    console.log("Cart cleared");
+    console.log('Cart cleared');
   }
 
-  // Proceed to checkout page
-  proceedCheckout() {
-    this.checkoutService.setCart(this.cartItems, this.total); // Save cart in checkout service
-    console.log("Proceeding to checkout with cart:", this.cartItems);
+  /* ============================
+     CHECKOUT FLOW
+  ============================ */
+
+  proceedCheckout(): void {
+
+    // Persist cart data for checkout page
+    this.checkoutService.setCart(this.cartItems, this.total);
+
+    console.log('Proceeding to checkout with cart:', {
+      items: this.cartItems,
+      total: this.total
+    });
+
     this.router.navigate(['/cheackout']);
   }
 }

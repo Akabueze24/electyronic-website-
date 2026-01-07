@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CartService } from 'src/app/core/add-to-cart/cart.service';
 import { ProductService, Product } from 'src/app/core/product-service/product.service';
+import { WishlistService } from 'src/app/core/wishlist/wishlist.service';
 
 @Component({
   selector: 'app-shop',
@@ -10,6 +11,7 @@ import { ProductService, Product } from 'src/app/core/product-service/product.se
 })
 export class ShopComponent implements OnInit {
 
+  // 🛒 Products & Filters
   products: Product[] = [];
   filteredProducts: Product[] = [];
   searchTerm: string = '';
@@ -21,16 +23,21 @@ export class ShopComponent implements OnInit {
   showMessage: boolean = false;
   noResults: boolean = false;
 
-  availableColors: { count: any; name: string, available: boolean }[] = []; //color selection
+  //  Colors
+  availableColors: { count: any; name: string, available: boolean }[] = []; 
 
-  // New: category counts for dynamic display
+  //  Categories for dynamic display
   categoriesWithCount: { category: string; count: number; available: boolean }[] = [];
+
+  //  Wishlist
+  wishlistProductsIds: number[] = []; 
 
   constructor(
     private productService: ProductService,
     private route: ActivatedRoute,
     private cartservice: CartService,
-    private router: Router
+    private router: Router,
+    private wishlistService: WishlistService
   ) { }
 
   ngOnInit(): void {
@@ -45,7 +52,7 @@ export class ShopComponent implements OnInit {
       this.updateCategoryCounts();      // update categories initially
     });
 
-    // Subscribe to filtered products to update UI
+    // Subscribe to filtered products to update UI dynamically
     this.productService.products$.subscribe(filtered => {
       console.log('Filtered products updated:', filtered.length);
       this.filteredProducts = filtered;
@@ -54,88 +61,99 @@ export class ShopComponent implements OnInit {
       this.updateCategoryCounts();    // update category counts after filtering
     });
 
-    // Subscribe to cart updates
+    // 🛒 Cart subscription
     this.cartservice.cart$.subscribe(() => {
       this.cartTotal = this.cartservice.getTotalPrice();
       console.log('Cart total updated:', this.cartTotal);
     });
 
-    // Listen to header search query params
+    // 🔍 Header search query params
     this.route.queryParams.subscribe(params => {
       this.searchTerm = params['search'] || '';
       this.selectedCategory = params['category'] || 'All Category';
       console.log('Header search triggered:', this.searchTerm, this.selectedCategory);
       this.applyFilters();
     });
+
+    //  Wishlist subscription
+    this.wishlistService.wishlistCount$.subscribe(() => {
+      this.updateWishlistIds();
+    });
+
+    this.updateWishlistIds();
+    
   }
 
-  /**
-   * Apply all filters (search, category, price, sort)
-   */
-  applyFilters() {
-    console.log('--- Applying Filters ---');
-    console.log('Search Term:', this.searchTerm);
-    console.log('Category:', this.selectedCategory);
-    console.log('Price Range:', this.priceRange.min, '-', this.priceRange.max);
-    console.log('Sort Type:', this.sortType);
-
-     const term = this.searchTerm.trim().toLowerCase();
-
-  // Reset "no results" when search is empty
-  if (term === "") {
-    this.noResults = false;
+  // Helper to sync product IDs with wishlist
+  updateWishlistIds() {
+    this.wishlistProductsIds = this.wishlistService.getWishlist().map(p => p.id);
+    console.log('Wishlist IDs updated:', this.wishlistProductsIds);
   }
 
-    // Call service method that handles filtering and sorting
+  // Toggle wishlist when button clicked
+  toggleWishlist(product: Product) {
+    this.wishlistService.toggleWishlist(product);
+    this.updateWishlistIds(); // Sync the hearts
+  }
+
+  isInWishlist(productId: number): boolean {
+    return this.wishlistProductsIds.includes(productId);
+  }
+
+  /** Apply all filters (search, category, price, sort) */
+  applyFilters(color?: string): void {
+    console.log('Applying Filters:', {
+      searchTerm: this.searchTerm,
+      category: this.selectedCategory,
+      priceRange: this.priceRange,
+      sortType: this.sortType,
+      color: color
+    });
+
+    const term = this.searchTerm.trim().toLowerCase();
+
+    // Reset "no results" when search is empty
+    if (term === "") {
+      this.noResults = false;
+    }
+
     this.productService.applyAllFilters(
       this.searchTerm,
       this.selectedCategory,
       this.priceRange,
-      this.sortType
+      this.sortType,
+      color
     );
-
-    // Note: noResults and filteredProducts are now updated via subscription
-
   }
 
-  /**
-   * Event: Search input changed
-   */
+  /** Event: Search input changed */
   onSearchChange() {
     console.log('Search input changed:', this.searchTerm);
     this.applyFilters();
   }
 
-  /**
-   * Event: Category changed
-   */
+  /** Event: Category changed */
   onCategoryChange(category: string) {
     console.log('Category changed:', category);
     this.selectedCategory = category;
     this.applyFilters();
   }
 
-  /**
-   * Event: Price slider changed
-   */
+  /** Event: Price slider changed */
   onPriceChange(min: number, max: number) {
     console.log('Price slider changed:', min, max);
     this.priceRange = { min, max };
     this.applyFilters();
   }
 
-  /**
-   * Event: Sort option changed
-   */
+  /** Event: Sort option changed */
   onSortChange(sortType: string) {
     console.log('Sort option changed:', sortType);
     this.sortType = sortType;
     this.applyFilters();
   }
 
-  /**
-   * Add product to cart
-   */
+  /** Add product to cart */
   addToCart(product: Product) {
     this.cartservice.addToCart(product);
     this.modalMessage = `${product.name} added to cart successfully`;
@@ -147,24 +165,26 @@ export class ShopComponent implements OnInit {
     }, 2000);
   }
 
-  /**
-   * Update available colors dynamically based on filtered products
-   */
+  /** Update available colors dynamically based on filtered products */
   updateAvailableColors(): void {
-    const allColors = Array.from( new Set(this.products.flatMap(p => p.color)));
+    const allColors = Array.from(new Set(this.products.flatMap(p => p.color)));
 
     this.availableColors = allColors.map(color => {
-    // Count filtered products that include this color
-    const count = this.filteredProducts.filter(p => p.color.includes(color)).length;
-    return { name: color, available: count > 0, count };
-  });
+      // Count filtered products that include this color
+      const count = this.filteredProducts.filter(p => p.color.includes(color)).length;
+      return { name: color, available: count > 0, count };
+    });
 
     console.log('Available Colors with counts:', this.availableColors);
   }
 
-  /**
-   * Update category counts dynamically based on filtered products
-   */
+  /** Called when a color circle is clicked */
+  applyColorFilter(color: string) {
+    console.log('Filtering by color:', color);
+    this.applyFilters(color);
+  }
+
+  /** Update category counts dynamically based on filtered products */
   updateCategoryCounts(): void {
     const allCategories = [...new Set(this.products.map(p => p.category))];
 
@@ -176,8 +196,9 @@ export class ShopComponent implements OnInit {
     console.log('Category counts updated:', this.categoriesWithCount);
   }
 
-  navigateToCategory(category: any){
-     this.router.navigate([`/shop/${category}`])
+  /** Navigate to category page */
+  navigateToCategory(category: any) {
+    console.log('Navigating to category:', category);
+    this.router.navigate([`/shop/${category}`]);
   }
-
 }

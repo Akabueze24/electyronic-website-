@@ -1,96 +1,226 @@
-import {  Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { CartService } from 'src/app/core/add-to-cart/cart.service';
 import { Product, ProductService } from 'src/app/core/product-service/product.service';
+import { WishlistService } from 'src/app/core/wishlist/wishlist.service';
+
 declare var $: any;
 
 @Component({
   selector: 'app-your-component',
   templateUrl: './bestseller.component.html',
 })
-export class BestsellerComponent implements OnInit {
+export class BestsellerComponent implements OnInit, AfterViewInit {
 
-productChunks: Product[][] = []
+  /* ============================
+     CAROUSEL STATE
+  ============================ */
 
-  cartTotal: number = 0;                      // Cart total
-  modalMessage: string = '';                  // Modal message
-  showMessage: boolean = false;               // Show modal
+  productChunks: Product[][] = [];   // Chunked products for nested carousel
 
+  /* ============================
+     CART UI STATE
+  ============================ */
+
+  cartTotal: number = 0;
+  modalMessage: string = '';
+  showMessage: boolean = false;
+
+  /* ============================
+     PRODUCT COLLECTIONS
+  ============================ */
 
   allProducts: Product[] = [];
   newArrivals: Product[] = [];
   featuredProducts: Product[] = [];
   topSellingProducts: Product[] = [];
 
-  constructor( private productService: ProductService, private cartservice: CartService){}
+  /* ============================
+     WISHLIST STATE
+  ============================ */
 
+  wishlistProductsIds: number[] = []; // Track wishlist product IDs
+
+  /* ============================
+     SIDE BANNER PRODUCTS
+     (left untouched — naming preserved)
+  ============================ */
+
+  $sideBannerProduct!: Product;
+  sideBannerProduct$!: Product;
+  sidebanner!: Product;
+  sideBannerProduct!: Product;
+
+  constructor(
+    private productService: ProductService,
+    private cartservice: CartService,
+    private wishlistService: WishlistService
+  ) {}
+
+  /* ============================
+     LIFECYCLE
+  ============================ */
 
   ngOnInit(): void {
 
+    console.log('BestsellerComponent initialized');
 
-   const homeProducts = this.productService.getHomePageProducts();
+    /* --------------------------------
+       LOAD HOMEPAGE PRODUCTS
+    --------------------------------- */
+    const homeProducts = this.productService.getHomePageProducts();
 
-  // Individual arrays
-  this.newArrivals = homeProducts.newArrivals;
-  this.featuredProducts = homeProducts.featured;
-  this.topSellingProducts = homeProducts.topSelling;
+    this.newArrivals = homeProducts.newArrivals;
+    this.featuredProducts = homeProducts.featured;
+    this.topSellingProducts = homeProducts.topSelling;
 
-  // Merge into one main array (no duplicates by ID)
-  const combined = [
-    ...homeProducts.all,
-    ...homeProducts.newArrivals,
-    ...homeProducts.featured,
-    ...homeProducts.topSelling
-  ];
+    console.log('Homepage product groups loaded:', {
+      newArrivals: this.newArrivals.length,
+      featured: this.featuredProducts.length,
+      topSelling: this.topSellingProducts.length
+    });
 
-  // Remove duplicates by product ID
-  const map = new Map<number, Product>();
-  combined.forEach(p => map.set(p.id, p));
-  this.allProducts = Array.from(map.values());
+    /* --------------------------------
+       MERGE ALL PRODUCTS (NO DUPLICATES)
+    --------------------------------- */
+    const combined = [
+      ...homeProducts.all,
+      ...homeProducts.newArrivals,
+      ...homeProducts.featured,
+      ...homeProducts.topSelling
+    ];
 
-  console.log('All Products merged:', this.allProducts.map(p => p.name));
+    const map = new Map<number, Product>();
+    combined.forEach(p => map.set(p.id, p));
+    this.allProducts = Array.from(map.values());
 
-  // ✅ Chunk featuredProducts for nested carousel
-  this.chunkProducts(this.featuredProducts, 4); // 4 products per inner carousel
+    console.log('All products merged:', this.allProducts.map(p => p.name));
 
-  
-}
+    /* --------------------------------
+       SIDE BANNER ASSIGNMENTS
+    --------------------------------- */
+    this.sideBannerProduct = this.featuredProducts[0];
+    this.$sideBannerProduct = this.topSellingProducts[0];
+    this.sideBannerProduct$ = this.newArrivals[0];
+    this.sidebanner = this.topSellingProducts[1];
 
-chunkProducts(products: Product[], chunkSize: number) {
-  this.productChunks = [];
-  for (let i = 0; i < products.length; i += chunkSize) {
-    this.productChunks.push(products.slice(i, i + chunkSize));
+    console.log('Side banner products assigned');
+
+    /* --------------------------------
+       CHUNK FEATURED PRODUCTS
+    --------------------------------- */
+    this.chunkProducts(this.featuredProducts, 4);
   }
 
-  
-  
-     $('.productList-carousel').owlCarousel({
+  /* ============================
+     PRODUCT CHUNKING
+  ============================ */
+
+  chunkProducts(products: Product[], chunkSize: number): void {
+
+    console.log('Chunking products:', products.length);
+
+    this.productChunks = [];
+
+    for (let i = 0; i < products.length; i += chunkSize) {
+      this.productChunks.push(products.slice(i, i + chunkSize));
+    }
+
+    console.log('Product chunks created:', this.productChunks.length);
+
+    /* --------------------------------
+       INIT CAROUSELS AFTER DOM UPDATE
+    --------------------------------- */
+    setTimeout(() => this.initCarousels(), 100);
+
+    /* --------------------------------
+       WISHLIST SUBSCRIPTION
+    --------------------------------- */
+    this.wishlistService.wishlistCount$.subscribe(() => {
+      console.log('Wishlist count updated (bestseller)');
+      this.updateWishlistIds();
+    });
+
+    this.updateWishlistIds();
+  }
+
+  /* ============================
+     WISHLIST METHODS
+  ============================ */
+
+  updateWishlistIds(): void {
+    this.wishlistProductsIds = this.wishlistService
+      .getWishlist()
+      .map(p => p.id);
+
+    console.log('Wishlist IDs synced (bestseller):', this.wishlistProductsIds);
+  }
+
+  toggleWishlist(product: Product): void {
+    console.log('Toggling wishlist (bestseller):', product.name);
+    this.wishlistService.toggleWishlist(product);
+    this.updateWishlistIds();
+  }
+
+  isInWishlist(productId: number): boolean {
+    return this.wishlistProductsIds.includes(productId);
+  }
+
+  /* ============================
+     CART METHODS
+  ============================ */
+
+  addToCart(product: Product): void {
+    this.cartservice.addToCart(product);
+    this.modalMessage = `${product.name} added to cart successfully`;
+    this.showMessage = true;
+
+    console.log(this.modalMessage);
+
+    setTimeout(() => (this.showMessage = false), 2000);
+  }
+
+  /* ============================
+     CAROUSEL INIT
+  ============================ */
+
+  ngAfterViewInit(): void {
+    console.log('AfterViewInit → initializing carousels');
+    this.initCarousels();
+  }
+
+  initCarousels(): void {
+
+    console.log('Initializing Owl Carousels');
+
+    // Outer slider
+    $('.productList-carousel').owlCarousel({
       loop: true,
       margin: 20,
       nav: true,
       dots: false,
       autoplay: true,
       smartSpeed: 1500,
-      autoplayHoverPause: true,
       autoplayTimeout: 3000,
+      autoplayHoverPause: true,
       responsive: {
         0: { items: 1 },
-        576: { items: 2 },
-        992: { items: 3 }
+        576: { items: 1 },
+        768: { items: 2 },
+        992: { items: 3 },
       }
     });
+
+    // Inner slider
+    $('.productImg-carousel').owlCarousel({
+      loop: true,
+      margin: 0,
+      nav: true,
+      dots: false,
+      autoplay: true,
+      smartSpeed: 1000,
+      autoplayTimeout: 2500,
+      autoplayHoverPause: true,
+      items: 1,
+    });
   }
-
-
-   /** Add product to cart */
-  addToCart(product: Product): void {
-    this.cartservice.addToCart(product);
-    this.modalMessage = `${product.name} added to cart successfully`;
-    this.showMessage = true;
-    console.log(this.modalMessage);
-
-    setTimeout(() => this.showMessage = false, 2000);
-  }
-  }
-
-   
-
+}

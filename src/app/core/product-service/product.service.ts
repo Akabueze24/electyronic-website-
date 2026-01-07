@@ -3813,6 +3813,12 @@ export class ProductService {
     return this.products.find(p => p.id === id);
   }
 
+  resetFilters() {
+  console.log('Resetting product filters');
+  this.filteredProduct.next([...this.products]);
+}
+
+
   applyAllFilters(
     term: string,
     category: string,

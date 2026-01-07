@@ -9,57 +9,72 @@ import { ContactUsService } from 'src/app/core/contact-us-model/contact-us.servi
   styleUrls: ['./contact.component.css']
 })
 export class ContactComponent implements OnInit {
-contactForm!: FormGroup;
 
-id!: string;
+  /* -------------------- FORM -------------------- */
+  contactForm!: FormGroup;
 
-successMessage: string = '';
+  /* -------------------- STATE -------------------- */
+  id!: string;                     // Firebase document ID
+  successMessage: string = '';     // UI success feedback
 
-constructor (private fb: FormBuilder, private contactUsService: ContactUsService){}
+  constructor(
+    private fb: FormBuilder,
+    private contactUsService: ContactUsService
+  ) {}
 
-ngOnInit(): void {
-  this.contactForm = this.fb.group({
-     name: ['', [Validators.required, Validators.minLength(3)]],
+  /* ==================== LIFECYCLE ==================== */
+  ngOnInit(): void {
+    console.log('[Contact] Initializing contact form');
+
+    this.contactForm = this.fb.group({
+      name: ['', [Validators.required, Validators.minLength(3)]],
       email: ['', [Validators.required, Validators.email]],
       phone: [''],
       project: [''],
       subject: ['', Validators.required],
       message: ['', Validators.required]
-  })
-}
-
-onSubmit(){
-  if (this.contactForm.valid) {
-
-    const contactForm: ContactForm = {
-      name: this.contactForm.value.name,
-      email: this.contactForm.value.email,
-      phone: this.contactForm.value.phone,
-      project: this.contactForm.value.project,
-      subject: this.contactForm.value.subject,
-      message: this.contactForm.value.message,
-      date: new Date().toISOString()
-
-    };
-
-    // send to firebase 
-   this.contactUsService.sendDetails(contactForm).subscribe((response) => {
-    console.log("saved with id:", response.name);
-    console.log(`this is the contact sent to fire base : ${response}`);
-
-    this.id = response.name.toString()
-
-   });
-   this.successMessage = 'Your message has been sent successfully!'; 
-   this.contactForm.reset();
-
-
-    
-  }else{
-    this.contactForm.markAllAsTouched();
-     this.successMessage = ''; 
+    });
   }
-}
 
+  /* ==================== SUBMIT ==================== */
+  onSubmit(): void {
+    console.log('[Contact] Form submit triggered');
 
+    if (this.contactForm.valid) {
+
+      // Build contact payload
+      const contactForm: ContactForm = {
+        name: this.contactForm.value.name,
+        email: this.contactForm.value.email,
+        phone: this.contactForm.value.phone,
+        project: this.contactForm.value.project,
+        subject: this.contactForm.value.subject,
+        message: this.contactForm.value.message,
+        date: new Date().toISOString()
+      };
+
+      console.log('[Contact] Payload prepared:', contactForm);
+
+      // Send to Firebase
+      this.contactUsService.sendDetails(contactForm).subscribe({
+        next: (response) => {
+          console.log('[Contact] Saved successfully with ID:', response.name);
+          this.id = response.name.toString();
+        },
+        error: (err) => {
+          console.error('[Contact] Error sending message:', err);
+        }
+      });
+
+      // UI feedback
+      this.successMessage = 'Your message has been sent successfully!';
+      this.contactForm.reset();
+
+    } else {
+      console.warn('[Contact] Form invalid – marking all fields as touched');
+
+      this.contactForm.markAllAsTouched();
+      this.successMessage = '';
+    }
+  }
 }

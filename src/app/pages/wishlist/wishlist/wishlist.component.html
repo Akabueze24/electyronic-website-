@@ -1,0 +1,67 @@
+<!-- Single Page Header start -->
+<div class="container-fluid page-header py-5">
+    <h1 class="text-center text-white display-6 wow fadeInUp" data-wow-delay="0.1s">Wishlist Page</h1>
+    <ol class="breadcrumb justify-content-center mb-0 wow fadeInUp" data-wow-delay="0.3s">
+        <li class="breadcrumb-item"><a routerLink="#">Home</a></li>
+        <li class="breadcrumb-item"><a routerLink="#">Pages</a></li>
+        <li class="breadcrumb-item active text-white">Wishlist</li>
+    </ol>
+</div>
+<!-- Single Page Header End -->
+
+<!-- Wishlist Page Start -->
+<div class="container-fluid py-5">
+    <div class="container py-5">
+        <div class="table-responsive" *ngIf="wishlistProducts.length > 0; else emptyWishlist">
+            <table class="table table-hover">
+                <thead class="table-success">
+                    <tr>
+                        <th scope="col">Product</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Add to Cart</th>
+                        <th scope="col">Remove</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of wishlistProducts">
+                        <td class="d-flex align-items-center">
+                            <img [src]="item.images[0]" alt="{{item.name}}" class="me-3" style="width: 80px; height: 80px; object-fit: cover;">
+                            <div>
+                                <a [routerLink]="['/product', item.id]" class="fw-bold text-dark">{{ item.name }}</a>
+                                <div class="text-warning">
+                                    <ng-container *ngFor="let star of [1, 2, 3, 4, 5]">
+                                                    <i class="fa" [class.fa-star]="star <= item.rating"
+                                                        [class.fa-star-o]="star > item.rating" style="color: gold;"></i>
+                                                </ng-container>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <p class="mb-0 fw-bold text-success">${{item.currentprice | currencyConvert}}</p>
+                        </td>
+                        <td>
+                            <button class="btn btn-success rounded-pill px-3 py-2" (click)="addToCart(item)">
+                                <i class="fas fa-shopping-cart me-1"></i> Add to Cart
+                            </button>
+                        </td>
+                        <td>
+                            <button class="btn btn-outline-danger rounded-circle" (click)="removeFromWishlist(item)">
+                                <i class="fa fa-times"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+                <div *ngIf="modalMessage" class="modal-message">{{showMessage}}</div>
+            </table>
+        </div>
+
+        <ng-template #emptyWishlist>
+            <div class="text-center py-5">
+                <h4 class="text-success">Your wishlist is empty</h4>
+                <p>Browse products and add your favorites here!</p>
+                <a routerLink="/shop" class="btn btn-success rounded-pill px-4 py-2 mt-3">Start Shopping</a>
+            </div>
+        </ng-template>
+    </div>
+</div>
+<!-- Wishlist Page End -->

@@ -3,7 +3,9 @@ import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
 import { CartService } from 'src/app/core/add-to-cart/cart.service';
 import { CurrencyService } from 'src/app/core/currency/currency.service';
+import { LanguageService } from 'src/app/core/i18n/language.service';
 import { Product, ProductService } from 'src/app/core/product-service/product.service';
+import { WishlistService } from 'src/app/core/wishlist/wishlist.service';
 
 
 @Component({
@@ -19,20 +21,42 @@ export class HeaderComponent implements OnInit {
   filteredProducts: Product[] = [];    // suggestions for dropdown
   cartTotal: number = 0;               // total cart price
   getCount: number = 0;                // total unique items
-
+  // New: category counts for dynamic display
+  categoriesWithCount: { category: string; count: number; available: boolean }[] = [];
+  //  currencies  concvert
    currencies: string[] = [];
   selectedCurrency: string = 'USD';
+  // wishlistcount
+  wishlistCount = 0;
+
+   // List of available languages
+  languages = ['en', 'tr', 'es', 'it'];
 
   constructor(
     private productService: ProductService,
     private router: Router,
     private cartservice: CartService,
-    private currencyService: CurrencyService
+    private currencyService: CurrencyService,
+    public languageService: LanguageService, 
+    private wishlistService: WishlistService
   ) {}
 
   ngOnInit() {
+
+     // Subscribe to filtered products from service
+    this.productService.products$.subscribe(products => {
+      this.products = this.productService.getAllProducts(); 
+      this.filteredProducts = products;
+      console.log('Filtered Products:', products.map(p => p.name));
+      
+      this.updateCategoryCounts();      // update categories initially
+
+    });
+
+
     // Get all products from service
     this.products = this.productService.getAllProducts();
+    
 
     // Reset search on navigation
     this.router.events
@@ -64,6 +88,11 @@ export class HeaderComponent implements OnInit {
     // Subscribe to selected currency
     this.currencyService.selectedCurrency$.subscribe((currency: string) => {
       this.selectedCurrency = currency;
+    });
+
+    // suscribing to wishlist
+     this.wishlistService.wishlistCount$.subscribe(count => {
+      this.wishlistCount = count;
     });
 
   }
@@ -139,6 +168,32 @@ export class HeaderComponent implements OnInit {
 // currency change
   changeCurrency(currency: string) {
     this.currencyService.setCurrency(currency);
+  }
+// update category with count
+  updateCategoryCounts(): void {
+  const allProducts = this.productService.getAllProducts(); // full list, not filtered
+
+  const allCategories = [...new Set(allProducts.map(p => p.category))];
+
+  this.categoriesWithCount = allCategories.map(cat => {
+    const count = allProducts.filter(p => p.category === cat).length;
+    return {
+      category: cat,
+      count: count,
+      available: count > 0
+    };
+  });
+
+  console.log('Category counts:', this.categoriesWithCount);
+}
+
+navigateToCategory(category: any){
+this.router.navigate([`/shop/${category}`])
+}
+
+ // Call this when user clicks a language
+  changeLanguage(lang: string) {
+    this.languageService.switchLanguage(lang);
   }
 }
 

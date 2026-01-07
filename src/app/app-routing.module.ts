@@ -17,6 +17,7 @@ import { SmartTvComponent } from './pages/smart-tv/smart-tv.component';
 import { ComputersComponent } from './pages/computers/computers.component';
 import { MobilesComponent } from './pages/mobiles/mobiles.component';
 import { HomeComponent } from './pages/home/home.component';
+import { WishlistComponent } from './pages/wishlist/wishlist/wishlist.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -43,7 +44,8 @@ const routes: Routes = [
   { path: 'contact', component: ContactComponent },
   { path: 'cheackout', component: CheackoutComponent },
   { path: 'admin', component: AdminCheckoutComponent },
-  { path: 'bestseller', component: BestsellerComponent}
+  { path: 'bestseller', component: BestsellerComponent},
+  { path: 'wishlist', component: WishlistComponent}
 ];
 
 

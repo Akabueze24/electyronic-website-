@@ -31,12 +31,10 @@
 
                 <div class="dropdown">
                     <a routerLink="#" class="dropdown-toggle text-muted mx-2" data-bs-toggle="dropdown"><small>
-                            English</small></a>
+                            {{languageService.currentLanguage | translate}}</small></a>
                     <div class="dropdown-menu rounded">
-                        <a routerLink="#" class="dropdown-item"> English</a>
-                        <a routerLink="#" class="dropdown-item"> Turkish</a>
-                        <a routerLink="#" class="dropdown-item"> Spanol</a>
-                        <a routerLink="#" class="dropdown-item"> Italiano</a>
+                        <a (click)="changeLanguage(lang)" class="dropdown-item" *ngFor="let lang of languages"> {{lang | translate}}</a>
+                        
                     </div>
                 </div>
                 <div class="dropdown">
@@ -103,7 +101,7 @@
                     <div *ngIf="filteredProducts.length > 0; else noResults">
                         <div *ngFor="let product of filteredProducts" class="p-2 border-bottom text-start"
                             style="cursor: pointer;" (click)="selectProduct(product)">
-                            <img style="width: 20%; height: 20%;" [src]="product.images[0]" alt="{{product.name}}" />
+                            <img style="width: 20%; height: 20%;" [src]="product.images[1]" alt="{{product.name}}" />
                             {{product.name}}
 
                         </div>
@@ -126,9 +124,11 @@
                         <i class="fas fa-random"></i>
                     </span>
                 </a>
-                <a routerLink="#" class="text-muted d-flex align-items-center justify-content-center me-3">
+                <a routerLink="/wishlist" class="text-muted d-flex align-items-center justify-content-center me-3">
                     <span class="rounded-circle btn-md-square border">
                         <i class="fas fa-heart"></i>
+                        <span *ngIf="wishlistCount > 0 " class="position-absolute top-0  badge bg-danger rounded-pill text-white"
+                            style="font-size: 10px; margin-top: 80px ; margin-left: 25px;">{{wishlistCount}}</span>
                     </span>
                 </a>
                 <a routerLink="/cart"
@@ -141,7 +141,7 @@
                             {{ getCount }}
                         </span>
                     </span>
-                    <span class="text-dark ms-2">${{ cartTotal.toFixed(2) }}</span>
+                    <span class="text-dark ms-2">{{ cartTotal | currencyConvert}}</span>
                 </a>
             </div>
         </div>
@@ -161,43 +161,14 @@
                 </button>
                 <div class="collapse navbar-collapse rounded-bottom" id="allCat">
                     <div class="navbar-nav ms-auto py-0">
-                        <ul class="list-unstyled categories-bars">
+                        <ul class="list-unstyled categories-bars" *ngFor="let cate of categoriesWithCount">
                             <li>
                                 <div class="categories-bars-item">
-                                    <a routerLink="/shop/accessories">Accessories</a>
-                                    <span>(3)</span>
+                                    <a  (click)="navigateToCategory(cate.category)">{{cate.category}}</a>
+                                    <span>({{cate.count}})</span>
                                 </div>
                             </li>
-                            <li>
-                                <div class="categories-bars-item">
-                                    <a routerLink="/shop/electronics">Electronics & Computer</a>
-                                    <span>(5)</span>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="categories-bars-item">
-                                    <a routerLink="/shop/laptops">Laptops & Desktops</a>
-                                    <span>(2)</span>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="categories-bars-item">
-                                    <a routerLink="/shop/tablets">Mobiles & Tablets</a>
-                                    <span>(8)</span>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="categories-bars-item">
-                                    <a routerLink="/shop/smartphones">SmartPhones</a>
-                                    <span>(5)</span>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="categories-bars-item">
-                                    <a routerLink="/shop/smart-tv">Smart tv</a>
-                                    <span>(5)</span>
-                                </div>
-                            </li>
+                           
                         </ul>
                     </div>
                 </div>
@@ -233,38 +204,15 @@
                             <a routerLink="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">All
                                 Category</a>
                             <div class="dropdown-menu m-0">
-                                <ul class="list-unstyled categories-bars">
-                                    <li>
-                                        <div class="categories-bars-item">
-                                            <a routerLink="#">Accessories</a>
-                                            <span>(3)</span>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="categories-bars-item">
-                                            <a routerLink="#">Electronics & Computer</a>
-                                            <span>(5)</span>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="categories-bars-item">
-                                            <a routerLink="#">Laptops & Desktops</a>
-                                            <span>(2)</span>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="categories-bars-item">
-                                            <a routerLink="#">Mobiles & Tablets</a>
-                                            <span>(8)</span>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="categories-bars-item">
-                                            <a routerLink="#">SmartPhone & Smart TV</a>
-                                            <span>(5)</span>
-                                        </div>
-                                    </li>
-                                </ul>
+                                 <ul class="list-unstyled categories-bars" *ngFor="let cate of categoriesWithCount">
+                            <li>
+                                <div class="categories-bars-item">
+                                    <a  (click)="navigateToCategory(cate.category)">{{cate.category}}</a>
+                                    <span>({{cate.count}})</span>
+                                </div>
+                            </li>
+                           
+                        </ul>
                             </div>
                         </div>
                     </div>

@@ -23,6 +23,8 @@ import { SmartTvComponent } from './pages/smart-tv/smart-tv.component';
 import { ComputersComponent } from './pages/computers/computers.component';
 import { MobilesComponent } from './pages/mobiles/mobiles.component';
 import { CurrencyConvertPipe } from './core/currency/currency-convert.pipe';
+import { TranslateModule } from '@ngx-translate/core';
+import { WishlistComponent } from './pages/wishlist/wishlist/wishlist.component';
 
 
 
@@ -48,6 +50,7 @@ import { CurrencyConvertPipe } from './core/currency/currency-convert.pipe';
     ComputersComponent,
     MobilesComponent,
     CurrencyConvertPipe,
+    WishlistComponent,
     
     
   
@@ -59,7 +62,8 @@ import { CurrencyConvertPipe } from './core/currency/currency-convert.pipe';
     AppRoutingModule,
     ReactiveFormsModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    TranslateModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
