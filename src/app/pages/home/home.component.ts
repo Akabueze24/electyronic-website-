@@ -36,6 +36,9 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   /* ==================== WISHLIST ==================== */
   wishlistProductsIds: number[] = []; // Track wishlist product IDs
+  showWishlistMessage: boolean = false;
+  wishlistMessage: string = ''
+
 
   constructor(
     private productService: ProductService,
@@ -113,8 +116,21 @@ export class HomeComponent implements OnInit, AfterViewInit {
     console.log('[Home] Wishlist synced:', this.wishlistProductsIds);
   }
 
-  toggleWishlist(product: Product): void {
+ toggleWishlist(product: Product): void {
+    const alreadyInWishlist = this.isInWishlist(product.id)
+    console.log('Toggling wishlist for:', product.name);
     this.wishlistService.toggleWishlist(product);
+    this.showWishlistMessage = true
+
+    if (!alreadyInWishlist) {
+      this.wishlistMessage = `${product.name} successfully added to wishlist`;
+      console.log(this.wishlistMessage);
+      
+    }else{
+      this.wishlistMessage = `${product.name} removed from wishlist`
+    }
+    setTimeout(() => (this.showWishlistMessage = false), 2000);
+    
     this.updateWishlistIds();
   }
 

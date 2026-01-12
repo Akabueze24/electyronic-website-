@@ -21,6 +21,8 @@ export class CheckoutService {
 
   private http = inject(HttpClient)
 
+  private currentOrder: any = null;
+
 
   
 
@@ -157,4 +159,31 @@ getForm(): Observable <CheckoutFormDetails []>{
     localStorage.setItem('checkoutData', JSON.stringify(data));
     console.log("Checkout data saved to localStorage:", data);
   }
+
+  // Soft delete an order
+  softDeleteOrder(id: string): Observable<any> {
+  const deleteApi = `https://electro-884dc-default-rtdb.firebaseio.com/checkout/${id}.json`;
+  return this.http.patch(deleteApi, { deleted: true });
+}
+
+// Save order after checkout
+setCurrentOrder(order: any) {
+  this.currentOrder = order;
+  localStorage.setItem('currentOrder', JSON.stringify(order)); // optional persistence
+}
+
+// Get order for receipt
+getCurrentOrder(): any {
+  if (!this.currentOrder) {
+    const saved = localStorage.getItem('currentOrder');
+    if (saved) this.currentOrder = JSON.parse(saved);
+  }
+  return this.currentOrder;
+}
+
+// Clear current order
+clearCurrentOrder() {
+  this.currentOrder = null;
+  localStorage.removeItem('currentOrder');
+}
 }

@@ -128,7 +128,7 @@
                                 <span>({{cate.count}})</span>
                             </div>
                         </li>
-                    
+
 
                     </ul>
                 </div>
@@ -153,7 +153,7 @@
                         </div>
                     </div>
                 </div> -->
-                <div class="additional-product mb-4">
+                <!-- <div class="additional-product mb-4">
                     <h4>Additional Products</h4>
                     <div class="additional-product-item">
                         <input type="radio" class="me-2" id="Categories-1" name="Categories-1" value="Beverages">
@@ -175,8 +175,8 @@
                         <input type="radio" class="me-2" id="Categories-5" name="Categories-1" value="Beverages">
                         <label for="Categories-5" class="text-dark"> SmartPhone & Smart TV</label>
                     </div>
-                </div>
-                <!-- <div class="featured-product mb-4">
+                </div> 
+                <-- <div class="featured-product mb-4">
                             <h4 class="mb-3">Featured products</h4>
                             <div class="featured-product-item">
                                 <div class="rounded me-4" style="width: 100px; height: 100px;">
@@ -241,7 +241,7 @@
                         </div> -->
 
 
-                <div class="product-tags py-4">
+                <!-- <div class="product-tags py-4">
                     <h4 class="mb-3">PRODUCT TAGS</h4>
                     <div class="product-tags-items bg-light rounded p-3">
                         <a routerLink="#" class="border rounded py-1 px-2 mb-2">New</a>
@@ -255,7 +255,7 @@
                         <a routerLink="#" class="border rounded py-1 px-2 mb-2">talevision</a>
                         <a routerLink="#" class="border rounded py-1 px-2 mb-2">slaes</a>
                     </div>
-                </div>
+                </div> -->
             </div>
             <div class="col-lg-9 wow fadeInUp" data-wow-delay="0.1s">
                 <div class="rounded mb-4 position-relative">
@@ -314,12 +314,11 @@
                 <div class="tab-content" *ngIf="!noResults">
                     <div id="tab-5" class="tab-pane fade show p-0 active">
                         <div class="row g-4 product">
-                            <div class="col-lg-4" *ngFor="let prod of products">
+                            <div class="col-lg-4" *ngFor="let prod of paginatedProducts">
                                 <div class="product-item rounded wow fadeInUp" data-wow-delay="0.1s">
                                     <div class="product-item-inner border rounded">
                                         <div class="product-item-inner-item">
-                                            <img [src]="prod.images[1]"
-                                                class="img-fluid w-100 rounded-top" alt="">
+                                            <img [src]="prod.images[1]" class="img-fluid w-100 rounded-top" alt="">
                                             <div class="product-new">New</div>
                                             <div class="product-details">
                                                 <a [routerLink]="['/productView', prod.id]"><i
@@ -327,17 +326,18 @@
                                             </div>
                                         </div>
                                         <div class="text-center rounded-bottom p-4">
-                                            <a [routerLink]="['/shop', prod.category]" class="d-block mb-2">{{prod.category}}</a>
+                                            <a [routerLink]="['/shop', prod.category]"
+                                                class="d-block mb-2">{{prod.category}}</a>
                                             <a [routerLink]="['/productView', prod.id]"
                                                 class="d-block h4">{{prod.name}}</a>
                                             <del class="me-2 fs-5">{{prod.prevprice | currencyConvert}}</del>
-                                            <span class="text-primary fs-5">{{prod.currentprice | currencyConvert}}</span>
+                                            <span class="text-primary fs-5">{{prod.currentprice |
+                                                currencyConvert}}</span>
                                         </div>
                                     </div>
                                     <div
                                         class="product-item-add border border-top-0 rounded-bottom  text-center p-4 pt-0">
-                                        <button
-                                            class="btn btn-primary border-secondary rounded-pill py-2 px-4 mb-4"
+                                        <button class="btn btn-primary border-secondary rounded-pill py-2 px-4 mb-4"
                                             (click)="addToCart(prod)"><i class="fas fa-shopping-cart me-2"></i> Add To
                                             Cart</button>
                                         <div class="d-flex justify-content-between align-items-center">
@@ -352,15 +352,21 @@
                                                     class="text-primary d-flex align-items-center justify-content-center me-3"><span
                                                         class="rounded-circle btn-sm-square border"><i
                                                             class="fas fa-random"></i></span></a>
-                                                 <button
-                                                class="wishlist-btn d-flex align-items-center justify-content-center"
-                                                (click)="toggleWishlist(prod)"
-                                                [class.active]="isInWishlist(prod.id)">
+                                                <button
+                                                    class="wishlist-btn d-flex align-items-center justify-content-center"
+                                                    (click)="toggleWishlist(prod)"
+                                                    [class.active]="isInWishlist(prod.id)">
+                                                    <div *ngIf="showWishlistMessage" class="whishlist-modal">
+                                                        {{wishlistMessage}}
+                                                    </div>
 
-                                                <span class="rounded-circle btn-sm-square border">
-                                                    <i class="fas fa-heart"></i>
-                                                </span>
-                                            </button>
+
+
+                                                    <span class="rounded-circle btn-sm-square border">
+                                                        <i class="fas fa-heart"></i>
+                                                    </span>
+
+                                                </button>
                                             </div>
                                         </div>
                                     </div>
@@ -369,18 +375,33 @@
                                 </div>
                             </div>
 
-                            <div class="col-12 wow fadeInUp" data-wow-delay="0.1s" *ngIf="noResults">
-                                <div class="pagination d-flex justify-content-center mt-5">
-                                    <a routerLink="#" class="rounded">&laquo;</a>
-                                    <a routerLink="#" class="active rounded">1</a>
-                                    <a routerLink="#" class="rounded">2</a>
-                                    <a routerLink="#" class="rounded">3</a>
-                                    <a routerLink="#" class="rounded">4</a>
-                                    <a routerLink="#" class="rounded">5</a>
-                                    <a routerLink="#" class="rounded">6</a>
-                                    <a routerLink="#" class="rounded">&raquo;</a>
+                            <div class="col-12 wow fadeInUp" data-wow-delay="0.1s">
+                                <div class="pagination d-flex justify-content-center mt-5"
+                                    *ngIf="!noResults && totalPages > 1">
+
+                                    <!-- Previous -->
+                                    <a class="rounded" [class.disabled]="paginationService.currentPage === 1"
+                                        (click)="prevPage()">
+                                        &laquo;
+                                    </a>
+
+                                    <!-- Page numbers -->
+                                    <a *ngFor="let page of getVisiblePages()" class="rounded"
+                                        [class.active]="paginationService.currentPage === page"
+                                        (click)="goToPage(page)">
+                                        {{ page }}
+                                    </a>
+
+                                    <!-- Next -->
+                                    <a class="rounded" [class.disabled]="paginationService.currentPage === totalPages"
+                                        (click)="nextPage()">
+                                        &raquo;
+                                    </a>
+
                                 </div>
                             </div>
+
+
                         </div>
                     </div>
                 </div>
@@ -395,28 +416,28 @@
     <div class="container pb-5">
         <div class="row g-4">
             <div class="col-lg-6 wow fadeInLeft" data-wow-delay="0.1s">
-                <a routerLink="#">
+                <a [routerLink]="['/shop', sideBannerProduct.category]">
                     <div class="bg-primary rounded position-relative">
-                        <img src="../../../assets/img/product-banner.jpg" class="img-fluid w-100 rounded" alt="">
+                        <img [src]="sideBannerProduct.images[1]" class="img-fluid w-100 rounded" alt="">
                         <div class="position-absolute top-0 start-0 w-100 h-100 d-flex flex-column justify-content-center rounded p-4"
                             style="background: rgba(255, 255, 255, 0.5);">
-                            <h3 class="display-5 text-primary">EOS Rebel <br> <span>T7i Kit</span></h3>
-                            <p class="fs-4 text-muted">$899.99</p>
-                            <a routerLink="#" class="btn btn-primary rounded-pill align-self-start py-2 px-4">Shop
+                            <h3 class="display-5 text-primary">{{sideBannerProduct.name}}</h3>
+                            <p class="fs-4 text-muted">{{sideBannerProduct.currentprice | currencyConvert}}</p>
+                            <a [routerLink]="['/productView', sideBannerProduct.id]" class="btn btn-primary rounded-pill align-self-start py-2 px-4">Shop
                                 Now</a>
                         </div>
                     </div>
                 </a>
             </div>
             <div class="col-lg-6 wow fadeInRight" data-wow-delay="0.2s">
-                <a routerLink="#">
+                <a [routerLink]="['/shop',$sideBnnerProduct.category]">
                     <div class="text-center bg-primary rounded position-relative">
-                        <img src="../../../assets/img/product-banner-2.jpg" class="img-fluid w-100" alt="">
+                        <img [src]="$sideBnnerProduct.images[2]" class="img-fluid w-100" alt="">
                         <div class="position-absolute top-0 start-0 w-100 h-100 d-flex flex-column justify-content-center rounded p-4"
                             style="background: rgba(242, 139, 0, 0.5);">
                             <h2 class="display-2 text-secondary">SALE</h2>
-                            <h4 class="display-5 text-white mb-4">Get UP To 50% Off</h4>
-                            <a routerLink="#" class="btn btn-secondary rounded-pill align-self-center py-2 px-4">Shop
+                            <h4 class="display-5 text-white mb-4">{{$sideBnnerProduct.name}}</h4>
+                            <a [routerLink]="['/productView', $sideBnnerProduct.id]" class="btn btn-secondary rounded-pill align-self-center py-2 px-4">Shop
                                 Now</a>
                         </div>
                     </div>

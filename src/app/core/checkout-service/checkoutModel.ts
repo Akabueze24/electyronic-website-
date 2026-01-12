@@ -1,5 +1,5 @@
 export interface CheckoutFormDetails {
-
+ 
   firstName: string;
   lastName: string;
   companyName: string;
@@ -10,7 +10,9 @@ export interface CheckoutFormDetails {
   mobile: string;
   email: string;
   notes: string;
-  date : string
-   
+  date : string;
+  deleted: boolean
+  
+  
 }
 

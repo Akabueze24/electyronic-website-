@@ -58,6 +58,22 @@
   width: 100%;
 }
 
+
+.whishlist-modal{
+  position: fixed;
+  top: 30%;
+  right: 20px;
+  background: #28a745; /* green for success */
+  color: white;
+  padding: 12px 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  z-index: 1000;
+  animation: fadein 0.3s, fadeout 0.3s 1.7s;
+  width: 100%;
+}
+
+
 .color-circle {
   width: 30px;
   height: 30px;

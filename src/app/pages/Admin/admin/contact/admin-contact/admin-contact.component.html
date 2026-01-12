@@ -1,0 +1,55 @@
+<div class="admin-container">
+  <h2>Admin Contact Dashboard</h2>
+
+  <!-- Clear All Contacts -->
+  <button class="btn clear-all-btn" (click)="openClearAllDialog()">
+    <i class="fa fa-trash"></i> Clear All Contacts
+  </button>
+
+  <div *ngIf="contacts.length === 0" class="empty-message">
+    No contact submissions yet!
+  </div>
+
+  <div *ngFor="let contact of contacts" class="task-item card">
+    <div class="card-header d-flex justify-content-between align-items-center">
+      <h3>{{ contact.name }}</h3>
+      <button class="btn btn-sm btn-danger" (click)="openDeleteDialog(contact.id)">
+        Delete
+      </button>
+    </div>
+
+    <div class="card-body">
+      <p><b>Email:</b> {{ contact.email }}</p>
+      <p><b>Phone:</b> {{ contact.phone }}</p>
+      <p><b>Project:</b> {{ contact.project }}</p>
+      <p><b>Subject:</b> {{ contact.subject }}</p>
+      <p><b>Message:</b> {{ contact.message }}</p>
+      <p><b>Date:</b> {{ contact.date }}</p>
+      <p><b>ID:</b> {{ contact.name }}</p>
+    </div>
+  </div>
+
+  <!-- Individual Delete Confirmation -->
+  <div class="confirm-dialog" *ngIf="showConfirmDialog">
+    <div class="confirm-dialog-content">
+      <h2>Confirm Deletion</h2>
+      <p>Are you sure you want to delete this contact?</p>
+      <div class="buttons">
+        <button class="confirm-btn" (click)="confirmDelete()">Yes</button>
+        <button class="cancel-btn" (click)="cancelDialog()">No</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Clear All Contacts Confirmation -->
+  <div class="confirm-dialog" *ngIf="showClearAllDialog">
+    <div class="confirm-dialog-content">
+      <h2>Confirm Clear All Contacts</h2>
+      <p>Are you sure you want to delete ALL contact submissions?</p>
+      <div class="buttons">
+        <button class="confirm-btn" (click)="confirmClearAll()">Yes</button>
+        <button class="cancel-btn" (click)="cancelClearAll()">No</button>
+      </div>
+    </div>
+  </div>
+</div>

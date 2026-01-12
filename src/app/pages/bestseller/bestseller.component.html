@@ -111,6 +111,21 @@
         color: green;
         /* heart when liked */
     }
+
+    .whishlist-modal {
+        position: fixed;
+        top: 30%;
+        right: 20px;
+        background: #28a745;
+        /* green for success */
+        color: white;
+        padding: 12px 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+        z-index: 1000;
+        animation: fadein 0.3s, fadeout 0.3s 1.7s;
+        width: 100%;
+    }
 </style>
 
 <!-- Single Page Header start -->
@@ -221,8 +236,8 @@
 
             <!-- Smartphones -->
             <div class="col-lg-6 wow fadeInLeft" data-wow-delay="0.2s">
-                <a [routerLink]="['/shop', sideBannerProduct.category]" 
-                   class="d-flex align-items-center justify-content-between border bg-white rounded p-4">
+                <a [routerLink]="['/shop', sideBannerProduct.category]"
+                    class="d-flex align-items-center justify-content-between border bg-white rounded p-4">
                     <div>
                         <p class="text-muted mb-3">Latest Technology, Sleek Design</p>
                         <h3 class="text-primary">Smartphones</h3>
@@ -234,8 +249,8 @@
 
             <!-- Laptops -->
             <div class="col-lg-6 wow fadeInRight" data-wow-delay="0.3s">
-                <a [routerLink]="['/shop', $sideBannerProduct.category]"  
-                   class="d-flex align-items-center justify-content-between border bg-white rounded p-4">
+                <a [routerLink]="['/shop', $sideBannerProduct.category]"
+                    class="d-flex align-items-center justify-content-between border bg-white rounded p-4">
                     <div>
                         <p class="text-muted mb-3">Power, Performance & Portability</p>
                         <h3 class="text-primary">Laptops</h3>
@@ -289,8 +304,18 @@
                         <div class="d-flex">
                             <a href="#" class="text-primary d-flex align-items-center justify-content-center me-3"><span
                                     class="rounded-circle btn-sm-square border"><i class="fas fa-random"></i></span></a>
-                            <a href="#" class="text-primary d-flex align-items-center justify-content-center me-0"><span
-                                    class="rounded-circle btn-sm-square border"><i class="fas fa-heart"></i></span></a>
+                            <button class="wishlist-btn d-flex align-items-center justify-content-center"
+                                (click)="toggleWishlist(prod)" [class.active]="isInWishlist(prod.id)">
+                                <div *ngIf="showWishlistMessage" class="whishlist-modal">{{wishlistMessage}}
+                                </div>
+
+
+
+                                <span class="rounded-circle btn-sm-square border">
+                                    <i class="fas fa-heart"></i>
+                                </span>
+
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -376,11 +401,21 @@
                                                 <span class="rounded-circle btn-sm-square border"><i
                                                         class="fas fa-random"></i></span>
                                             </a>
-                                            <a href="#"
-                                                class="text-primary d-flex align-items-center justify-content-center me-0">
-                                                <span class="rounded-circle btn-sm-square border"><i
-                                                        class="fas fa-heart"></i></span>
-                                            </a>
+                                            <button
+                                                class="wishlist-btn d-flex align-items-center justify-content-center"
+                                                (click)="toggleWishlist(product)"
+                                                [class.active]="isInWishlist(product.id)">
+                                                <div *ngIf="showWishlistMessage" class="whishlist-modal">
+                                                    {{wishlistMessage}}
+                                                </div>
+
+
+
+                                                <span class="rounded-circle btn-sm-square border">
+                                                    <i class="fas fa-heart"></i>
+                                                </span>
+
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -428,11 +463,21 @@
                                                 <span class="rounded-circle btn-sm-square border"><i
                                                         class="fas fa-random"></i></span>
                                             </a>
-                                            <a href="#"
-                                                class="text-primary d-flex align-items-center justify-content-center me-0">
-                                                <span class="rounded-circle btn-sm-square border"><i
-                                                        class="fas fa-heart"></i></span>
-                                            </a>
+                                            <button
+                                                class="wishlist-btn d-flex align-items-center justify-content-center"
+                                                (click)="toggleWishlist(product)"
+                                                [class.active]="isInWishlist(product.id)">
+                                                <div *ngIf="showWishlistMessage" class="whishlist-modal">
+                                                    {{wishlistMessage}}
+                                                </div>
+
+
+
+                                                <span class="rounded-circle btn-sm-square border">
+                                                    <i class="fas fa-heart"></i>
+                                                </span>
+
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -480,11 +525,21 @@
                                                 <span class="rounded-circle btn-sm-square border"><i
                                                         class="fas fa-random"></i></span>
                                             </a>
-                                            <a href="#"
-                                                class="text-primary d-flex align-items-center justify-content-center me-0">
-                                                <span class="rounded-circle btn-sm-square border"><i
-                                                        class="fas fa-heart"></i></span>
-                                            </a>
+                                            <button
+                                                class="wishlist-btn d-flex align-items-center justify-content-center"
+                                                (click)="toggleWishlist(product)"
+                                                [class.active]="isInWishlist(product.id)">
+                                                <div *ngIf="showWishlistMessage" class="whishlist-modal">
+                                                    {{wishlistMessage}}
+                                                </div>
+
+
+
+                                                <span class="rounded-circle btn-sm-square border">
+                                                    <i class="fas fa-heart"></i>
+                                                </span>
+
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -533,11 +588,21 @@
                                                 <span class="rounded-circle btn-sm-square border"><i
                                                         class="fas fa-random"></i></span>
                                             </a>
-                                            <a href="#"
-                                                class="text-primary d-flex align-items-center justify-content-center me-0">
-                                                <span class="rounded-circle btn-sm-square border"><i
-                                                        class="fas fa-heart"></i></span>
-                                            </a>
+                                            <button
+                                                class="wishlist-btn d-flex align-items-center justify-content-center"
+                                                (click)="toggleWishlist(product)"
+                                                [class.active]="isInWishlist(product.id)">
+                                                <div *ngIf="showWishlistMessage" class="whishlist-modal">
+                                                    {{wishlistMessage}}
+                                                </div>
+
+
+
+                                                <span class="rounded-circle btn-sm-square border">
+                                                    <i class="fas fa-heart"></i>
+                                                </span>
+
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -591,15 +656,20 @@
                                     class="rounded-circle btn-sm-square border"><i class="fas fa-random"></i></span></a>
                             <button class="wishlist-btn d-flex align-items-center justify-content-center"
                                 (click)="toggleWishlist(product)" [class.active]="isInWishlist(product.id)">
+                                <div *ngIf="showWishlistMessage" class="whishlist-modal">{{wishlistMessage}}
+                                </div>
+
+
 
                                 <span class="rounded-circle btn-sm-square border">
                                     <i class="fas fa-heart"></i>
                                 </span>
+
                             </button>
                         </div>
                     </div>
                 </div>
-                <div class="productImg-item products-mini-item border" *ngFor="let prod of chunk">
+                <!-- <div class="productImg-item products-mini-item border" *ngFor="let prod of chunk">
                     <div class="row g-0">
                         <div class="col-5">
                             <div class="products-mini-img border-end h-100">
@@ -665,10 +735,15 @@
                                     class="rounded-circle btn-sm-square border"><i class="fas fa-random"></i></span></a>
                             <button class="wishlist-btn d-flex align-items-center justify-content-center"
                                 (click)="toggleWishlist(prod)" [class.active]="isInWishlist(prod.id)">
+                                <div *ngIf="showWishlistMessage" class="whishlist-modal">{{wishlistMessage}}
+                                </div>
+
+
 
                                 <span class="rounded-circle btn-sm-square border">
                                     <i class="fas fa-heart"></i>
                                 </span>
+
                             </button>
                         </div>
                     </div>
@@ -703,14 +778,19 @@
                                     class="rounded-circle btn-sm-square border"><i class="fas fa-random"></i></span></a>
                             <button class="wishlist-btn d-flex align-items-center justify-content-center"
                                 (click)="toggleWishlist(prod)" [class.active]="isInWishlist(prod.id)">
+                                <div *ngIf="showWishlistMessage" class="whishlist-modal">{{wishlistMessage}}
+                                </div>
+
+
 
                                 <span class="rounded-circle btn-sm-square border">
                                     <i class="fas fa-heart"></i>
                                 </span>
+
                             </button>
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
 
         </div>
@@ -730,7 +810,8 @@
                             style="background: rgba(255, 255, 255, 0.5);">
                             <h3 class="display-5 text-primary">Samsung Galaxy <br> S23 Ultra</h3>
                             <p class="fs-4 text-muted">{{sideBannerProduct$.currentprice | currencyConvert}}</p>
-                            <a [routerLink]="['/productView', sideBannerProduct$.id]" class="btn btn-primary rounded-pill align-self-start py-2 px-4">Shop Now</a>
+                            <a [routerLink]="['/productView', sideBannerProduct$.id]"
+                                class="btn btn-primary rounded-pill align-self-start py-2 px-4">Shop Now</a>
                         </div>
                     </div>
                 </a>
@@ -743,7 +824,8 @@
                             style="background: rgba(242, 139, 0, 0.5);">
                             <h2 class="display-2 text-secondary">SALE</h2>
                             <h4 class="display-5 text-white mb-4">Sony WH-1000XM5</h4>
-                            <a [routerLink]="['/productView', sidebanner.id]" class="btn btn-secondary rounded-pill align-self-center py-2 px-4">Shop Now</a>
+                            <a [routerLink]="['/productView', sidebanner.id]"
+                                class="btn btn-secondary rounded-pill align-self-center py-2 px-4">Shop Now</a>
                         </div>
                     </div>
                 </a>

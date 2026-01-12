@@ -93,7 +93,7 @@
             <div class="col-lg-3 wow fadeInUp" data-wow-delay="0.1s">
                 <div class="product-categories mb-4">
                     <h4>Products Categories</h4>
-                    <ul class="list-unstyled" >
+                    <ul class="list-unstyled">
                         <li *ngFor="let cate of categoriesWithCount">
                             <div class="categories-item">
                                 <a (click)="navigateToCategory(cate.category)" class="text-dark"><i
@@ -128,27 +128,18 @@
 
                 <div class="additional-product mb-4">
                     <h4>Additional Products</h4>
-                    <div class="additional-product-item">
-                        <input type="radio" class="me-2" id="Categories-1" name="Categories-1" value="Beverages">
-                        <label for="Categories-1" class="text-dark"> Accessories</label>
-                    </div>
-                    <div class="additional-product-item">
-                        <input type="radio" class="me-2" id="Categories-2" name="Categories-1" value="Beverages">
-                        <label for="Categories-2" class="text-dark"> Electronics & Computer</label>
-                    </div>
-                    <div class="additional-product-item">
-                        <input type="radio" class="me-2" id="Categories-3" name="Categories-1" value="Beverages">
-                        <label for="Categories-3" class="text-dark"> Laptops & Desktops</label>
-                    </div>
-                    <div class="additional-product-item">
-                        <input type="radio" class="me-2" id="Categories-4" name="Categories-1" value="Beverages">
-                        <label for="Categories-4" class="text-dark"> Mobiles & Tablets</label>
-                    </div>
-                    <div class="additional-product-item">
-                        <input type="radio" class="me-2" id="Categories-5" name="Categories-1" value="Beverages">
-                        <label for="Categories-5" class="text-dark"> SmartPhone & Smart TV</label>
+
+                    <div class="additional-product-item" *ngFor="let cat of categoriesWithCount">
+                        <input type="radio" class="me-2" name="category" [id]="cat.category" [value]="cat.category"
+                            [(ngModel)]="selectedCategory" [disabled]="!cat.available" (change)="applyFilters()" />
+
+                        <label [for]="cat.category" class="text-dark" [class.text-muted]="!cat.available">
+                            {{ cat.category }}
+                            
+                        </label>
                     </div>
                 </div>
+
                 <div class="featured-product mb-4">
                     <h4 class="mb-3">Featured products</h4>
                     <div class="featured-product-item" *ngFor="let prod of featuredProducts">
@@ -182,11 +173,12 @@
                             style="width: 100%; height: 100%; top: 0; right: 0; background: rgba(242, 139, 0, 0.3);">
                             <h5 class="display-6 text-primary">SALE</h5>
                             <h4 class="text-secondary">{{$sideBnnerProduct.name}}</h4>
-                            <a [routerLink]="['/productView', $sideBnnerProduct.id]" class="btn btn-primary rounded-pill px-4">Shop Now</a>
+                            <a [routerLink]="['/productView', $sideBnnerProduct.id]"
+                                class="btn btn-primary rounded-pill px-4">Shop Now</a>
                         </div>
                     </div>
                 </a>
-                <div class="product-tags py-4">
+                <!-- <div class="product-tags py-4">
                     <h4 class="mb-3">PRODUCT TAGS</h4>
                     <div class="product-tags-items bg-light rounded p-3">
                         <a routerLink="#" class="border rounded py-1 px-2 mb-2">New</a>
@@ -200,7 +192,7 @@
                         <a routerLink="#" class="border rounded py-1 px-2 mb-2">talevision</a>
                         <a routerLink="#" class="border rounded py-1 px-2 mb-2">slaes</a>
                     </div>
-                </div>
+                </div> -->
             </div>
             <div class="col-lg-9 wow fadeInUp" data-wow-delay="0.1s">
                 <div class="rounded mb-4 position-relative">
@@ -259,7 +251,7 @@
                 <div class="tab-content" *ngIf="!noResults">
                     <div id="tab-5" class="tab-pane fade show p-0 active">
                         <div class="row g-4 product">
-                            <div class="col-lg-4" *ngFor="let prod of filteredProducts">
+                            <div class="col-lg-4" *ngFor="let prod of paginatedProducts">
                                 <div class="product-item rounded wow fadeInUp" data-wow-delay="0.1s">
                                     <div class="product-item-inner border rounded">
                                         <div class="product-item-inner-item">
@@ -301,32 +293,51 @@
                                                     class="wishlist-btn d-flex align-items-center justify-content-center"
                                                     (click)="toggleWishlist(prod)"
                                                     [class.active]="isInWishlist(prod.id)">
-                                                    
+                                                    <div *ngIf="showWishlistMessage" class="whishlist-modal">
+                                                        {{wishlistMessage}}
+                                                    </div>
+
+
 
                                                     <span class="rounded-circle btn-sm-square border">
                                                         <i class="fas fa-heart"></i>
                                                     </span>
+
                                                 </button>
+
                                             </div>
                                         </div>
                                     </div>
 
                                     <div *ngIf="showMessage" class="cart-modal">{{modalMessage}}</div>
-                                    <div *ngIf="showMessage" class="whishlist-modal">{{modalMessage}}</div>
+
 
                                 </div>
                             </div>
 
-                            <div class="col-12 wow fadeInUp" data-wow-delay="0.1s" *ngIf="noResults">
-                                <div class="pagination d-flex justify-content-center mt-5">
-                                    <a routerLink="#" class="rounded">&laquo;</a>
-                                    <a routerLink="#" class="active rounded">1</a>
-                                    <a routerLink="#" class="rounded">2</a>
-                                    <a routerLink="#" class="rounded">3</a>
-                                    <a routerLink="#" class="rounded">4</a>
-                                    <a routerLink="#" class="rounded">5</a>
-                                    <a routerLink="#" class="rounded">6</a>
-                                    <a routerLink="#" class="rounded">&raquo;</a>
+                            <div class="col-12 wow fadeInUp" data-wow-delay="0.1s">
+                                <div class="pagination d-flex justify-content-center mt-5"
+                                    *ngIf="!noResults && totalPages > 1">
+
+                                    <!-- Previous -->
+                                    <a class="rounded" [class.disabled]="paginationService.currentPage === 1"
+                                        (click)="prevPage()">
+                                        &laquo;
+                                    </a>
+
+                                    <!-- Page numbers -->
+                                    <a *ngFor="let page of getVisiblePages()" class="rounded"
+                                        [class.active]="paginationService.currentPage === page"
+                                        (click)="goToPage(page)">
+                                        {{ page }}
+                                    </a>
+
+                                    <!-- Next -->
+                                    <a class="rounded" [class.disabled]="paginationService.currentPage === totalPages"
+                                        (click)="nextPage()">
+                                        &raquo;
+                                    </a>
+
                                 </div>
                             </div>
                         </div>
@@ -350,7 +361,8 @@
                             style="background: rgba(255, 255, 255, 0.5);">
                             <h3 class="display-5 text-primary">{{sideBannerProduct.name}}</h3>
                             <p class="fs-4 text-muted">{{sideBannerProduct.currentprice | currencyConvert}}</p>
-                            <a [routerLink]="['/productView', sideBannerProduct.id]" class="btn btn-primary rounded-pill align-self-start py-2 px-4">Shop
+                            <a [routerLink]="['/productView', sideBannerProduct.id]"
+                                class="btn btn-primary rounded-pill align-self-start py-2 px-4">Shop
                                 Now</a>
                         </div>
                     </div>
@@ -364,7 +376,8 @@
                             style="background: rgba(242, 139, 0, 0.5);">
                             <h2 class="display-2 text-secondary">SALE</h2>
                             <h4 class="display-5 text-white mb-4">{{$sideBnnerProduct.name}}</h4>
-                            <a [routerLink]="['/productView', $sideBnnerProduct.id]" class="btn btn-secondary rounded-pill align-self-center py-2 px-4">Shop
+                            <a [routerLink]="['/productView', $sideBnnerProduct.id]"
+                                class="btn btn-secondary rounded-pill align-self-center py-2 px-4">Shop
                                 Now</a>
                         </div>
                     </div>

@@ -4,8 +4,8 @@
     <div class="row gx-0 align-items-center">
         <div class="col-lg-4 text-center text-lg-start mb-lg-0">
             <div class="d-inline-flex align-items-center" style="height: 45px;">
-                <a routerLink="#" class="text-muted me-2"> Help</a><small> / </small>
-                <a routerLink="#" class="text-muted mx-2"> Support</a><small> / </small>
+                <a routerLink="/faq" class="text-muted me-2"> Help</a><small> / </small>
+                <a routerLink="/privacy" class="text-muted mx-2"> Privacy Policy</a><small> / </small>
                 <a routerLink="/contact" class="text-muted ms-2"> Contact</a>
 
             </div>
@@ -30,7 +30,7 @@
 
 
                 <div class="dropdown">
-                    <a routerLink="#" class="dropdown-toggle text-muted mx-2" data-bs-toggle="dropdown"><small>
+                    <a  class="dropdown-toggle text-muted mx-2" data-bs-toggle="dropdown"><small>
                             {{languageService.currentLanguage | translate}}</small></a>
                     <div class="dropdown-menu rounded">
                         <a (click)="changeLanguage(lang)" class="dropdown-item" *ngFor="let lang of languages"> {{lang | translate}}</a>
@@ -60,9 +60,9 @@
         <!-- Logo Section -->
         <div class="col-md-4 col-lg-3 text-center text-lg-start">
             <div class="d-inline-flex align-items-center">
-                <a routerLink="" class="navbar-brand p-0">
+                <a routerLink="/home" class="navbar-brand p-0">
                     <h1 class="display-5 text-dark m-0">
-                        <i class="fas fa-shopping-bag text-primary me-2"></i>Electro
+                        <i class="fas fa-shopping-bag text-primary me-2"></i><i>Trust Gadgets</i>
                     </h1>
                 </a>
             </div>

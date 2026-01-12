@@ -1,0 +1,13 @@
+<div class="admin-dashboard-container">
+  <h2>Admin Dashboard</h2>
+
+  <div class="tab-buttons">
+    <a routerLink="admin-checkout" routerLinkActive="active">Checkout</a>
+    <a routerLink="admin-contact" routerLinkActive="active">Contact</a>
+    <a routerLink="admin-reviews" routerLinkActive="active">Reviews</a>
+  </div>
+
+  <div class="tab-content">
+    <router-outlet></router-outlet> <!-- child components show here -->
+  </div>
+</div>

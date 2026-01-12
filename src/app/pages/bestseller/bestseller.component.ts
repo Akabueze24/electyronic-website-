@@ -39,6 +39,8 @@ export class BestsellerComponent implements OnInit, AfterViewInit {
   ============================ */
 
   wishlistProductsIds: number[] = []; // Track wishlist product IDs
+  showWishlistMessage: boolean = false;
+  wishlistMessage: string = ''
 
   /* ============================
      SIDE BANNER PRODUCTS
@@ -155,9 +157,21 @@ export class BestsellerComponent implements OnInit, AfterViewInit {
     console.log('Wishlist IDs synced (bestseller):', this.wishlistProductsIds);
   }
 
-  toggleWishlist(product: Product): void {
-    console.log('Toggling wishlist (bestseller):', product.name);
+ toggleWishlist(product: Product): void {
+    const alreadyInWishlist = this.isInWishlist(product.id)
+    console.log('Toggling wishlist for:', product.name);
     this.wishlistService.toggleWishlist(product);
+    this.showWishlistMessage = true
+
+    if (!alreadyInWishlist) {
+      this.wishlistMessage = `${product.name} successfully added to wishlist`;
+      console.log(this.wishlistMessage);
+      
+    }else{
+      this.wishlistMessage = `${product.name} removed from wishlist`
+    }
+    setTimeout(() => (this.showWishlistMessage = false), 2000);
+    
     this.updateWishlistIds();
   }
 

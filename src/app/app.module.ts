@@ -17,7 +17,6 @@ import { LaptopAndDesktopsComponent } from './pages/laptop-and-desktops/laptop-a
 import { SmartphoneAndSmartTvComponent } from './pages/smartphone-and-smart-tv/smartphone-and-smart-tv.component';
 import { ContactComponent } from './pages/contact/contact.component';
 import {  HttpClientModule } from '@angular/common/http';
-import { AdminCheckoutComponent } from './pages/admin-checkout/admin-checkout.component';
 import { MobileAndTabletComponent } from './pages/mobile-and-tablet/mobile-and-tablet.component';
 import { SmartTvComponent } from './pages/smart-tv/smart-tv.component';
 import { ComputersComponent } from './pages/computers/computers.component';
@@ -25,7 +24,16 @@ import { MobilesComponent } from './pages/mobiles/mobiles.component';
 import { CurrencyConvertPipe } from './core/currency/currency-convert.pipe';
 import { TranslateModule } from '@ngx-translate/core';
 import { WishlistComponent } from './pages/wishlist/wishlist/wishlist.component';
-
+import { AdminComponent } from './pages/Admin/admin/admin.component';
+import { AdminReviewComponent } from './pages/Admin/admin/review/admin-review-and-ratings/admin-review-and-ratings.component';
+import { AdminContactComponent } from './pages/Admin/admin/contact/admin-contact/admin-contact.component';
+import {  CheckoutAdminComponent } from './pages/Admin/admin/checkout/checkout-admin/checkout-admin.component';
+import { FaqComponent } from './pages/faq/faq/faq.component';
+import { ReceiptComponent } from './pages/receipt/receipt/receipt.component';
+import { TermsAndConditionComponent } from './pages/terms-and-conditon/terms-and-condition/terms-and-condition.component';
+import { PrivacyPolicyComponent } from './pages/privacy-policy/privacy-policy/privacy-policy.component';
+import { RefundComponent } from './pages/refund-and-return/refund/refund.component';
+import { WarrantyComponent } from './pages/warranty/warranty/warranty.component';
 
 
 @NgModule({
@@ -45,12 +53,23 @@ import { WishlistComponent } from './pages/wishlist/wishlist/wishlist.component'
     LaptopAndDesktopsComponent,
     MobileAndTabletComponent,
     SmartphoneAndSmartTvComponent,
-    AdminCheckoutComponent,
     SmartTvComponent,
     ComputersComponent,
     MobilesComponent,
     CurrencyConvertPipe,
     WishlistComponent,
+    AdminComponent,
+    AdminReviewComponent,
+    AdminContactComponent,
+    CheckoutAdminComponent,
+    FaqComponent,
+    ReceiptComponent,
+    TermsAndConditionComponent,
+    PrivacyPolicyComponent,
+    RefundComponent,
+    WarrantyComponent
+   
+    
     
     
   

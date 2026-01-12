@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { CartService } from 'src/app/core/add-to-cart/cart.service';
 import { CheckoutService } from 'src/app/core/checkout-service/checkout.service';
 import { CheckoutFormDetails } from 'src/app/core/checkout-service/checkoutModel';
@@ -30,7 +31,8 @@ export class CheackoutComponent implements OnInit {
   constructor(
     private checkoutService: CheckoutService,
     private fb: FormBuilder,
-    private cartService: CartService
+    private cartService: CartService,
+    private router: Router
   ) {}
 
   /* ============================
@@ -144,6 +146,7 @@ export class CheackoutComponent implements OnInit {
       mobile: this.checkoutForm.value.mobile,
       email: this.checkoutForm.value.email,
       notes: this.checkoutForm.value.notes,
+      deleted: this.checkoutForm.value.deleted,
       date: new Date().toISOString()
     };
 
@@ -161,14 +164,20 @@ export class CheackoutComponent implements OnInit {
        FULL ORDER PAYLOAD
     --------------------------------- */
     const fullOrder = {
-      customerDetails: checkoutForm,
+      customerDetails: {...this.checkoutForm.value,
+       invoiceNumber: 'INV-' + Date.now(),
+      },
       cartItems: this.cartItems,
       subtotal: this.subtotal,
       shippingCost: this.shippingCost,
       total: this.total,
       shippingAddress: shippingAddress,
       paymentMethod: this.checkoutService.getPayment(),
-      orderDate: new Date().toISOString()
+      orderDate: new Date().toISOString(),
+      invoiceNumber: 'INV-' + Date.now(),
+      receiptVoucher: 'RCPT-' + Math.floor(100000 + Math.random() * 900000),
+      orderStatus: 'pending',
+      deleted: false
     };
 
     console.log('Final order payload:', fullOrder);
@@ -180,10 +189,17 @@ export class CheackoutComponent implements OnInit {
       next: (response) => {
         console.log('Order saved with ID:', response.name);
         this.id = response.name.toString();
+        
+
+        // Save current order for receipt page
+    this.checkoutService.setCurrentOrder(fullOrder);
 
         // Clear checkout + cart
         this.checkoutService.clearCheckout();
         this.cartService.clearCart();
+
+         // Navigate to receipt
+    this.router.navigate(['/receipt']);
       },
       error: (err) => {
         console.error('Error saving order:', err);

@@ -1,0 +1,88 @@
+<div class="admin-container">
+    <h2>Admin Checkout Dashboard</h2>
+
+    <!-- Clear All Orders Button -->
+    <button class="btn clear-all-btn" (click)="openClearAllDialog()">
+        <i class="fa fa-trash"></i> Clear All Orders
+    </button>
+
+    <div *ngIf="orders.length === 0" class="empty-message">
+        No checkout data yet!
+    </div>
+
+    <div *ngFor="let order of orders" class="task-item card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h3>Order: {{ order.customerDetails?.firstName }} {{ order.customerDetails?.lastName }}</h3>
+
+            <button class="btn btn-sm btn-danger" (click)="openDeleteDialog(order.id)">
+                Delete
+            </button>
+        </div>
+
+        <!-- Clear All Confirmation Dialog -->
+        <div class="confirm-dialog" *ngIf="showClearAllDialog">
+            <div class="confirm-dialog-content">
+                <h2>Confirm Clear All Orders</h2>
+                <p>Are you sure you want to delete ALL orders?</p>
+                <div class="buttons">
+                    <button class="confirm-btn" (click)="confirmClearAll()">Yes</button>
+                    <button class="cancel-btn" (click)="cancelClearAll()">No</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-body">
+            <!-- Customer Details -->
+            <h4 class="customer-details">Customer Details</h4>
+            <p><b>First Name:</b> {{ order.customerDetails.firstName }}</p>
+            <p><b>Last Name:</b> {{ order.customerDetails.lastName }}</p>
+            <p><b>Email:</b> {{ order.customerDetails.email }}</p>
+            <p><b>Mobile:</b> {{ order.customerDetails.mobile }}</p>
+            <p><b>Company:</b> {{ order.customerDetails.companyName }}</p>
+
+            <!-- Shipping Address -->
+            <h4 class="shipping-address">Shipping Address</h4>
+            <p><b>Address:</b> {{ order.customerDetails.address }}</p>
+            <p><b>Town:</b> {{ order.customerDetails.town }}</p>
+            <p><b>Country:</b> {{ order.customerDetails.country }}</p>
+            <p><b>Postal Code:</b> {{ order.customerDetails.postalCode }}</p>
+
+            <!-- Order Summary -->
+            <h4 class="order-summary">Order Summary</h4>
+            <p><b>Date:</b> {{ order.customerDetails.date }}</p>
+            <p><b>Notes:</b> {{ order.customerDetails.notes }}</p>
+
+            <!-- Products Ordered -->
+            <h4 class="products-ordered">Products Ordered</h4>
+            <div *ngFor="let item of order.cartItems" class="product-item">
+                <p><b>Product:</b> {{ item.name }}</p>
+                <p><b>Color:</b> {{ item.selectedColor }}</p>
+                <p><b>Quantity:</b> {{ item.quantity }}</p>
+                <p><b>Price:</b> {{ item.currentprice | currencyConvert}}</p>
+                <hr>
+            </div>
+
+            <!-- Totals -->
+            <h4 class="totals">Totals</h4>
+            <p><b>Subtotal:</b> {{ order.subtotal | currencyConvert }}</p>
+            <p><b>Shipping:</b> {{ order.shippingCost | currencyConvert}}</p>
+            <p><b>Total:</b> {{ order.total | currencyConvert}}</p>
+
+            <!-- Payment -->
+            <h4 class="payment">Payment</h4>
+            <p><b>Method:</b> {{ order.paymentMethod }}</p>
+        </div>
+    </div>
+
+    <!-- Confirmation Dialog -->
+    <div class="confirm-dialog" *ngIf="showConfirmDialog">
+        <div class="confirm-dialog-content">
+            <h2>Confirm Deletion</h2>
+            <p>Are you sure you want to delete this record?</p>
+            <div class="buttons">
+                <button class="confirm-btn" (click)="confirmDelete()">Yes</button>
+                <button class="cancel-btn" (click)="cancelDialog()">No</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 export interface Review {
   productId: number;
@@ -71,5 +72,10 @@ export class ReviewService {
 
   private saveReviewsToLocalStorage() {
     localStorage.setItem('reviews', JSON.stringify(this.reviews));
+  }
+
+  softDeleteContact(id: string): Observable<any> {
+    const deleteApi = `https://electro-884dc-default-rtdb.firebaseio.com/contact-us.json/${id}.json`;
+    return this.http.patch(deleteApi, { deleted: true });
   }
 }

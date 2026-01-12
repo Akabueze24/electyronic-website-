@@ -1,0 +1,153 @@
+.admin-container {
+  max-width: 1000px;
+  margin: 20px auto;
+  font-family: Arial, sans-serif;
+}
+
+/* Clear All Button */
+.clear-all-btn {
+  margin-bottom: 15px;
+  background-color: #28a745; /* Green */
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.clear-all-btn i {
+  margin-right: 5px;
+}
+
+.clear-all-btn:hover {
+  background-color: #218838; /* Darker green on hover */
+}
+
+/* Empty message */
+.empty-message {
+  text-align: center;
+  padding: 20px;
+  font-size: 18px;
+  color: #555;
+  background-color: #d4edda; /* Light green background */
+  border-radius: 8px;
+}
+
+/* Order card */
+.task-item {
+  margin-bottom: 20px;
+  border: 1px solid #c3e6cb; /* Light green border */
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.card-header {
+  background-color: #c3e6cb; /* Pale green */
+  padding: 10px 15px;
+  font-weight: bold;
+  color: #155724; /* Dark green text */
+}
+
+.card-body {
+  padding: 15px;
+  background-color: #f9fff9; /* very light green background */
+  border-top: 3px solid #28a745;
+  border-radius: 0 0 10px 10px;
+}
+
+/* Section styling */
+.card-body h4 {
+  margin-top: 15px;
+  margin-bottom: 10px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  color: white;
+}
+
+/* Each section with different shades */
+.customer-details {
+  background-color: #28a745; /* Green */
+}
+
+.shipping-address {
+  background-color: #32cd32; /* Lime Green */
+}
+
+.order-summary {
+  background-color: #6b8e23; /* Dark YellowGreen */
+}
+
+.products-ordered {
+  background-color: #9acd32; /* YellowGreen */
+  color: #155724;
+}
+
+.totals {
+  background-color: #3cb371; /* Medium SeaGreen */
+}
+
+.payment {
+  background-color: #66cdaa; /* Medium Aquamarine */
+  color: #155724;
+}
+
+.product-item {
+  padding: 5px 10px;
+  border-bottom: 1px dashed #a2d5a2; /* Green dashed line */
+}
+
+/* Confirmation dialog */
+.confirm-dialog {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.confirm-dialog-content {
+  background: #9acd32; /* YellowGreen background */
+  padding: 20px 30px;
+  border-radius: 10px;
+  text-align: center;
+  color: white;
+  font-weight: bold;
+}
+
+.confirm-dialog-content .buttons {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.confirm-btn {
+  background-color: #28a745; /* Green */
+  color: white;
+  padding: 8px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.confirm-btn:hover {
+  background-color: #218838;
+}
+
+.cancel-btn {
+  background-color: #6b8e23; /* Dark YellowGreen */
+  color: white;
+  padding: 8px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.cancel-btn:hover {
+  background-color: #556b2f; /* Darker YellowGreen */
+}

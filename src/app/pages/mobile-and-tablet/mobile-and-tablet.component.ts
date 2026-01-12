@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { CartService } from 'src/app/core/add-to-cart/cart.service';
+import { PaginationService } from 'src/app/core/pagination/pagination.service';
 import { ProductService, Product } from 'src/app/core/product-service/product.service';
 import { WishlistService } from 'src/app/core/wishlist/wishlist.service';
 
@@ -44,12 +45,16 @@ export class MobileAndTabletComponent {
 
   /* ==================== WISHLIST ==================== */
   wishlistProductsIds: number[] = []; // Wishlist product IDs
+  showWishlistMessage: boolean = false;
+  wishlistMessage: string = ''
 
   constructor(
     private productService: ProductService,
     private cartservice: CartService,
     private router: Router,
-    private wishlistService: WishlistService
+    private wishlistService: WishlistService, 
+    public paginationService: PaginationService,
+    private route: ActivatedRoute
   ) {}
 
   /* ==================== LIFECYCLE ==================== */
@@ -76,6 +81,13 @@ export class MobileAndTabletComponent {
 
       this.updateAvailableColors();
       this.updateCategoryCounts();
+
+        // pagination belongs ONLY here
+  this.paginationService.calculateTotalPages(filtered.length);
+
+  if (this.paginationService.currentPage > this.paginationService.totalPages) {
+    this.paginationService.currentPage = 1;
+  }
     });
 
     // --- Load featured products ---
@@ -108,9 +120,22 @@ export class MobileAndTabletComponent {
     console.log('[Mobile/Tablets] Wishlist synced:', this.wishlistProductsIds);
   }
 
-  toggleWishlist(product: Product): void {
+ toggleWishlist(product: Product): void {
+    const alreadyInWishlist = this.isInWishlist(product.id)
+    console.log('Toggling wishlist for:', product.name);
     this.wishlistService.toggleWishlist(product);
-    this.updateWishlistIds(); // Sync heart icons
+    this.showWishlistMessage = true
+
+    if (!alreadyInWishlist) {
+      this.wishlistMessage = `${product.name} successfully added to wishlist`;
+      console.log(this.wishlistMessage);
+      
+    }else{
+      this.wishlistMessage = `${product.name} removed from wishlist`
+    }
+    setTimeout(() => (this.showWishlistMessage = false), 2000);
+    
+    this.updateWishlistIds();
   }
 
   isInWishlist(productId: number): boolean {
@@ -184,5 +209,70 @@ export class MobileAndTabletComponent {
   navigateToCategory(category: any): void {
     console.log('[Mobile/Tablets] Navigate to category:', category);
     this.router.navigate([`/shop/${category}`]);
+  }
+
+  
+  // ----------------------------
+  // Pagination helpers
+  // ----------------------------
+  get paginatedProducts(): Product[] {
+    const paginated = this.paginationService.paginate(this.filteredProducts, this.paginationService.currentPage);
+    console.log('Paginated products for current page:', this.paginationService.currentPage, paginated.map(p => p.name));
+    return paginated;
+  }
+
+
+  get totalPages(): number {
+    return this.paginationService.totalPages;
+  }
+
+  goToPage(page: number) {
+    console.log('Going to page:', page);
+    this.paginationService.currentPage = page;
+    this.updatePageInUrl(page); // update URL query params
+  }
+
+  nextPage() {
+    this.paginationService.nextPage();
+    console.log('Next page:', this.paginationService.currentPage);
+    this.updatePageInUrl(this.paginationService.currentPage);
+  }
+
+  prevPage() {
+    this.paginationService.prevPage();
+    console.log('Previous page:', this.paginationService.currentPage);
+    this.updatePageInUrl(this.paginationService.currentPage);
+  }
+
+  getVisiblePages(): number[] {
+    const total = this.totalPages;
+    const current = this.paginationService.currentPage;
+    const maxVisible = 5;
+
+    let start = Math.max(current - 2, 1);
+    let end = Math.min(start + maxVisible - 1, total);
+
+    if (end - start < maxVisible - 1) {
+      start = Math.max(end - maxVisible + 1, 1);
+    }
+
+    return Array.from({ length: end - start + 1 }, (_, i) => start + i);
+  }
+
+
+  // ----------------------------
+  // Update query params in URL (for sharing/bookmarking)
+  // ----------------------------
+  updatePageInUrl(page: number) {
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: {
+        page,
+        search: this.searchTerm || null,
+        category: this.selectedCategory !== 'All Category' ? this.selectedCategory : null,
+        sort: this.sortType !== 'default' ? this.sortType : null
+      },
+      queryParamsHandling: 'merge'
+    });
   }
 }

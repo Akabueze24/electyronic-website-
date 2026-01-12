@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CartItem, CartService } from 'src/app/core/add-to-cart/cart.service';
 import { ProductService, Product } from 'src/app/core/product-service/product.service';
 import { ReviewService, Review } from 'src/app/core/productReview/review.service';
+import { WishlistService } from 'src/app/core/wishlist/wishlist.service';
 
 declare var $: any;
 
@@ -42,13 +43,19 @@ export class ProductViewComponent implements AfterViewInit, OnInit {
   reviewForm!: FormGroup;
   productReviews: Review[] = [];
 
+   // Wishlist product IDs
+  wishlistProductsIds: number[] = [];
+  showWishlistMessage: boolean = false;
+  wishlistMessage: string = ''
+
   constructor(
     private productService: ProductService,
     private reviewService: ReviewService,
     private route: ActivatedRoute,
     private cartService: CartService,
     private fb: FormBuilder,
-    private router: Router
+    private router: Router,
+    private wishlistService: WishlistService
   ) {}
 
   /* ==================== LIFECYCLE ==================== */
@@ -64,7 +71,13 @@ export class ProductViewComponent implements AfterViewInit, OnInit {
 
     if (this.product) {
       this.loadAvailableColors();
+      this.reviewService.getReviews().subscribe(reviews => {
+        this.productReviews = reviews.filter(
+          r => r.productId === this.product!.id
+        );
+      });
     }
+    
 
     // Subscribe to cart changes
     this.cartService.cart$.subscribe(items => {
@@ -116,6 +129,43 @@ export class ProductViewComponent implements AfterViewInit, OnInit {
 
     // Chunk featured products for carousel
     this.chunkProducts(this.featuredProducts, 4);
+
+     // Subscribe to wishlist updates
+    this.wishlistService.wishlistCount$.subscribe(() => {
+      this.updateWishlistIds();
+    });
+
+    this.updateWishlistIds();
+  }
+
+   // Update wishlist IDs
+  updateWishlistIds() {
+    this.wishlistProductsIds = this.wishlistService.getWishlist().map(p => p.id);
+    console.log('Wishlist IDs updated:', this.wishlistProductsIds);
+  }
+
+  // Toggle wishlist for a product
+  toggleWishlist(product: Product): void {
+    const alreadyInWishlist = this.isInWishlist(product.id)
+    console.log('Toggling wishlist for:', product.name);
+    this.wishlistService.toggleWishlist(product);
+    this.showWishlistMessage = true
+
+    if (!alreadyInWishlist) {
+      this.wishlistMessage = `${product.name} successfully added to wishlist`;
+      console.log(this.wishlistMessage);
+      
+    }else{
+      this.wishlistMessage = `${product.name} removed from wishlist`
+    }
+    setTimeout(() => (this.showWishlistMessage = false), 2000);
+    
+    this.updateWishlistIds();
+  }
+
+  // Check if a product is in wishlist
+  isInWishlist(productId: number): boolean {
+    return this.wishlistProductsIds.includes(productId);
   }
 
   /* ==================== PRODUCT CHUNKS ==================== */

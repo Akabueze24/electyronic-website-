@@ -44,12 +44,14 @@ export class ContactComponent implements OnInit {
 
       // Build contact payload
       const contactForm: ContactForm = {
+        id: this.contactForm.value.id,
         name: this.contactForm.value.name,
         email: this.contactForm.value.email,
         phone: this.contactForm.value.phone,
         project: this.contactForm.value.project,
         subject: this.contactForm.value.subject,
         message: this.contactForm.value.message,
+        deleted: this.contactForm.value.deleted,
         date: new Date().toISOString()
       };
 
@@ -69,6 +71,7 @@ export class ContactComponent implements OnInit {
       // UI feedback
       this.successMessage = 'Your message has been sent successfully!';
       this.contactForm.reset();
+      
 
     } else {
       console.warn('[Contact] Form invalid – marking all fields as touched');

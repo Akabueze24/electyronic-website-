@@ -3655,7 +3655,7 @@ export class ProductService {
         "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765375206/Samsung-Galaxy-A73-b_rogtzj.jpg",
         "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765375191/gsmarena_001_seealz.jpg",
         "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765375212/pGM7LdBOMcKNt_3toD0mt2zWE5brbQnfEyMcoSVWTbJZVO_kMTCMyaj_BcyuSxcKJg_vmlfmp.png",
-        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765375195/hq720_edv32r.jpg",
+        "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765375191/gsmarena_001_seealz.jpg",
         "https://res.cloudinary.com/dsao6ghfo/image/upload/v1765375206/Samsung-Galaxy-A73-b_rogtzj.jpg"
       ],
       rating: 4.6,

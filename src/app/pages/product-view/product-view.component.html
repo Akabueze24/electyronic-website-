@@ -22,7 +22,7 @@
                 </div> -->
                 <div class="product-categories mb-4">
                     <h4>Products Categories</h4>
-                    <ul class="list-unstyled" >
+                    <ul class="list-unstyled">
                         <li *ngFor="let cate of categoriesWithCount">
                             <div class="categories-item">
                                 <a (click)="navigateToCategory(cate.category)" class="text-dark"><i
@@ -43,7 +43,7 @@
 
                     <p *ngIf="selectedColor">Selected Color: {{ selectedColor }}</p>
                 </div>
-                 <div class="featured-product mb-4">
+                <div class="featured-product mb-4">
                     <h4 class="mb-3">Featured products</h4>
                     <div class="featured-product-item" *ngFor="let prod of featuredProducts">
                         <div class="rounded me-4" style="width: 100px; height: 100px;">
@@ -68,7 +68,7 @@
                     <div class="d-flex justify-content-center my-4">
                         <a routerLink="/shop" class="btn btn-primary px-4 py-3 rounded-pill w-100">Vew More</a>
                     </div>
-                </div> 
+                </div>
                 <!-- <a routerLink="#">
                     <div class="position-relative">
                         <img src="../../../assets/img/product-banner-2.jpg" class="img-fluid w-100 rounded" alt="Image">
@@ -80,7 +80,7 @@
                         </div>
                     </div>
                 </a> -->
-                <div class="product-tags my-4">
+                <!-- <div class="product-tags my-4">
                     <h4 class="mb-3">PRODUCT TAGS</h4>
                     <div class="product-tags-items bg-light rounded p-3">
                         <a routerLink="#" class="border rounded py-1 px-2 mb-2">New</a>
@@ -94,7 +94,7 @@
                         <a routerLink="#" class="border rounded py-1 px-2 mb-2">talevision</a>
                         <a routerLink="#" class="border rounded py-1 px-2 mb-2">slaes</a>
                     </div>
-                </div>
+                </div> -->
             </div>
             <div class="col-lg-7 col-xl-9 wow fadeInUp" data-wow-delay="0.1s">
                 <div class="row g-4 single-product" *ngIf="product">
@@ -325,40 +325,48 @@
                         <img [src]="prod.images[1]" class="img-fluid w-100 rounded-top" alt="">
                         <div class="related-new">New</div>
                         <div class="related-details">
-                            <a routerLink="#"><i class="fa fa-eye fa-1x"></i></a>
+                            <a [routerLink]="['/productView', prod.id]"><i class="fa fa-eye fa-1x"></i></a>
                         </div>
                     </div>
                     <div class="text-center rounded-bottom p-4">
-                        <a routerLink="#" class="d-block mb-2">SmartPhone</a>
-                        <a routerLink="#" class="d-block h4">Apple iPad Mini <br> G2356</a>
-                        <del class="me-2 fs-5">$1,250.00</del>
-                        <span class="text-primary fs-5">$1,050.00</span>
+                        <a [routerLink]="['/shop', prod.category]" class="d-block mb-2">{{prod.category}}</a>
+                        <a [routerLink]="['/productView', prod.id]" class="d-block h4">{{prod.name}}</a>
+                        <del class="me-2 fs-5">{{prod.prevprice | currencyConvert}}</del>
+                        <span class="text-primary fs-5">{{prod.currentprice | currencyConvert}}</span>
                     </div>
                 </div>
                 <div class="related-item-add border border-top-0 rounded-bottom  text-center p-4 pt-0">
-                    <a routerLink="#" class="btn btn-primary border-secondary rounded-pill py-2 px-4 mb-4"><i
-                            class="fas fa-shopping-cart me-2"></i> Add To Cart</a>
+                    <button (click)="addToCart(prod)"
+                        class="btn btn-primary border-secondary rounded-pill py-2 px-4 mb-4"><i
+                            class="fas fa-shopping-cart me-2"></i> Add To Cart</button>
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="d-flex">
-                            <i class="fas fa-star text-primary"></i>
-                            <i class="fas fa-star text-primary"></i>
-                            <i class="fas fa-star text-primary"></i>
-                            <i class="fas fa-star text-primary"></i>
-                            <i class="fas fa-star"></i>
+                            <ng-container *ngFor="let star of [1, 2, 3, 4, 5]">
+                                <i class="fa" [class.fa-star]="star <= prod.rating"
+                                    [class.fa-star-o]="star > prod.rating" style="color: gold;"></i>
+                            </ng-container>
                         </div>
                         <div class="d-flex">
                             <a routerLink="#"
                                 class="text-primary d-flex align-items-center justify-content-center me-3"><span
                                     class="rounded-circle btn-sm-square border"><i class="fas fa-random"></i></span></a>
-                            <a routerLink="#"
-                                class="text-primary d-flex align-items-center justify-content-center me-0"><span
-                                    class="rounded-circle btn-sm-square border"><i class="fas fa-heart"></i></span></a>
+                            <button class="wishlist-btn d-flex align-items-center justify-content-center"
+                                (click)="toggleWishlist(prod)" [class.active]="isInWishlist(prod.id)">
+                                <div *ngIf="showWishlistMessage" class="whishlist-modal">{{wishlistMessage}}
+                                </div>
+
+
+
+                                <span class="rounded-circle btn-sm-square border">
+                                    <i class="fas fa-heart"></i>
+                                </span>
+
+                            </button>
                         </div>
                     </div>
                 </div>
-            </div>
 
+            </div>
         </div>
     </div>
-</div>
-<!-- Related Product End -->
+    <!-- Related Product End -->
